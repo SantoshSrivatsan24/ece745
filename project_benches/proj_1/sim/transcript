@@ -1,0 +1,100 @@
+# vsim -c -classdebug -msgmode both -do "set NoQuitOnFinish 1; do vcd.do" optimized_debug_top_tb 
+# Start time: 17:06:17 on Feb 13,2023
+# //  Questa Sim
+# //  Version 2021.2_2 linux Jun 19 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.top(fast)
+# Loading work.wb_if(fast__1)
+# Loading work.i2c_if_sv_unit(fast)
+# Loading work.i2c_if(fast__1)
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.iicmb_m_wb(str)#1
+# Loading work.wishbone(rtl)#1
+# Loading ieee.numeric_std(body)
+# Loading work.iicmb_pkg(body)
+# Loading work.regblock(rtl)#1
+# Loading work.iicmb_int_pkg(body)
+# Loading work.iicmb_m(str)#1
+# Loading work.mbyte(rtl)#1
+# Loading work.mbit(rtl)#1
+# Loading work.conditioner_mux(str)#1
+# Loading work.conditioner(str)#1
+# Loading work.filter(rtl)#1
+# Loading work.bus_state(rtl)#1
+# set NoQuitOnFinish 1
+# 1
+#  do vcd.do
+# Enable IICMB core and interrupts
+#       145.00 ns: W: Addr: 00, Data: 11000000
+# 
+# 1. Write byte 0x05 to the DPR. This is the ID of the desired IIC bus
+# 2. Write byte xxxx_x110 to the CMDR. This is the Set Bus command.
+#       185.00 ns: W: Addr: 01, Data: 00000000
+# 
+#       225.00 ns: W: Addr: 10, Data: 00000110
+# 
+# 3. Write byte xxxx_x100 to the CMDR. This is the start command.
+#       265.00 ns: R: Addr: 10, Data: 10000110
+# 
+#       295.00 ns: W: Addr: 10, Data: 00000100
+# 
+#       325.00 ns: Start condition!
+# 4. Write byte 0x44 to the DPR. This is the slave address.
+#      5055.00 ns: R: Addr: 10, Data: 10000100
+# 
+#      5085.00 ns: W: Addr: 01, Data: 01000100
+# 
+# 5. Write byte xxxx_x001 to the CMDR. This is the write command
+#      5125.00 ns: W: Addr: 10, Data: 00000001
+# 
+#      9345.00 ns: Address bit: 0
+#     19365.00 ns: Address bit: 1
+#     29385.00 ns: Address bit: 0
+#     39405.00 ns: Address bit: 0
+#     49425.00 ns: Address bit: 0
+#     59445.00 ns: Address bit: 1
+#     69465.00 ns: Address bit: 0
+#     79485.00 ns: Address bit: 0
+#  
+#     79485.00 ns: Address bit: 0
+#     79485.00 ns: Address bit: 0
+#     79485.00 ns: Address bit: 1
+#     79485.00 ns: Address bit: 0
+#     79485.00 ns: Address bit: 0
+#     79485.00 ns: Address bit: 0
+#     79485.00 ns: Address bit: 1
+#     79485.00 ns: Address bit: 0
+# 6. Write byte 0x78 to the DPR. This is the byte to be written.
+#     95345.00 ns: R: Addr: 10, Data: 10000001
+# 
+#     95375.00 ns: W: Addr: 01, Data: 01111000
+# 
+# 7. Write byte xxxx_x001 to the CMDR. This is the write command.
+#     95415.00 ns: W: Addr: 10, Data: 00000001
+# 
+# Write byte xxxx_x101 to the CMDR. This is the stop command.
+#    185635.00 ns: R: Addr: 10, Data: 01000001
+# 
+#    185665.00 ns: W: Addr: 10, Data: 00000101
+# 
+# ** Note: $finish    : ../testbench/top.sv(152)
+#    Time: 194115 ns  Iteration: 1  Instance: /top
+# 1
+# Break in NamedBeginStat test_flow at ../testbench/top.sv line 152
+# Stopped at ../testbench/top.sv line 152
+# End time: 17:06:21 on Feb 13,2023, Elapsed time: 0:00:04
+# Errors: 0, Warnings: 0
