@@ -4,6 +4,7 @@
 `define DPR_ADDR 	2'h1
 `define CMDR_ADDR 	2'h2
 
+
 module top();
 
 parameter int WB_ADDR_WIDTH = 2;
@@ -24,7 +25,7 @@ wire [WB_DATA_WIDTH-1:0] dat_wr_o;
 wire [WB_DATA_WIDTH-1:0] dat_rd_i;
 wire irq;
 tri  [NUM_I2C_BUSSES-1:0] scl;
-tri  [NUM_I2C_BUSSES-1:0] sda;
+triand  [NUM_I2C_BUSSES-1:0] sda;
 
 
 reg addr = 1'b0;
@@ -85,18 +86,15 @@ initial begin: test_flow
     // 6.1. Example 1 (pg. 22): Enable the IICMB core after power up
     // by writing the 'E' bit of the CSR register. Also enable interrupts (for Example 3)
     wait (!rst)
-    $display ("Enable IICMB core and interrupts");
     wb_bus.master_write (.addr(`CSR_ADDR), .data('b11xx_xxxx)); 
 
     // 6.3. Example 3: Write a byte 0x78 to a slave with address 0x22 
     // residing on IIC bus #5
 
     // 6.3.1. Write byte 0x05 to the DPR. This is the ID of the desired IIC bus
-    $display ("1. Write byte 0x05 to the DPR. This is the ID of the desired IIC bus");
     wb_bus.master_write (.addr(`DPR_ADDR), .data('h00));
 
     // 6.3.2. Write byte 'xxxx_x110' to the CMDR. This is the `Set Bus` command (pg. 7)
-    $display ("2. Write byte xxxx_x110 to the CMDR. This is the Set Bus command.");
     wb_bus.master_write (.addr(`CMDR_ADDR), .data('bxxxx_x110));
 
     // 6.3.3. Wait for interrupt or until the DON bit of the CMDR reads '1'
@@ -106,7 +104,6 @@ initial begin: test_flow
     // protocol errors
 
     // 6.3.4. Write byte 'xxxx_x100' to the CMDR. This is the start command (pg. 7)
-    $display ("3. Write byte xxxx_x100 to the CMDR. This is the start command.");
     wb_bus.master_write (.addr(`CMDR_ADDR), .data('bxxxx_x100));
 
     // 6.3.5. Wait for interrupt or until the DON bit of the CMDR reads '1'
@@ -115,26 +112,21 @@ initial begin: test_flow
 
     // 6.3.6. Write byte 0x44 to the DPR. This is the slave address 0x22 shifted 
     // 1 bit to the left + rightmost bit = '0', which means writing
-    $display ("4. Write byte 0x44 to the DPR. This is the slave address.");
     wb_bus.master_write (.addr(`DPR_ADDR), .data ('h22 << 1));
 
     // 6.3.7. Write byte 'xxxx_x001' to the CMDR. This is the Write command (pg. 7)
-    $display ("5. Write byte xxxx_x001 to the CMDR. This is the write command");
     wb_bus.master_write (.addr(`CMDR_ADDR), .data ('bxxxx_x001));
 
     // 6.3.8. Wait for interrupt or until the DON bit of the CMDR reads '1'. If instead
     // of DON, the NAK bit is '1', then slave doesn't respond
 
-    // TODO: The slave should respond to the address
     wait (irq);
     wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata)); // Clear interrupt output
 
     // 6.3.9. Write byte 0x78 to the DPR. This is the byte to be written
-    $display ("6. Write byte 0x78 to the DPR. This is the byte to be written.");
     wb_bus.master_write (.addr(`DPR_ADDR), .data ('h78));
 
     // 6.3.10. Write byte 'xxxx_x001' to the CMDR. This is the Write command (pg. 7)
-    $display ("7. Write byte xxxx_x001 to the CMDR. This is the write command.");
     wb_bus.master_write (.addr(`CMDR_ADDR), .data('bxxxx_x001));
 
     // 6.3.11. Wait for interrupt or until the DON bit of the CMDR reads '1'.
@@ -142,7 +134,6 @@ initial begin: test_flow
     wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata)); // Clear interrupt output
 
     // 6.3.12. Write byte 'xxxx_x101' to the CMDR. This is the Stop command
-    $display ("Write byte xxxx_x101 to the CMDR. This is the stop command.");
     wb_bus.master_write (.addr(`CMDR_ADDR), .data('bxxxx_x101));
 
     // 6.3.13. Wait for interrupt or until the DON bit of the CMDR reads '1'.
@@ -152,12 +143,11 @@ initial begin: test_flow
     $finish;
 end
 
-logic complete;
 
 initial begin: i2c_flow
 
 forever begin
-	i2c_bus.wait_for_i2c_transfer (.address_complete (complete));
+	i2c_bus.wait_for_i2c_transfer ();
 end
 end
 
