@@ -145,7 +145,7 @@ initial begin: test_flow
 	// 6.3.13. Wait for interrupt or until the DON bit of the CMDR reads '1'.
 	wait (irq);
 	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
+	
 	////////////////////////////////////////////////////////////////////////////
 
 	// 6.5. Example 5: Read byte from slave address 0x44 and memory location 0xAA
@@ -197,11 +197,11 @@ initial begin: test_flow
 	/* 21 */ wait (irq);
 			 wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
 
-		$finish;
+	$finish;
 end
 
 bit op;
-bit [I2C_DATA_WIDTH-1:0] write_data;
+bit [I2C_DATA_WIDTH-1:0] write_data[];
 
 initial begin: i2c_flow
 

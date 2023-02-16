@@ -1,8 +1,6 @@
 // ECE 745: Project 1
 // I2C Interface for an IICMB controller
 
-typedef enum bit {WRITE=1'b0, READ=1'b1} i2c_op_t;
-
 interface i2c_if #(
     int NUM_BUSSES = 1,
     int ADDR_WIDTH = 7,
@@ -16,17 +14,20 @@ interface i2c_if #(
     input wire [NUM_BUSSES-1:0] sda_i
 );
 
-// TODO: I'm assuming that DATA_WIDTH is a multiple of 8
-localparam NUM_BYTES = DATA_WIDTH / 8;
+typedef enum bit {WRITE=1'b0, READ=1'b1} i2c_op_t;
+typedef bit [DATA_WIDTH-1:0] write_data_t [];
 
-static bit                  do_ack   = 1'b0;
-static bit                  wren     = 1'b0;  
-static bit [NUM_BUSSES-1:0] wdata;
+// TODO: I'm assuming that DATA_WIDTH is a multiple of 8
+// localparam NUM_BYTES = DATA_WIDTH / 8;
+
+bit                  do_ack   = 1'b0;
+bit                  wren     = 1'b0;  
+bit [NUM_BUSSES-1:0] wdata;
 
 assign sda_o = do_ack ? 'b0 : 'bz;
 assign sda_o = wren   ? wdata : 'bz;
 
-//////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 
 // Functions to read data from a queue and then flush the queue
 
@@ -42,7 +43,7 @@ function automatic bit [6:0] read_addr_from_q (ref bit q[$]);
     q.delete();
 endfunction
 
-function automatic bit [DATA_WIDTH-1:0] read_data_from_q (ref bit q[$]);
+function automatic write_data_t read_data_from_q (ref bit q[$]);
 
     {<< DATA_WIDTH {read_data_from_q}} = q;
     q.delete();
@@ -114,6 +115,8 @@ task send_ack ();
 endtask;
 
 // ACK: master pulls SDA low. Remains low for the HIGH period of the clock
+// FIXME: I'm not sure about this task. Not even sure if its necessary
+//        Depends on whether we're implementing Read with Ack or Read with Nack
 
 task wait_for_ack();
 
@@ -130,14 +133,15 @@ endtask;
 
 task wait_for_i2c_transfer (
     output i2c_op_t op,
-    output bit [DATA_WIDTH-1:0] write_data
+    output bit [DATA_WIDTH-1:0] write_data[]
 );
 
-    // automatic - initialized every time the task is called
+    // automatic - Allocate memory on the stack every time the task is called
+    // static    - Preserve across calls  
     // Queue for capturing data on the SDA line
     automatic   bit         q[$]                ;
     automatic   bit [7:0]   device_addr         ;
-    static      bit         bus_busy    = 1'b0  ;   // static variable. Preserve across calls              
+    static      bit         bus_busy    = 1'b0  ;               
 
     fork
 
@@ -172,14 +176,18 @@ task wait_for_i2c_transfer (
                 send_ack(); 
             end
             write_data = read_data_from_q (q);
-            $display ("I2C Data = 0x%X", write_data);
+            foreach (write_data[i])
+                $display ("I2C Data = 0x%X", write_data[i]);
         end
         
         if (op == READ) begin
 
             // Wait for `provide_read_data()` to to write NUM_BYTES on the sda line
             for (int i = 0; i < NUM_BYTES; i++) begin
-                repeat(8) @(posedge scl_i);
+                repeat(8) begin
+                    @(posedge scl_i);
+                    @(negedge scl_i);
+                end
             end
         end
 
@@ -241,6 +249,12 @@ task monitor (
     output i2c_op_t op, 
     output bit [DATA_WIDTH-1:0] data
 );
+
+    automatic   bit         q[$]                ;
+    automatic   bit [7:0]   device_addr         ;
+    static      bit         bus_busy    = 1'b0  ;      
+
+    // TODO: Finish the rest of the tasl
 
 endtask
 
