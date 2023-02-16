@@ -1,0 +1,329 @@
+// ECE 745: Project 1
+// I2C Interface for an IICMB controller
+
+typedef enum bit [1:0] {WRITE=2'b00, READ=2'b01, NULL=2'b11} i2c_op_t;
+
+typedef enum bit [1:0] {START=2'b00, STOP=2'b01, TRANSFER=2'b10, NA=2'b11} condition_t;
+
+interface i2c_if #(
+    int NUM_BUSSES = 1,
+    int ADDR_WIDTH = 32,
+    int DATA_WIDTH = 16
+)(
+    // Outputs from slave
+    output wire [NUM_BUSSES-1:0] scl_o,
+    output wire [NUM_BUSSES-1:0] sda_o,
+
+    // Inputs to slave (come from master)
+    input wire[NUM_BUSSES-1:0] scl_i,
+    input wire [NUM_BUSSES-1:0] sda_i
+);
+
+
+// Transfer queue for capturing data on the SDA line
+bit         transfer_q[$];
+
+bit         i2c_start = 1'b0;
+bit         i2c_busy  = 1'b0;
+bit         i2c_stop  = 1'b0;
+
+bit [6:0]   i2c_addr;
+i2c_op_t    i2c_op;
+byte        i2c_data; 
+bit         i2c_ack = 1'b0;
+
+bit         i2c_bit;
+condition_t i2c_condition = NA;
+
+assign sda_o = i2c_ack ? 'b0 : 'bz;
+
+//////////////////////////////////////////////////////////
+
+// Functions to read data from a transfer queue
+// and then flush the queue
+
+function bit read_op_from_q ();
+
+    {<< bit {read_op_from_q}} = transfer_q;
+    transfer_q.delete();
+
+endfunction
+
+function bit [6:0] read_addr_from_q ();
+
+    {<< 7 {read_addr_from_q}} = transfer_q;
+    transfer_q.delete();
+
+endfunction
+
+function byte read_data_from_q ();
+
+    {<< byte {read_data_from_q}} = transfer_q;
+    transfer_q.delete();
+
+endfunction
+
+////////////////////////////////////////////////////////////////////////////
+
+// START: A HIGH to LOW transition on the SDA line while SCL is HIGH
+
+task capture_start ();
+
+    forever begin
+        @(negedge sda_i);
+        if (scl_i) begin
+            i2c_start = 1'b1;
+            $display ("I2C Start = %b", i2c_start);
+        end
+    end
+endtask
+
+////////////////////////////////////////////////////////////////////////////
+
+// STOP: A LOW to HIGH transition on the SDA line while SCL is HIGH
+
+task capture_stop();
+
+    forever begin
+        @(posedge sda_i);
+        if (scl_i) begin
+            i2c_stop = 1'b1;
+            $display ("I2C Stop = %b", i2c_stop);
+        end
+    end
+endtask
+
+////////////////////////////////////////////////////////////////////////////
+
+// Tasks to capture data on the sda line into a transfer queue
+
+// TODO: Also wait for negedge scl_i
+// Capture data only between posedge and negedge
+
+// negedge is to keep the data waiting until we're sure we didn't see a start/stop
+
+// Check for start, stop, data for each bit
+// That way, the problem of my while loop not exiting might be fixed
+
+task capture_transfer (output condition_t condition);
+
+    @(posedge scl_i);
+
+    fork
+    begin: CAPTURE_START
+        @(negedge sda_i);
+        condition = START;
+        $display ("FOUND A START");
+        // if (scl_i) begin
+        //     condition = START;
+        //     $display ("I2C Condition = %b", condition.name);
+        // end
+    end
+
+    begin: CAPTURE_STOP
+        @(posedge sda_i);
+        if (scl_i) begin
+            condition = STOP;
+            $display ("I2C condition = %b", condition.name);
+        end
+    end
+
+    begin: CAPTURE_TRANSFER
+        @(posedge scl_i);
+        transfer_q.push_back(sda_i);
+        @(negedge scl_i);
+        condition = TRANSFER;
+        $display ("I2C condition = %b", condition.name);
+    end
+    join_any
+
+    // Kill all threads
+    disable fork;
+endtask
+
+////////////////////////////////////////////////////////////////////////////
+
+// Task to read a 1-bit I2C operation (R/W) from the transfer queue
+
+// task capture_op ();
+
+//     capture_bit();
+//     $cast(i2c_op, read_op_from_q());
+//     $display ("I2C Op = %s", i2c_op.name);
+// endtask
+
+////////////////////////////////////////////////////////////////////////////
+
+// Task to read 8-bit data from the transfer queue
+
+// task capture_data ();
+
+//     repeat (8) capture_bit();
+//     i2c_data = read_data_from_q ();
+//     $display ("I2C Data = 0x%x", i2c_data);
+// endtask
+
+////////////////////////////////////////////////////////////////////////////
+
+// Task to send an ACK to the master
+// ACK: slave pulls SDA low. Remains low for the HIGH period of the clock
+
+task send_ack ();
+
+    @(negedge scl_i);
+    i2c_ack = 1'b1;
+    @(negedge scl_i);
+    i2c_ack = 1'b0;
+endtask;
+
+
+////////////////////////////////////////////////////////////////////////////
+
+task wait_for_i2c_transfer ();
+
+    // Wait for a START condition
+    forever begin
+        capture_bit (.condition (i2c_condition));
+        case (i2c_condition)
+        START   : break;
+        endcase
+    end
+
+    // I can't think right now. Capture bit, check condition
+    repeat (7) begin
+        capture_bit (.condition (i2c_condition));
+        $display ("In repeat: %s", i2c_condition.name);
+        case (i2c_condition)
+        START   : $display ("Erroneus START condition");
+        STOP    : $display ("Erroneus STOP condition");
+        endcase
+    end
+
+    // i2c_addr = read_addr_from_q();
+
+    // capture_bit (.condition(i2c_condition));
+    // case (i2c_condition)
+    // START   : $display ("Erroneus START condition");
+    // STOP    : $display ("Erroneus STOP condition");
+    // TRANSFER: $cast (i2c_op, read_op_from_q());
+    // endcase
+
+    // send_ack();
+
+    // repeat (8) begin
+    //     capture_bit (.condition(i2c_condition));
+    //     case (i2c_condition)
+    //     START   : $display ("Erroneus START condition");
+    //     STOP    : $display ("Erroneus STOP condition");
+    //     TRANSFER: i2c_data = read_data_from_q();
+    //     endcase
+    // end
+
+    send_ack();
+
+endtask;
+
+// Thread #1: Detect START and repeated START conditions
+// Thread #2: Capture data once a START condition has been detected
+// Thread #3: Detect a STOP condition and terminate data transfer
+
+// task wait_for_i2c_transfer ();
+
+//     fork
+//     // Capture repeated START conditions
+//     begin: detect_start
+//         capture_start();
+//     end
+
+//     // Capture a STOP condition
+//     begin: detect_stop
+//         capture_stop();
+//     end
+
+//     begin: detect_data
+
+//         // Wait for a START condition (detected by capture_start)
+//         wait (i2c_start);
+
+//         // Clear start
+//         i2c_start = 1'b0;
+
+//         // Set busy
+//         i2c_busy = 1'b1;
+
+//         // Capture the slave address
+//         capture_addr();
+
+//         // Capture the I2C operation (R/W)
+//         capture_op();
+
+//         // Acknowledge the first byte
+//         send_ack();
+
+//         // Capture I2C data (for a W) until we see a STOP or repeated START
+//         // while (!i2c_stop) begin
+//         //     $display ("stop flag = %b", i2c_stop);
+//         //     capture_data();
+//         //     send_ack();
+//         //     #0;
+//         // end
+
+//         forever begin
+//             if (i2c_stop) break;
+//             capture_data();
+//             send_ack();
+//             $display ("I'M STUCK IN A FOREVER LOOP");
+//         end
+
+//         $display ("AM I STUCK IN A WHILE LOOP??");
+
+//         // Clear start and stop flags if we encounter a STOP
+//         if (i2c_stop) begin
+//             i2c_stop = 1'b0;
+//             i2c_start = 1'b0;
+//         end
+
+//         // Only clear stop flag if we encounter a repeated START
+//         if (i2c_start) begin
+//             i2c_stop = 1'b0;
+//         end
+//     end
+
+//     join_any
+
+//     $display ("RETURNING TO THE TESTBENCH");
+
+//     // Kill all threads, return to testbench
+//     disable fork;
+
+// endtask;
+
+////////////////////////////////////////////////////////////////////////////
+
+// Provide data for read operation
+// TODO: The testbench waits for irq if it's a read operation before
+// calling this task
+task provide_read_data (
+    input bit [DATA_WIDTH-1:0] read_data, 
+    output bit transfer_complete
+);
+
+endtask
+
+////////////////////////////////////////////////////////////////////////////
+
+// Return data observed
+// TODO: You have to implement the entire logic of the protocol in monitor
+// Shouldn't be dependent on wait for i2c transfer
+task monitor (
+    output bit [ADDR_WIDTH-1:0] addr, 
+    output i2c_op_t op, 
+    output bit [DATA_WIDTH-1:0] data
+);
+
+endtask
+
+endinterface
+
+////////////////////////////////////////////////////////////////////////////
+

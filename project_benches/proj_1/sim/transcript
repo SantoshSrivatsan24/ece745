@@ -1,0 +1,126 @@
+# vsim -c -classdebug -msgmode both -do "set NoQuitOnFinish 1; do vcd.do" optimized_debug_top_tb 
+# Start time: 00:14:08 on Feb 16,2023
+# //  Questa Sim
+# //  Version 2021.2_2 linux Jun 19 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.top(fast)
+# Loading work.wb_if(fast__1)
+# Loading work.i2c_if_sv_unit(fast)
+# Loading work.i2c_if(fast__1)
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.iicmb_m_wb(str)#1
+# Loading work.wishbone(rtl)#1
+# Loading ieee.numeric_std(body)
+# Loading work.iicmb_pkg(body)
+# Loading work.regblock(rtl)#1
+# Loading work.iicmb_int_pkg(body)
+# Loading work.iicmb_m(str)#1
+# Loading work.mbyte(rtl)#1
+# Loading work.mbit(rtl)#1
+# Loading work.conditioner_mux(str)#1
+# Loading work.conditioner(str)#1
+# Loading work.filter(rtl)#1
+# Loading work.bus_state(rtl)#1
+# set NoQuitOnFinish 1
+# 1
+#  do vcd.do
+# ================================================
+#    145.00 ns: W: Addr: 00, Data: 11000000
+# 
+#    185.00 ns: W: Addr: 01, Data: 00001010
+# 
+#    225.00 ns: W: Addr: 10, Data: 00000110
+# 
+#    265.00 ns: R: Addr: 10, Data: 00010110
+# 
+#    295.00 ns: W: Addr: 10, Data: 00000100
+# 
+# I2C START condition.
+#   5055.00 ns: R: Addr: 10, Data: 10000100
+# 
+#   5085.00 ns: W: Addr: 01, Data: 01000100
+# 
+#   5125.00 ns: W: Addr: 10, Data: 00000001
+# 
+# I2C Address = 0x22
+# I2C Operation = WRITE
+#  95345.00 ns: R: Addr: 10, Data: 10000001
+# 
+#  95375.00 ns: W: Addr: 01, Data: 01111000
+# 
+#  95415.00 ns: W: Addr: 10, Data: 00000001
+# 
+# I2C Data = 0x78
+# 185635.00 ns: R: Addr: 10, Data: 10000001
+# 
+# 185665.00 ns: W: Addr: 10, Data: 00000101
+# 
+# I2C STOP condition
+# ================================================
+# 194125.00 ns: R: Addr: 10, Data: 10000101
+# 
+# 194155.00 ns: W: Addr: 10, Data: 00000100
+# 
+# I2C START condition.
+# 203715.00 ns: R: Addr: 10, Data: 10000100
+# 
+# 203745.00 ns: W: Addr: 01, Data: 10001000
+# 
+# 203785.00 ns: W: Addr: 10, Data: 00000001
+# 
+# I2C Address = 0x44
+# I2C Operation = WRITE
+# 294005.00 ns: R: Addr: 10, Data: 10000001
+# 
+# 294035.00 ns: W: Addr: 01, Data: 10101010
+# 
+# 294075.00 ns: W: Addr: 10, Data: 00000001
+# 
+# I2C Data = 0xaa
+# 384295.00 ns: R: Addr: 10, Data: 10000001
+# 
+# 384325.00 ns: W: Addr: 10, Data: 00000100
+# 
+# I2C START condition.
+# ================================================
+# 399075.00 ns: R: Addr: 10, Data: 10000100
+# 
+# 399105.00 ns: W: Addr: 01, Data: 10001001
+# 
+# 399145.00 ns: W: Addr: 10, Data: 00000001
+# 
+# I2C Address = 0x44
+# I2C Operation = READ
+# 489365.00 ns: R: Addr: 10, Data: 10000001
+# 
+# 489395.00 ns: W: Addr: 10, Data: 00000011
+# 
+# 579615.00 ns: R: Addr: 10, Data: 10000011
+# 
+# 579645.00 ns: R: Addr: 01, Data: 10101011
+# 
+# 579675.00 ns: W: Addr: 10, Data: 00000101
+# 
+# I2C STOP condition
+# ================================================
+# ** Note: $finish    : ../testbench/top.sv(200)
+#    Time: 588125 ns  Iteration: 1  Instance: /top
+# 1
+# Break in NamedBeginStat test_flow at ../testbench/top.sv line 200
+# Stopped at ../testbench/top.sv line 200
+# End time: 00:14:10 on Feb 16,2023, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
