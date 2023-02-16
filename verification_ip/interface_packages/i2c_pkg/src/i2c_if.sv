@@ -15,10 +15,7 @@ interface i2c_if #(
 );
 
 typedef enum bit {WRITE=1'b0, READ=1'b1} i2c_op_t;
-typedef bit [DATA_WIDTH-1:0] write_data_t [];
-
-// TODO: I'm assuming that DATA_WIDTH is a multiple of 8
-// localparam NUM_BYTES = DATA_WIDTH / 8;
+typedef bit [DATA_WIDTH-1:0] data_t [];
 
 bit                  do_ack   = 1'b0;
 bit                  wren     = 1'b0;  
@@ -29,8 +26,7 @@ assign sda_o = wren   ? wdata : 'bz;
 
 ////////////////////////////////////////////////////////////////////////////
 
-// Functions to read data from a queue and then flush the queue
-
+// Read data from a queue and then flush the queue
 function automatic bit read_op_from_q (ref bit q[$]);
 
     {<< bit {read_op_from_q}} = q;
@@ -43,17 +39,30 @@ function automatic bit [6:0] read_addr_from_q (ref bit q[$]);
     q.delete();
 endfunction
 
-function automatic write_data_t read_data_from_q (ref bit q[$]);
+function automatic data_t read_data_from_q (ref bit q[$]);
 
-    {<< DATA_WIDTH {read_data_from_q}} = q;
+    int num_bytes = q.size() / DATA_WIDTH;
+    read_data_from_q = new [num_bytes];
+
+    foreach (read_data_from_q[i]) begin
+        {<< DATA_WIDTH {read_data_from_q[i]}} = q;
+    end
+
     q.delete();
 endfunction
 
-// Functions to store data into a queue
-
-function automatic void write_data_to_q (input bit [DATA_WIDTH-1:0] data, ref bit q[$]);
+// Store data into a queue
+function automatic void write_data_to_q (ref data_t data, ref bit q[$]);
 
     {>> {q}} = data;
+endfunction
+
+// Display data captured on the SDA line
+function automatic void display_data (ref data_t data);
+
+    foreach (data[i]) begin
+        $display ("I2C Data = 0x%X", data[i]);
+    end
 endfunction
 
 ////////////////////////////////////////////////////////////////////////////
@@ -66,7 +75,7 @@ task automatic capture_start (ref bit busy);
         @(negedge sda_i);
         if (scl_i) begin
             // A repeated START occurs if we get a START while the bus is busy
-            $display ("I2C START condition.");
+            $display ("%t: I2C START condition.", $time);
             if (busy)
                 break;
             else
@@ -84,7 +93,7 @@ task automatic capture_stop(ref bit busy);
     forever begin
         @(posedge sda_i);
         if (scl_i) begin
-            $display ("I2C STOP condition");
+            $display ("%t: I2C STOP condition", $time);
             busy = 1'b0;
             break;
         end
@@ -97,10 +106,13 @@ endtask
 
 task automatic capture_bit (ref bit q[$]);
 
+    // Temporary bit to capture data on the sda line between posedge and negedge
+    bit sda;
     @(posedge scl_i);
-    q.push_back(sda_i);
-    // Wait until we're sure we didn't see a repeated START/STOP condition
+    sda = sda_i;
     @(negedge scl_i); 
+    // Wait until we're sure we didn't see a repeated START/STOP condition
+    q.push_back(sda);
 endtask
 
 ////////////////////////////////////////////////////////////////////////////
@@ -114,14 +126,8 @@ task send_ack ();
     do_ack = 1'b0;
 endtask;
 
-// ACK: master pulls SDA low. Remains low for the HIGH period of the clock
-// FIXME: I'm not sure about this task. Not even sure if its necessary
-//        Depends on whether we're implementing Read with Ack or Read with Nack
+task capture_ack();
 
-task wait_for_ack();
-
-    wait (!sda_i);
-    @(posedge scl_i);
     @(negedge scl_i);
 endtask;
 
@@ -170,21 +176,17 @@ task wait_for_i2c_transfer (
 
         if (op == WRITE) begin
 
-            // Capture data into a queue
-            for (int i = 0; i < NUM_BYTES; i++) begin
+            forever begin : CAPTURE_BYTE
                 repeat(8) capture_bit(q);
                 send_ack(); 
             end
-            write_data = read_data_from_q (q);
-            foreach (write_data[i])
-                $display ("I2C Data = 0x%X", write_data[i]);
         end
         
         if (op == READ) begin
 
             // Wait for `provide_read_data()` to to write NUM_BYTES on the sda line
-            for (int i = 0; i < NUM_BYTES; i++) begin
-                repeat(8) begin
+            forever begin: SEND_BYTE
+                repeat (8) begin
                     @(posedge scl_i);
                     @(negedge scl_i);
                 end
@@ -193,9 +195,6 @@ task wait_for_i2c_transfer (
 
         // TODO: Capture a NACK before STOP condition. Especially if the transfer
         //       direction is going to change. See Fig 12 and Notes on pg. 14
-
-        // Wait for a STOP condition to free the bus
-        wait (!bus_busy);
     end
 
     // Capture a STOP condition (resets the bus_busy flag)
@@ -204,8 +203,18 @@ task wait_for_i2c_transfer (
     end
     join_any
 
+    // Read data from  queue for a write command
+    if (op == WRITE) begin
+
+        write_data = read_data_from_q (q);
+        foreach (write_data[i]) begin
+            $display ("I2C Data = 0x%X", write_data[i]);
+        end
+    end
+
     // Kill all threads, return to testbench
     disable fork;
+
 endtask;
 
 ////////////////////////////////////////////////////////////////////////////
@@ -215,7 +224,7 @@ endtask;
 //       I'm driving the SDA line
 
 task provide_read_data (
-    input bit [DATA_WIDTH-1:0] read_data, 
+    input bit [DATA_WIDTH-1:0] read_data [], 
     output bit transfer_complete
 );
     // Queue for pushing data onto the SDA line
@@ -223,7 +232,7 @@ task provide_read_data (
 
     write_data_to_q(read_data, q);
 
-    for (int i = 0; i < NUM_BYTES; i++) begin
+    for (int i = 0; i < read_data.size() / DATA_WIDTH; i++) begin
 
         repeat (8) begin
             // Allow the slave to drive the SDA line (MSB first)
@@ -247,18 +256,64 @@ endtask
 task monitor (
     output bit [ADDR_WIDTH-1:0] addr, 
     output i2c_op_t op, 
-    output bit [DATA_WIDTH-1:0] data
+    output bit [DATA_WIDTH-1:0] data[]
 );
 
     automatic   bit         q[$]                ;
-    automatic   bit [7:0]   device_addr         ;
     static      bit         bus_busy    = 1'b0  ;      
 
-    // TODO: Finish the rest of the tasl
+    fork
+
+    // Capture START and repeated START conditions (sets the bus_busy flag)
+    begin: DETECT_START
+        capture_start(.busy(bus_busy));
+    end
+
+    begin: DETECT_TRANSFER
+
+        // Wait for a START condition (detected by capture_start)
+        wait (bus_busy);
+
+        // Capture the slave address into a queue
+        repeat(7) capture_bit(q);
+        addr = read_addr_from_q (q);
+        $display ("I2C Address = 0x%X", addr);
+
+        // Capture the I2C operation (R/W)
+        capture_bit(q);
+        $cast(op, read_op_from_q(q));
+        $display ("I2C Operation = %s", op.name);
+
+        // Acknowledge the first byte
+        send_ack();
+
+        // "Observe" data transfer on the bus. Don't drive the bus
+        forever begin : CAPTURE_BYTE
+            repeat(8) capture_bit(q);
+            capture_ack(); 
+        end
+        
+        // TODO: Capture a NACK before STOP condition. Especially if the transfer
+        //       direction is going to change. See Fig 12 and Notes on pg. 14
+    end
+
+    // Capture a STOP condition (resets the bus_busy flag)
+    begin: DETECT_STOP
+        capture_stop(.busy(bus_busy));
+    end
+    join_any
+
+
+    // Read data from  queue for a read/write command
+    data = read_data_from_q (q);
+    display_data (data);
+
+    // Kill all threads, return to testbench
+    disable fork;
+    
 
 endtask
 
 endinterface
 
 ////////////////////////////////////////////////////////////////////////////
-

@@ -16,7 +16,7 @@ module top();
 
 parameter int WB_ADDR_WIDTH = 2;
 parameter int WB_DATA_WIDTH = 8;
-parameter int I2C_ADDR_WIDTH = 2;
+parameter int I2C_ADDR_WIDTH = 7;
 parameter int I2C_DATA_WIDTH = 8;
 parameter int NUM_I2C_BUSSES = 1;
 parameter int CLK_PHASE = 5;
@@ -33,10 +33,6 @@ wire [WB_DATA_WIDTH-1:0] dat_rd_i;
 wire irq;
 tri  [NUM_I2C_BUSSES-1:0] scl;
 triand  [NUM_I2C_BUSSES-1:0] sda;
-
-
-reg addr = 1'b0;
-assign sda = addr ? 'b0 : 'bz;
 
 // ****************************************************************************
 // Clock generator
@@ -58,30 +54,40 @@ end
 // ****************************************************************************
 // Monitor Wishbone bus and display transfers in the transcript
 
-logic [WB_ADDR_WIDTH-1:0] mon_addr;
-logic [WB_DATA_WIDTH-1:0] mon_data;
-logic mon_we;
+logic [WB_ADDR_WIDTH-1:0] wb_addr;
+logic [WB_DATA_WIDTH-1:0] wb_data;
+logic wb_we;
 
 initial begin: wb_monitoring
 	$timeformat(-9, 2, " ns", 12);
 	forever begin
-		#10 wb_bus.master_monitor (.addr(mon_addr), .data(mon_data), .we(mon_we));
-		if (mon_we) begin
-			$display("%t: W: Addr: %b, Data: %b\n", $time, mon_addr, mon_data);
+		#10 wb_bus.master_monitor (.addr(wb_addr), .data(wb_data), .we(wb_we));
+		if (wb_we) begin
+			$display("%t: (WB) W: Addr: %b, Data: %b\n", $time, wb_addr, wb_data);
 		end else begin
-			$display("%t: R: Addr: %b, Data: %b\n", $time, mon_addr, mon_data);
+			$display("%t: (WB) R: Addr: %b, Data: %b\n", $time, wb_addr, wb_data);
 		end
 	end
 end
 
 // ****************************************************************************
-// Monitor I2C bus
+// Monitor I2C bus and display transfers in the transcript
 
-// initial begin: i2c_monitoring
-// 	forever begin
-		
-// 	end
-// end
+bit [I2C_ADDR_WIDTH-1:0] i2c_addr;
+bit [I2C_DATA_WIDTH-1:0] i2c_data[];
+bit i2c_op;
+
+initial begin: i2c_monitoring
+	$timeformat(-9, 2, " ns", 12);
+	forever begin
+		#10 i2c_bus.monitor (.addr(i2c_addr), .op(i2c_op), .data(i2c_data));
+	end
+	if (!i2c_op) begin
+		$display("%t: (I2C) W: Addr: %b, Data: %b\n", $time, i2c_addr, i2c_data);
+	end else begin
+		$display("%t: (I2C) R: Addr: %b, Data: %b\n", $time, i2c_addr, i2c_data);
+	end
+end
 
 // ****************************************************************************
 // Define the flow of the simulation
@@ -184,7 +190,7 @@ initial begin: test_flow
 	/* 17 */ wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_READ_NACK));
 
 	// Call provide_read_data here
-			 i2c_bus.provide_read_data (.read_data(8'hab), .transfer_complete(transfer_complete));
+			 i2c_bus.provide_read_data (.read_data({8'hab}), .transfer_complete(transfer_complete));
 			 wait (transfer_complete);
 
 	/* 18 */ wait (irq);
@@ -209,10 +215,9 @@ initial begin: i2c_flow
 	wait (!rst);
 
 	forever begin
-			$display ("================================================");
-			i2c_bus.wait_for_i2c_transfer (.op(op), .write_data(write_data));
+		$display ("================================================");
+		i2c_bus.wait_for_i2c_transfer (.op(op), .write_data(write_data));
 	end
-
 end
 
 // ****************************************************************************
