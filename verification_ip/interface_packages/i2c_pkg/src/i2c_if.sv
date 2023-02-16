@@ -23,13 +23,8 @@ static bit                  do_ack   = 1'b0;
 static bit                  wren     = 1'b0;  
 static bit [NUM_BUSSES-1:0] wdata;
 
-// assign sda_o = do_ack ? 'b0 : (wren ? wdata : 'bz);
-
 assign sda_o = do_ack ? 'b0 : 'bz;
 assign sda_o = wren   ? wdata : 'bz;
-
-// assign sda_o = drive_sda_high ? 'b1 : 'bz;
-// assign sda_o = drive_sda_low  ? wdata : 'bz;
 
 //////////////////////////////////////////////////////////
 
