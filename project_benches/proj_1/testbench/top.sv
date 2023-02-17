@@ -17,9 +17,14 @@
 `define SLAVE_ADDR	(8'h22 << 1)
 
 `define BANNER(x) \
-	$display ("========================================"); \
+	$display ("================================"); \
 	$display ("%s", x); \
-	$display ("----------------------------------------") \
+	$display ("--------------------------------") \
+
+`define BANNER2(x) \
+	$display ("********************************"); \
+	$display ("%s", x); \
+	$display ("********************************") \
 
 module top();
 
@@ -96,7 +101,7 @@ initial begin: I2C_MONITORING
 			foreach (i2c_data[i]) $display("Data = %0d ", i2c_data[i]);
 		end else begin
 			`BANNER ("I2C BUS READ TRANSFER");
-			$display("Addr: 0x%x", i2c_addr);
+			$display("Addr = 0x%x", i2c_addr);
 			foreach (i2c_data[i]) $display("Data = %0d ", i2c_data[i]);
 		end
 	end
@@ -120,7 +125,7 @@ initial begin: TEST_FLOW
 	wb_set_bus(.bus_id(8'h00));
 
 	// Round 1: 32 incrementing writes from 0 to 31
-	`BANNER("ROUND 1 BEGIN");
+	`BANNER2("ROUND 1 BEGIN");
 	wb_start();
 	wb_write(.wdata(`SLAVE_ADDR));
 	for (byte wdata = 8'd0; wdata < 8'd32; wdata++) begin
@@ -128,7 +133,7 @@ initial begin: TEST_FLOW
 	end
 	wb_stop();
 	// Round 2: 32 incrementing reads from 100 to 131
-	`BANNER("ROUND 2 BEGIN");
+	`BANNER2("ROUND 2 BEGIN");
 	i2c_rdata = new[32];
 	for (byte i = 0; i < 32; i++) begin
 		i2c_rdata[i] = i + 8'd100;
@@ -143,7 +148,7 @@ initial begin: TEST_FLOW
 	end
 	wb_stop();
 	// Round 3: Alternate writes and reads for 64 transfers
-	`BANNER("ROUND 3 BEGIN");
+	`BANNER2("ROUND 3 BEGIN");
 	i2c_rdata.delete();
 	i2c_rdata = new[1];
 	for (int i = 0; i < 64; i++) begin
