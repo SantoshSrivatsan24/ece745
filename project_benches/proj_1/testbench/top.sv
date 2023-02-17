@@ -87,11 +87,11 @@ initial begin: I2C_MONITORING
 	forever begin
 		#10 i2c_bus.monitor (.addr(i2c_addr), .op(i2c_op), .data(i2c_data));
 		if (!i2c_op) begin
-			$display("%t: I2C_BUS WRITE Transfer:", $time);
+			`BANNER ("I2C BUS WRITE TRANSFER");
 			$display ("Addr = 0x%x", i2c_addr);
 			foreach (i2c_data[i]) $display("Data = %0d ", i2c_data[i]);
 		end else begin
-			$display("%t: I2C_BUS READ Transfer:", $time);
+			`BANNER ("I2C BUS READ TRANSFER");
 			$display("Addr: 0x%x", i2c_addr);
 			foreach (i2c_data[i]) $display("Data = %0d ", i2c_data[i]);
 		end
@@ -104,28 +104,49 @@ end
 logic [WB_DATA_WIDTH-1:0] 	dpr_rdata;
 logic 						transfer_complete;
 
+byte r3_wdata = 8'd64;
+byte r3_rdata = 8'd63;
+
 initial begin: TEST_FLOW
 	wait (!rst)
 	wb_enable();
 	wb_set_bus(.bus_id(8'h00));
 
 	// Round 1: 32 incrementing writes from 0 to 31
-	`BANNER ("ROUND 1 BEGIN");
+	`BANNER("ROUND 1 BEGIN");
 	wb_start();
-	wb_write(.wdata(8'h22 << 1)); // Address
+	wb_write(.wdata(8'h22 << 1)); // Address + W
 	for (byte wdata = 8'd0; wdata < 8'd31; wdata++) begin
-		wb_write(.wdata(wdata));
+		wb_write(.wdata(wdata)); // Data
 	end
 	wb_stop();
 	// Round 2: 32 incrementing reads from 100 to 131
-	`BANNER ("ROUND 2 BEGIN");
+	`BANNER("ROUND 2 BEGIN");
 	wb_start();
-	wb_write(.wdata(8'h44 << 1)); // Address
+	wb_write(.wdata(8'h44 << 1)); // Address + W
 	wb_write(.wdata(8'haa)); // Memory location
 	wb_start();
-	wb_write(.wdata((8'h44 << 1) | 8'h1));
+	wb_write(.wdata((8'h44 << 1) | 8'h1)); // Address + R
 	for (byte rdata = 8'd100; rdata < 8'd132; rdata++) begin
 		wb_read (.provide_data(rdata), .rdata(dpr_rdata));
+	end
+	wb_stop();
+	// Round 3: Alternate writes and reads for 64 transfers
+	`BANNER("ROUND 3 BEGIN");
+	for (int i = 0; i < 64; i++) begin
+		// Write
+		wb_start();
+		wb_write(.wdata(8'h16 << 1));
+		wb_write(.wdata(r3_wdata));
+		// Read
+		wb_start();
+		wb_write(.wdata(8'h16 << 1));
+		wb_write(.wdata(8'haa));
+		wb_start();
+		wb_write(.wdata((8'h16 << 1) | 8'h1));
+		wb_read(.provide_data(r3_rdata), .rdata(dpr_rdata));
+		r3_wdata++;
+		r3_rdata--;
 	end
 	wb_stop();
 	$finish;
@@ -141,7 +162,6 @@ initial begin: I2C_FLOW
 	wait (!rst);
 	forever begin
 		i2c_bus.wait_for_i2c_transfer (.op(op), .write_data(write_data));
-		`BANNER ("TRANSFER COMPLETE");
 	end
 end
 
