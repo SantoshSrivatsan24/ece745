@@ -1,6 +1,6 @@
 `timescale 1ns / 10ps
 
-`define EXAMPLES
+`define TEMP
 
 `define CSR_ADDR	2'h0
 `define DPR_ADDR 	2'h1
@@ -13,6 +13,9 @@
 `define CMD_WRITE     8'bxxxx_x001
 `define CMD_SET_BUS   8'bxxxx_x110
 `define CMD_WAIT      8'bxxxx_x000
+
+`define BANNER(x) \
+	$display("\n================= %s =================\n", x) \
 
 module top();
 
@@ -86,11 +89,11 @@ initial begin: I2C_MONITORING
 		if (!i2c_op) begin
 			$display("%t: I2C_BUS WRITE Transfer:", $time);
 			$display ("Addr = 0x%x", i2c_addr);
-			foreach (i2c_data[i]) $display("Data = 0x%x ", i2c_data[i]);
+			foreach (i2c_data[i]) $display("Data = %0d ", i2c_data[i]);
 		end else begin
 			$display("%t: I2C_BUS READ Transfer:", $time);
 			$display("Addr: 0x%x", i2c_addr);
-			foreach (i2c_data[i]) $display("Data = 0x%x ", i2c_data[i]);
+			foreach (i2c_data[i]) $display("Data = %0d ", i2c_data[i]);
 		end
 	end
 end
@@ -98,218 +101,34 @@ end
 // ****************************************************************************
 // Define the flow of the simulation
 
-logic [WB_DATA_WIDTH-1:0] 	cmdr_rdata;
 logic [WB_DATA_WIDTH-1:0] 	dpr_rdata;
 logic 						transfer_complete;
 
-bit [7:0] data_to_provide [1] = {8'h34};
-
-
 initial begin: TEST_FLOW
-
 	wait (!rst)
+	wb_enable();
+	wb_set_bus(.bus_id(8'h00));
 
-`ifdef EXAMPLES
-	// 6.1. Example 1 (pg. 22): Enable the IICMB core after power up
-	// by writing the 'E' bit of the CSR register. Also enable interrupts (for Example 3)
-	wb_bus.master_write (.addr(`CSR_ADDR), .data('b11xx_xxxx)); 
-
-	// 6.3. Example 3: Write a byte 0x78 to a slave with address 0x22 
-	// residing on IIC bus #5
-
-	// 6.3.1. Write byte 0x00 to the DPR. This is the ID of the desired IIC bus
-	wb_bus.master_write (.addr(`DPR_ADDR), .data('h0a));
-
-	// 6.3.2. Write byte 'xxxx_x110' to the CMDR. This is the `Set Bus` command (pg. 7)
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_SET_BUS));
-
-	// 6.3.3. Wait for interrupt or until the DON bit of the CMDR reads '1'
-	wait (irq);
-	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata)); // Clear interrupt output
-
-	// 6.3.4. Write byte 'xxxx_x100' to the CMDR. This is the start command (pg. 7)
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_START));
-
-	// 6.3.5. Wait for interrupt or until the DON bit of the CMDR reads '1'
-	wait (irq);
-	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-	// 6.3.6. Write byte 0x44 to the DPR. This is the slave address 0x22 shifted 
-	// 1 bit to the left + rightmost bit = '0', which means writing
-	wb_bus.master_write (.addr(`DPR_ADDR), .data ('h22 << 1));
-
-	// 6.3.7. Write byte 'xxxx_x001' to the CMDR. This is the Write command (pg. 7)
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data (`CMD_WRITE));
-
-	// 6.3.8. Wait for interrupt or until the DON bit of the CMDR reads '1'. If instead
-	// of DON, the NAK bit is '1', then slave doesn't respond
-	wait (irq);
-	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-	// 6.3.9. Write byte 0x78 to the DPR. This is the byte to be written
-	wb_bus.master_write (.addr(`DPR_ADDR), .data ('h78));
-
-	// 6.3.10. Write byte 'xxxx_x001' to the CMDR. This is the Write command (pg. 7)
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_WRITE));
-
-	// 6.3.11. Wait for interrupt or until the DON bit of the CMDR reads '1'.
-	wait (irq);
-	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-	// 6.3.12. Write byte 'xxxx_x101' to the CMDR. This is the Stop command
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_STOP));
-
-	// 6.3.13. Wait for interrupt or until the DON bit of the CMDR reads '1'.
-	wait (irq);
-	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-	
-	////////////////////////////////////////////////////////////////////////////
-
-	// 6.5. Example 5: Read byte from slave address 0x44 and memory location 0xAA
-
-	/* 4 */ wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_START));
-
-	/* 5 */ wait (irq); 
-			wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-	/* 6 */ wb_bus.master_write (.addr(`DPR_ADDR), .data('h44 << 1)); // Write slave address
-
-	/* 7 */ wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_WRITE));
-
-	/* 8 */ wait (irq); 
-			wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-	/* 9 */ wb_bus.master_write (.addr(	`DPR_ADDR), .data ('hAA)); // Write memory location
-
-	/* 10 */ wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_WRITE));
-
-	/* 11 */ wait (irq); 
-			 wb_bus.master_read (.addr(`CMDR_ADDR), .data (cmdr_rdata));
-
-	/* 12 */ wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_START)); // Repeated START. Does it work without this??
-
-	/* 13 */ wait (irq); 
-			 wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-	/* 14 */ wb_bus.master_write (.addr(`DPR_ADDR), .data('h89));
-
-	/* 15 */ wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_WRITE));
-
-	/* 16 */ wait (irq);
-			 wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-	/* 17 */ wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_READ_ACK));
-
-			i2c_bus.provide_read_data(.read_data(data_to_provide), .transfer_complete(transfer_complete));
-			// wait(transfer_complete);
-
-	/* 18 */ wait(irq);
-			 wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-	/* 19 */ wb_bus.master_read (.addr(`DPR_ADDR), .data(dpr_rdata));
-
-	/* 20 */ wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_STOP));
-
-	/* 21 */ wait (irq);
-			 wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-`endif
-
-	////////////////////////////////////////////////////////////////////////////
-
-`ifdef PROJECT1
-	// Write 32 incrementing values, from 0 to 31, to the i2c bus
-
-	// Enable IICMB core
-	wb_bus.master_write (.addr(`CSR_ADDR), .data('b11xx_xxxx)); 
-
-	// Set Bus
-	wb_bus.master_write (.addr(`DPR_ADDR), .data('h00));
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_SET_BUS));
-	wait (irq);
-	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-	// START
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_START));
-	wait (irq);
-	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-	// Write address to slave (Write operation)
-	wb_bus.master_write (.addr(`DPR_ADDR), .data ('h22 << 1));
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data (`CMD_WRITE));
-	wait (irq);
-	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-	// Write data to slave
+	// Round 1: 32 incrementing writes from 0 to 31
+	`BANNER ("ROUND 1 BEGIN");
+	wb_start();
+	wb_write(.wdata(8'h22 << 1)); // Address
 	for (byte wdata = 8'd0; wdata < 8'd31; wdata++) begin
-
-		// TODO: Store wdata in a queue to verify later
-		wb_bus.master_write (.addr(`DPR_ADDR), .data (wdata));
-		wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_WRITE));
-		wait (irq);
-		wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
+		wb_write(.wdata(wdata));
 	end
-
-	// STOP
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_STOP));
-	wait (irq);
-	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-	////////////////////////////////////////////////////////////////////////////
-
-	// Read 32 values from the I2C bus
-
-	// START
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_START));
-	wait (irq);
-	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-	// Write address to slave (Write operation)
-	wb_bus.master_write (.addr(`DPR_ADDR), .data ('h88));
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data (`CMD_WRITE));
-	wait (irq);
-	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-	// Write memory location to slave
-	wb_bus.master_write (.addr(	`DPR_ADDR), .data ('hAA));
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_WRITE));
-	wait (irq); 
-	wb_bus.master_read (.addr(`CMDR_ADDR), .data (cmdr_rdata));
-
-	// Repeated START
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_START));
-	wait (irq); 
-	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-	// Write address to slave (Read operation)
-	wb_bus.master_write (.addr(`DPR_ADDR), .data('h89));
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_WRITE));
-	wait (irq); 
-	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-	// Read data from slave
-	// for (byte rdata = 8'd100; rdata < 8'd105; rdata++) begin
-
-		// $display ("rdata = %d", rdata);
-
-
-		wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_READ_NACK));
-		// wait (transfer_complete);
-		wait (irq);
-		wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-		i2c_bus.provide_read_data (.read_data(data_to_provide), .transfer_complete(transfer_complete));
-
-		// TODO: Store DPR in a queue to verify later
-		wb_bus.master_read (.addr(`DPR_ADDR), .data(dpr_rdata));
-	// end
-
-	// STOP
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_STOP));
-	wait (irq);
-	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-
-`endif
-	#10000 $finish;
+	wb_stop();
+	// Round 2: 32 incrementing reads from 100 to 131
+	`BANNER ("ROUND 2 BEGIN");
+	wb_start();
+	wb_write(.wdata(8'h44 << 1)); // Address
+	wb_write(.wdata(8'haa)); // Memory location
+	wb_start();
+	wb_write(.wdata((8'h44 << 1) | 8'h1));
+	for (byte rdata = 8'd100; rdata < 8'd132; rdata++) begin
+		wb_read (.provide_data(rdata), .rdata(dpr_rdata));
+	end
+	wb_stop();
+	$finish;
 end
 
 ////////////////////////////////////////////////////////////////////////////
@@ -318,13 +137,11 @@ bit op;
 bit [I2C_DATA_WIDTH-1:0] write_data[];
 
 initial begin: I2C_FLOW
-
 	// Wait for reset because a STOP condition occurs at 0ns
 	wait (!rst);
-
 	forever begin
 		i2c_bus.wait_for_i2c_transfer (.op(op), .write_data(write_data));
-		$display ("\n====================== TRANSFER COMPLETE ======================\n");
+		`BANNER ("TRANSFER COMPLETE");
 	end
 end
 
@@ -397,5 +214,51 @@ i2c_bus (
 		// ------------------------------------
 	);
 
+// Enable the IICMB core
+task wb_enable();
+	wb_bus.master_write (.addr(`CSR_ADDR), .data('b11xx_xxxx)); 
+endtask
+
+// Wait for IRQ to go high. Clear IRQ by reading the CMDR register
+task wb_wait();
+	logic [WB_DATA_WIDTH-1:0] 	cmdr_rdata;
+	wait (irq);
+	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
+endtask
+
+task wb_set_bus(input byte bus_id);
+	wb_bus.master_write (.addr(`DPR_ADDR), .data(bus_id));
+	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_SET_BUS));
+	wb_wait();
+endtask
+
+// Issue a START command
+task wb_start();
+	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_START));
+	wb_wait();
+endtask
+
+// Issue a STOP command
+task wb_stop();
+	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_STOP));
+	wb_wait();
+endtask
+
+// Issue a WRITE command
+task wb_write(input byte wdata);
+	wb_bus.master_write (.addr(	`DPR_ADDR), .data (wdata));
+	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_WRITE));
+	wb_wait();
+endtask;
+
+// Issue a READ command (slave writes to the DPR)
+task wb_read(input byte provide_data, output byte rdata);
+	bit transfer_complete;
+	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_READ_ACK));
+	i2c_bus.provide_read_data (.read_data({provide_data}), .transfer_complete(transfer_complete));
+	wait (transfer_complete);
+	wb_wait();
+	wb_bus.master_read (.addr(`DPR_ADDR), .data(rdata));
+endtask
 
 endmodule

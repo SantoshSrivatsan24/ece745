@@ -1,5 +1,5 @@
 # vsim -c -classdebug -msgmode both -do "set NoQuitOnFinish 1; do vcd.do" optimized_debug_top_tb 
-# Start time: 02:14:12 on Feb 17,2023
+# Start time: 12:33:16 on Feb 17,2023
 # //  Questa Sim
 # //  Version 2021.2_2 linux Jun 19 2021
 # //
@@ -39,59 +39,308 @@
 #  do vcd.do
 # ** UI-Msg (suppressible): (vsim-3561) No objects found matching 'addr'.
 #    145.00 ns: (WB) W: Addr: 00, Data: 11000000
-#    185.00 ns: (WB) W: Addr: 01, Data: 00001010
+#    185.00 ns: (WB) W: Addr: 01, Data: 00000000
 #    225.00 ns: (WB) W: Addr: 10, Data: 00000110
-#    265.00 ns: (WB) R: Addr: 10, Data: 00010110
+# 
+# ================= ROUND 1 BEGIN =================
+# 
+#    265.00 ns: (WB) R: Addr: 10, Data: 10000110
 #    295.00 ns: (WB) W: Addr: 10, Data: 00000100
 #   5055.00 ns: (WB) R: Addr: 10, Data: 10000100
 #   5085.00 ns: (WB) W: Addr: 01, Data: 01000100
 #   5125.00 ns: (WB) W: Addr: 10, Data: 00000001
 #  95345.00 ns: (WB) R: Addr: 10, Data: 10000001
-#  95375.00 ns: (WB) W: Addr: 01, Data: 01111000
+#  95375.00 ns: (WB) W: Addr: 01, Data: 00000000
 #  95415.00 ns: (WB) W: Addr: 10, Data: 00000001
 # 185635.00 ns: (WB) R: Addr: 10, Data: 10000001
-# 185665.00 ns: (WB) W: Addr: 10, Data: 00000101
-# 194085.00 ns: I2C_BUS WRITE Transfer:
+# 185665.00 ns: (WB) W: Addr: 01, Data: 00000001
+# 185705.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 275925.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 275955.00 ns: (WB) W: Addr: 01, Data: 00000010
+# 275995.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 366215.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 366245.00 ns: (WB) W: Addr: 01, Data: 00000011
+# 366285.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 456505.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 456535.00 ns: (WB) W: Addr: 01, Data: 00000100
+# 456575.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 546795.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 546825.00 ns: (WB) W: Addr: 01, Data: 00000101
+# 546865.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 637085.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 637115.00 ns: (WB) W: Addr: 01, Data: 00000110
+# 637155.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 727375.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 727405.00 ns: (WB) W: Addr: 01, Data: 00000111
+# 727445.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 817665.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 817695.00 ns: (WB) W: Addr: 01, Data: 00001000
+# 817735.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 907955.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 907985.00 ns: (WB) W: Addr: 01, Data: 00001001
+# 908025.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 998245.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 998275.00 ns: (WB) W: Addr: 01, Data: 00001010
+# 998315.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 1088535.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 1088565.00 ns: (WB) W: Addr: 01, Data: 00001011
+# 1088605.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 1178825.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 1178855.00 ns: (WB) W: Addr: 01, Data: 00001100
+# 1178895.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 1269115.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 1269145.00 ns: (WB) W: Addr: 01, Data: 00001101
+# 1269185.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 1359405.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 1359435.00 ns: (WB) W: Addr: 01, Data: 00001110
+# 1359475.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 1449695.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 1449725.00 ns: (WB) W: Addr: 01, Data: 00001111
+# 1449765.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 1539985.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 1540015.00 ns: (WB) W: Addr: 01, Data: 00010000
+# 1540055.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 1630275.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 1630305.00 ns: (WB) W: Addr: 01, Data: 00010001
+# 1630345.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 1720565.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 1720595.00 ns: (WB) W: Addr: 01, Data: 00010010
+# 1720635.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 1810855.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 1810885.00 ns: (WB) W: Addr: 01, Data: 00010011
+# 1810925.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 1901145.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 1901175.00 ns: (WB) W: Addr: 01, Data: 00010100
+# 1901215.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 1991435.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 1991465.00 ns: (WB) W: Addr: 01, Data: 00010101
+# 1991505.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 2081725.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 2081755.00 ns: (WB) W: Addr: 01, Data: 00010110
+# 2081795.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 2172015.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 2172045.00 ns: (WB) W: Addr: 01, Data: 00010111
+# 2172085.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 2262305.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 2262335.00 ns: (WB) W: Addr: 01, Data: 00011000
+# 2262375.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 2352595.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 2352625.00 ns: (WB) W: Addr: 01, Data: 00011001
+# 2352665.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 2442885.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 2442915.00 ns: (WB) W: Addr: 01, Data: 00011010
+# 2442955.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 2533175.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 2533205.00 ns: (WB) W: Addr: 01, Data: 00011011
+# 2533245.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 2623465.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 2623495.00 ns: (WB) W: Addr: 01, Data: 00011100
+# 2623535.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 2713755.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 2713785.00 ns: (WB) W: Addr: 01, Data: 00011101
+# 2713825.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 2804045.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 2804075.00 ns: (WB) W: Addr: 01, Data: 00011110
+# 2804115.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 2894335.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 2894365.00 ns: (WB) W: Addr: 10, Data: 00000101
+# 2902785.00 ns: I2C_BUS WRITE Transfer:
 # Addr = 0x22
-# Data = 0x78 
+# Data = 0 
+# Data = 1 
+# Data = 2 
+# Data = 3 
+# Data = 4 
+# Data = 5 
+# Data = 6 
+# Data = 7 
+# Data = 8 
+# Data = 9 
+# Data = 10 
+# Data = 11 
+# Data = 12 
+# Data = 13 
+# Data = 14 
+# Data = 15 
+# Data = 16 
+# Data = 17 
+# Data = 18 
+# Data = 19 
+# Data = 20 
+# Data = 21 
+# Data = 22 
+# Data = 23 
+# Data = 24 
+# Data = 25 
+# Data = 26 
+# Data = 27 
+# Data = 28 
+# Data = 29 
+# Data = 30 
 # 
-# ====================== TRANSFER COMPLETE ======================
+# ================= TRANSFER COMPLETE =================
 # 
-# 194125.00 ns: (WB) R: Addr: 10, Data: 10000101
-# 194155.00 ns: (WB) W: Addr: 10, Data: 00000100
-# 203715.00 ns: (WB) R: Addr: 10, Data: 10000100
-# 203745.00 ns: (WB) W: Addr: 01, Data: 10001000
-# 203785.00 ns: (WB) W: Addr: 10, Data: 00000001
-# 294005.00 ns: (WB) R: Addr: 10, Data: 10000001
-# 294035.00 ns: (WB) W: Addr: 01, Data: 10101010
-# 294075.00 ns: (WB) W: Addr: 10, Data: 00000001
-# 384295.00 ns: (WB) R: Addr: 10, Data: 10000001
-# 384325.00 ns: (WB) W: Addr: 10, Data: 00000100
 # 
-# ====================== TRANSFER COMPLETE ======================
+# ================= ROUND 2 BEGIN =================
 # 
-# 394345.00 ns: I2C_BUS WRITE Transfer:
+# 2902825.00 ns: (WB) R: Addr: 10, Data: 10000101
+# 2902855.00 ns: (WB) W: Addr: 10, Data: 00000100
+# 2912415.00 ns: (WB) R: Addr: 10, Data: 10000100
+# 2912445.00 ns: (WB) W: Addr: 01, Data: 10001000
+# 2912485.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 3002705.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 3002735.00 ns: (WB) W: Addr: 01, Data: 10101010
+# 3002775.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 3092995.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 3093025.00 ns: (WB) W: Addr: 10, Data: 00000100
+# 
+# ================= TRANSFER COMPLETE =================
+# 
+# 3103045.00 ns: I2C_BUS WRITE Transfer:
 # Addr = 0x44
-# Data = 0xaa 
-# 399075.00 ns: (WB) R: Addr: 10, Data: 10000100
-# 399105.00 ns: (WB) W: Addr: 01, Data: 10001001
-# 399145.00 ns: (WB) W: Addr: 10, Data: 00000001
-# 489365.00 ns: (WB) R: Addr: 10, Data: 10000001
-# 489395.00 ns: (WB) W: Addr: 10, Data: 00000010
-# 579615.00 ns: (WB) R: Addr: 10, Data: 10000010
-# 579645.00 ns: (WB) R: Addr: 01, Data: 00110100
-# 579675.00 ns: (WB) W: Addr: 10, Data: 00000101
-# 
-# ====================== TRANSFER COMPLETE ======================
-# 
-# 588095.00 ns: I2C_BUS READ Transfer:
+# Data = 170 
+# 3107775.00 ns: (WB) R: Addr: 10, Data: 10000100
+# 3107805.00 ns: (WB) W: Addr: 01, Data: 10001001
+# 3107845.00 ns: (WB) W: Addr: 10, Data: 00000001
+# 3198065.00 ns: (WB) R: Addr: 10, Data: 10000001
+# 3198095.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 3288315.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 3288345.00 ns: (WB) R: Addr: 01, Data: 01100100
+# 3288375.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 3378595.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 3378625.00 ns: (WB) R: Addr: 01, Data: 01100101
+# 3378655.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 3468875.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 3468905.00 ns: (WB) R: Addr: 01, Data: 01100110
+# 3468935.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 3559155.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 3559185.00 ns: (WB) R: Addr: 01, Data: 01100111
+# 3559215.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 3649435.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 3649465.00 ns: (WB) R: Addr: 01, Data: 01101000
+# 3649495.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 3739715.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 3739745.00 ns: (WB) R: Addr: 01, Data: 01101001
+# 3739775.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 3829995.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 3830025.00 ns: (WB) R: Addr: 01, Data: 01101010
+# 3830055.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 3920275.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 3920305.00 ns: (WB) R: Addr: 01, Data: 01101011
+# 3920335.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 4010555.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 4010585.00 ns: (WB) R: Addr: 01, Data: 01101100
+# 4010615.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 4100835.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 4100865.00 ns: (WB) R: Addr: 01, Data: 01101101
+# 4100895.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 4191115.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 4191145.00 ns: (WB) R: Addr: 01, Data: 01101110
+# 4191175.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 4281395.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 4281425.00 ns: (WB) R: Addr: 01, Data: 01101111
+# 4281455.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 4371675.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 4371705.00 ns: (WB) R: Addr: 01, Data: 01110000
+# 4371735.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 4461955.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 4461985.00 ns: (WB) R: Addr: 01, Data: 01110001
+# 4462015.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 4552235.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 4552265.00 ns: (WB) R: Addr: 01, Data: 01110010
+# 4552295.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 4642515.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 4642545.00 ns: (WB) R: Addr: 01, Data: 01110011
+# 4642575.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 4732795.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 4732825.00 ns: (WB) R: Addr: 01, Data: 01110100
+# 4732855.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 4823075.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 4823105.00 ns: (WB) R: Addr: 01, Data: 01110101
+# 4823135.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 4913355.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 4913385.00 ns: (WB) R: Addr: 01, Data: 01110110
+# 4913415.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 5003635.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 5003665.00 ns: (WB) R: Addr: 01, Data: 01110111
+# 5003695.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 5093915.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 5093945.00 ns: (WB) R: Addr: 01, Data: 01111000
+# 5093975.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 5184195.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 5184225.00 ns: (WB) R: Addr: 01, Data: 01111001
+# 5184255.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 5274475.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 5274505.00 ns: (WB) R: Addr: 01, Data: 01111010
+# 5274535.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 5364755.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 5364785.00 ns: (WB) R: Addr: 01, Data: 01111011
+# 5364815.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 5455035.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 5455065.00 ns: (WB) R: Addr: 01, Data: 01111100
+# 5455095.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 5545315.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 5545345.00 ns: (WB) R: Addr: 01, Data: 01111101
+# 5545375.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 5635595.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 5635625.00 ns: (WB) R: Addr: 01, Data: 01111110
+# 5635655.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 5725875.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 5725905.00 ns: (WB) R: Addr: 01, Data: 01111111
+# 5725935.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 5816155.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 5816185.00 ns: (WB) R: Addr: 01, Data: 10000000
+# 5816215.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 5906435.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 5906465.00 ns: (WB) R: Addr: 01, Data: 10000001
+# 5906495.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 5996715.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 5996745.00 ns: (WB) R: Addr: 01, Data: 10000010
+# 5996775.00 ns: (WB) W: Addr: 10, Data: 00000010
+# 6086995.00 ns: (WB) R: Addr: 10, Data: 10000010
+# 6087025.00 ns: (WB) R: Addr: 01, Data: 10000011
+# 6087055.00 ns: (WB) W: Addr: 10, Data: 00000101
+# 6095475.00 ns: I2C_BUS READ Transfer:
 # Addr: 0x44
-# Data = 0x34 
-# 588135.00 ns: (WB) R: Addr: 10, Data: 10000101
-# ** Note: $finish    : ../testbench/top.sv(312)
-#    Time: 598125 ns  Iteration: 0  Instance: /top
+# Data = 100 
+# Data = 101 
+# Data = 102 
+# Data = 103 
+# Data = 104 
+# Data = 105 
+# Data = 106 
+# Data = 107 
+# Data = 108 
+# Data = 109 
+# Data = 110 
+# Data = 111 
+# Data = 112 
+# Data = 113 
+# Data = 114 
+# Data = 115 
+# Data = 116 
+# Data = 117 
+# Data = 118 
+# Data = 119 
+# Data = 120 
+# Data = 121 
+# Data = 122 
+# Data = 123 
+# Data = 124 
+# Data = 125 
+# Data = 126 
+# Data = 127 
+# Data = 128 
+# Data = 129 
+# Data = 130 
+# Data = 131 
+# 
+# ================= TRANSFER COMPLETE =================
+# 
+# ** Note: $finish    : ../testbench/top.sv(131)
+#    Time: 6095505 ns  Iteration: 1  Instance: /top
 # 1
-# Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 312
-# Stopped at ../testbench/top.sv line 312
-# End time: 02:14:13 on Feb 17,2023, Elapsed time: 0:00:01
+# Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 131
+# Stopped at ../testbench/top.sv line 131
+# End time: 12:33:22 on Feb 17,2023, Elapsed time: 0:00:06
 # Errors: 0, Warnings: 0
