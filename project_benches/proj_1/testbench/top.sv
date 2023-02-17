@@ -14,8 +14,12 @@
 `define CMD_SET_BUS   8'bxxxx_x110
 `define CMD_WAIT      8'bxxxx_x000
 
+`define SLAVE_ADDR	(8'h22 << 1)
+
 `define BANNER(x) \
-	$display("\n================= %s =================\n", x) \
+	$display ("========================================"); \
+	$display ("%s", x); \
+	$display ("----------------------------------------") \
 
 module top();
 
@@ -63,17 +67,17 @@ logic [WB_ADDR_WIDTH-1:0] wb_addr;
 logic [WB_DATA_WIDTH-1:0] wb_data;
 logic wb_we;
 
-initial begin: WB_MONITORING
-	$timeformat(-9, 2, " ns", 12);
-	forever begin
-		#10 wb_bus.master_monitor (.addr(wb_addr), .data(wb_data), .we(wb_we));
-		if (wb_we) begin
-			$display("%t: (WB) W: Addr: %b, Data: %b", $time, wb_addr, wb_data);
-		end else begin
-			$display("%t: (WB) R: Addr: %b, Data: %b", $time, wb_addr, wb_data);
-		end
-	end
-end
+// initial begin: WB_MONITORING
+// 	$timeformat(-9, 2, " ns", 12);
+// 	forever begin
+// 		#10 wb_bus.master_monitor (.addr(wb_addr), .data(wb_data), .we(wb_we));
+// 		if (wb_we) begin
+// 			$display("%t: (WB) W: Addr: %b, Data: %b", $time, wb_addr, wb_data);
+// 		end else begin
+// 			$display("%t: (WB) R: Addr: %b, Data: %b", $time, wb_addr, wb_data);
+// 		end
+// 	end
+// end
 
 // ****************************************************************************
 // Monitor I2C bus and display transfers in the transcript
@@ -101,11 +105,14 @@ end
 // ****************************************************************************
 // Define the flow of the simulation
 
-logic [WB_DATA_WIDTH-1:0] 	dpr_rdata;
-logic 						transfer_complete;
+bit [I2C_DATA_WIDTH-1:0]	i2c_wdata[];
+bit [I2C_DATA_WIDTH-1:0]	i2c_rdata[];
+bit [WB_DATA_WIDTH-1:0] 	dpr_rdata;
+bit 						transfer_complete;
+bit op;
 
-byte r3_wdata = 8'd64;
-byte r3_rdata = 8'd63;
+byte round3_wdata = 8'd64;
+byte round3_rdata = 8'd63;
 
 initial begin: TEST_FLOW
 	wait (!rst)
@@ -115,38 +122,45 @@ initial begin: TEST_FLOW
 	// Round 1: 32 incrementing writes from 0 to 31
 	`BANNER("ROUND 1 BEGIN");
 	wb_start();
-	wb_write(.wdata(8'h22 << 1)); // Address + W
-	for (byte wdata = 8'd0; wdata < 8'd31; wdata++) begin
-		wb_write(.wdata(wdata)); // Data
+	wb_write(.wdata(`SLAVE_ADDR));
+	for (byte wdata = 8'd0; wdata < 8'd32; wdata++) begin
+		wb_write(.wdata(wdata));
 	end
 	wb_stop();
 	// Round 2: 32 incrementing reads from 100 to 131
 	`BANNER("ROUND 2 BEGIN");
+	i2c_rdata = new[32];
+	for (byte i = 0; i < 32; i++) begin
+		i2c_rdata[i] = i + 8'd100;
+	end
 	wb_start();
-	wb_write(.wdata(8'h44 << 1)); // Address + W
-	wb_write(.wdata(8'haa)); // Memory location
+	wb_write(.wdata(`SLAVE_ADDR));
+	wb_write(.wdata(8'haa));
 	wb_start();
-	wb_write(.wdata((8'h44 << 1) | 8'h1)); // Address + R
-	for (byte rdata = 8'd100; rdata < 8'd132; rdata++) begin
-		wb_read (.provide_data(rdata), .rdata(dpr_rdata));
+	wb_write(.wdata(`SLAVE_ADDR | 8'h1));
+	for (byte i = 0; i < 32; i++) begin
+		wb_read(.rdata(dpr_rdata));
 	end
 	wb_stop();
 	// Round 3: Alternate writes and reads for 64 transfers
 	`BANNER("ROUND 3 BEGIN");
+	i2c_rdata.delete();
+	i2c_rdata = new[1];
 	for (int i = 0; i < 64; i++) begin
 		// Write
 		wb_start();
-		wb_write(.wdata(8'h16 << 1));
-		wb_write(.wdata(r3_wdata));
+		wb_write(.wdata(`SLAVE_ADDR));
+		wb_write(.wdata(round3_wdata));
 		// Read
+		i2c_rdata[0] = round3_rdata;
 		wb_start();
-		wb_write(.wdata(8'h16 << 1));
-		wb_write(.wdata(8'haa));
-		wb_start();
-		wb_write(.wdata((8'h16 << 1) | 8'h1));
-		wb_read(.provide_data(r3_rdata), .rdata(dpr_rdata));
-		r3_wdata++;
-		r3_rdata--;
+		// wb_write(.wdata(`SLAVE_ADDR));
+		// wb_write(.wdata(8'haa));
+		// wb_start();
+		wb_write(.wdata(`SLAVE_ADDR | 8'h1));
+		wb_read(.rdata(dpr_rdata));
+		round3_wdata++;
+		round3_rdata--;
 	end
 	wb_stop();
 	$finish;
@@ -154,14 +168,14 @@ end
 
 ////////////////////////////////////////////////////////////////////////////
 
-bit op;
-bit [I2C_DATA_WIDTH-1:0] write_data[];
-
 initial begin: I2C_FLOW
 	// Wait for reset because a STOP condition occurs at 0ns
 	wait (!rst);
 	forever begin
-		i2c_bus.wait_for_i2c_transfer (.op(op), .write_data(write_data));
+		i2c_bus.wait_for_i2c_transfer (.op(op), .write_data(i2c_wdata));
+		if (op == 1) begin
+			i2c_bus.provide_read_data(.read_data(i2c_rdata), .transfer_complete(transfer_complete));
+		end
 	end
 end
 
@@ -272,11 +286,8 @@ task wb_write(input byte wdata);
 endtask;
 
 // Issue a READ command (slave writes to the DPR)
-task wb_read(input byte provide_data, output byte rdata);
-	bit transfer_complete;
+task wb_read(output byte rdata);
 	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_READ_ACK));
-	i2c_bus.provide_read_data (.read_data({provide_data}), .transfer_complete(transfer_complete));
-	wait (transfer_complete);
 	wb_wait();
 	wb_bus.master_read (.addr(`DPR_ADDR), .data(rdata));
 endtask

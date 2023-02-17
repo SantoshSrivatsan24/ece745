@@ -14,28 +14,27 @@ typedef enum bit {WRITE=1'b0, READ=1'b1} i2c_op_t;
 typedef bit [DATA_WIDTH-1:0] data_t [];
 
 // Global signals
-bit tx_ack      = 1'b0;
-bit wren        = 1'b0;  
-bit wdata;
+static bit busy    = 1'b0;
+static bit busy_   = 1'b0;
+static bit tx_ack  = 1'b0;
+static bit wren    = 1'b0;  
+static bit wdata;
 
 assign sda_io = tx_ack  ? 'b0   : 'bz;
 assign sda_io = wren    ? wdata : 'bz;
 
 ////////////////////////////////////////////////////////////////////////////
 
-// Read the I2C operation from a queue 
 function automatic bit read_op_from_q (ref bit q[$]);
     {<< bit {read_op_from_q}} = q;
     q.delete();
 endfunction
 
-// Read the slave address from a queue
 function automatic bit [6:0] read_addr_from_q (ref bit q[$]);
     {<< 7 {read_addr_from_q}} = q;
     q.delete();
 endfunction
 
-// Read data from a queue
 function automatic data_t read_data_from_q (ref bit q[$]);
     int num_bytes = q.size() / DATA_WIDTH;
     read_data_from_q = new [num_bytes];
@@ -45,7 +44,6 @@ function automatic data_t read_data_from_q (ref bit q[$]);
     q.delete();
 endfunction
 
-// Store data into a queue
 function automatic void write_data_to_q (ref data_t data, ref bit q[$]);
     {>> {q}} = data;
 endfunction
@@ -53,15 +51,15 @@ endfunction
 ////////////////////////////////////////////////////////////////////////////
 
 // START: A HIGH to LOW transition on the SDA line while SCL is HIGH
-task automatic capture_start (ref bit busy);
+task automatic capture_start (ref bit is_busy);
     forever begin
         @(negedge sda_io);
         if (scl_i) begin
             // A repeated START occurs if we get a START while the bus is busy
-            if (busy)
+            if (is_busy)
                 break;
             else
-                busy = 1'b1;
+                is_busy = 1'b1;
         end
     end
 endtask
@@ -69,11 +67,11 @@ endtask
 ////////////////////////////////////////////////////////////////////////////
 
 // STOP: A LOW to HIGH transition on the SDA line while SCL is HIGH
-task automatic capture_stop(ref bit busy);
+task automatic capture_stop(ref bit is_busy);
     forever begin
         @(posedge sda_io);
         if (scl_i) begin
-            busy = 1'b0;
+            is_busy = 1'b0;
             break;
         end
     end
@@ -92,6 +90,8 @@ task automatic capture_bit (ref bit q[$]);
     q.push_back(sda);
 endtask
 
+////////////////////////////////////////////////////////////////////////////
+
 // Transmit data from a queue on the sda line
 task automatic transmit_bit (ref bit q[$]);
     // Allow the slave to drive the SDA line (MSB first)
@@ -108,14 +108,14 @@ task transmit_ack ();
     tx_ack = 1'b1;
     @(negedge scl_i);
     tx_ack = 1'b0;
-endtask;
+endtask
 
 task capture_ack(output bit ack);
     wren = 1'b0;
     @(posedge scl_i);
     ack = !sda_io; // SDA remains LOW during the 9th clock pulse
     @(negedge scl_i);
-endtask;
+endtask
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -127,22 +127,13 @@ task wait_for_i2c_transfer (
     output i2c_op_t op,
     output bit [DATA_WIDTH-1:0] write_data[]
 );
-
-    // automatic - Allocate memory on the stack each time the task is called
-    // static    - Preserve across calls  
-    // Queue for capturing data on the SDA line
     automatic   bit         q[$];
-    automatic   bit [7:0]   device_addr;
-    static      bit         busy    = 1'b0;               
+    automatic   bit [7:0]   device_addr;             
 
     fork
-    // Capture START and repeated START conditions (sets the bus_busy flag)
-    begin: DETECT_START
-        capture_start(.busy(busy));
-    end
-
-    begin: DETECT_TRANSFER
-        // Wait for a START condition (detected by capture_start)
+    capture_start(.is_busy(busy));
+    capture_stop(.is_busy(busy));
+    begin: CAPTURE_BYTE
         wait (busy);
 
         // Capture the slave address into a queue
@@ -156,22 +147,11 @@ task wait_for_i2c_transfer (
         // Acknowledge the first byte
         transmit_ack();
         if (op == WRITE) begin
-            forever begin: CAPTURE_BYTE
+            forever begin
                 repeat(DATA_WIDTH) capture_bit(q);
                 transmit_ack(); 
             end
         end
-        if (op == READ) begin
-            // Block for `provide_read_data()` to to write on the sda line
-            forever begin: TRANSMIT_BYTE
-                @(posedge scl_i);
-            end
-        end
-    end
-
-    // Capture a STOP condition (resets the bus_busy flag)
-    begin: DETECT_STOP
-        capture_stop(.busy(busy));
     end
     join_any
 
@@ -179,8 +159,7 @@ task wait_for_i2c_transfer (
     if (op == WRITE) write_data = read_data_from_q (q);
     // Kill all threads, return to testbench
     disable fork;
-
-endtask;
+endtask
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -188,17 +167,30 @@ task provide_read_data (
     input bit [DATA_WIDTH-1:0] read_data [], 
     output bit transfer_complete
 );
-    automatic bit ack;
-    // Queue for pushing data onto the SDA line
     automatic bit q[$];
-    // Write `read_data` onto the q
-    write_data_to_q (read_data, q);
+    automatic bit ack;
+    automatic int num_bytes_received = read_data.size();
+    automatic int num_bytes_sent = 0;
 
-    for (int i = 0; i < read_data.size(); i++) begin
-        repeat (DATA_WIDTH) transmit_bit(q);
-        capture_ack (.ack(ack));
+    fork
+    capture_start(.is_busy (busy));
+    capture_stop(.is_busy(busy));
+    begin: TRANSMIT_BYTE
+        write_data_to_q (read_data, q);
+        for (int i = 0; i < read_data.size(); i++) begin
+            repeat (DATA_WIDTH) transmit_bit(q);
+            capture_ack (.ack(ack));
+            if (!ack)
+                break;
+            else 
+                num_bytes_sent++;
+        end
+        // Block until repeated START/STOP
+        forever @(posedge scl_i); 
     end
-    transfer_complete = ack;
+    join_any
+    disable fork;
+    transfer_complete = (num_bytes_sent == num_bytes_received);
 endtask
 
 ////////////////////////////////////////////////////////////////////////////
@@ -209,19 +201,14 @@ task monitor (
     output i2c_op_t op, 
     output bit [DATA_WIDTH-1:0] data[]
 );
-
-    automatic   bit q[$];
-    static      bit busy = 1'b0;      
+    automatic   bit q[$];      
 
     fork
-    // Capture START and repeated START conditions (sets the bus_busy flag)
-    begin: DETECT_START
-        capture_start(.busy(busy));
-    end
-
+    capture_start(.is_busy(busy_));
+    capture_stop(.is_busy(busy_));
     begin: DETECT_TRANSFER
         // Wait for a START condition (detected by capture_start)
-        wait (busy);
+        wait (busy_);
 
         // Capture the slave address into a queue
         repeat(7) capture_bit(q);
@@ -232,25 +219,19 @@ task monitor (
         $cast(op, read_op_from_q(q));
 
         // Acknowledge the first byte
-        transmit_ack();
+        @(negedge scl_i);
 
-        // "Observe" data transfer on the bus. Don't drive the bus
-        forever begin : CAPTURE_BYTE
+        // Observe data transfer on the bus. Don't drive the bus
+        forever begin
             repeat(8) capture_bit(q);
             @(negedge scl_i);
         end
     end
-
-    // Capture a STOP condition (resets the bus_busy flag)
-    begin: DETECT_STOP
-        capture_stop(.busy(busy));
-    end
     join_any
-
-    // Read data from queue for a read/write command
-    data = read_data_from_q (q);
     // Kill all threads, return to testbench
     disable fork;
+    // Read data from queue for a read/write command
+    data = read_data_from_q (q);
 endtask
 
 endinterface
