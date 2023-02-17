@@ -1,5 +1,5 @@
 # vsim -c -classdebug -msgmode both -do "set NoQuitOnFinish 1; do vcd.do" optimized_debug_top_tb 
-# Start time: 02:02:56 on Feb 17,2023
+# Start time: 02:14:12 on Feb 17,2023
 # //  Questa Sim
 # //  Version 2021.2_2 linux Jun 19 2021
 # //
@@ -43,64 +43,47 @@
 #    225.00 ns: (WB) W: Addr: 10, Data: 00000110
 #    265.00 ns: (WB) R: Addr: 10, Data: 00010110
 #    295.00 ns: (WB) W: Addr: 10, Data: 00000100
-#    325.00 ns: I2C START condition.
-#    325.00 ns: I2C START condition.
 #   5055.00 ns: (WB) R: Addr: 10, Data: 10000100
 #   5085.00 ns: (WB) W: Addr: 01, Data: 01000100
 #   5125.00 ns: (WB) W: Addr: 10, Data: 00000001
-# I2C Addr = 0x22
-# I2C Op = WRITE
 #  95345.00 ns: (WB) R: Addr: 10, Data: 10000001
 #  95375.00 ns: (WB) W: Addr: 01, Data: 01111000
 #  95415.00 ns: (WB) W: Addr: 10, Data: 00000001
 # 185635.00 ns: (WB) R: Addr: 10, Data: 10000001
 # 185665.00 ns: (WB) W: Addr: 10, Data: 00000101
-# 194085.00 ns: I2C STOP condition
 # 194085.00 ns: I2C_BUS WRITE Transfer:
 # Addr = 0x22
 # Data = 0x78 
-# 194085.00 ns: I2C STOP condition
 # 
 # ====================== TRANSFER COMPLETE ======================
 # 
 # 194125.00 ns: (WB) R: Addr: 10, Data: 10000101
 # 194155.00 ns: (WB) W: Addr: 10, Data: 00000100
-# 198985.00 ns: I2C START condition.
-# 198985.00 ns: I2C START condition.
 # 203715.00 ns: (WB) R: Addr: 10, Data: 10000100
 # 203745.00 ns: (WB) W: Addr: 01, Data: 10001000
 # 203785.00 ns: (WB) W: Addr: 10, Data: 00000001
-# I2C Addr = 0x44
-# I2C Op = WRITE
 # 294005.00 ns: (WB) R: Addr: 10, Data: 10000001
 # 294035.00 ns: (WB) W: Addr: 01, Data: 10101010
 # 294075.00 ns: (WB) W: Addr: 10, Data: 00000001
 # 384295.00 ns: (WB) R: Addr: 10, Data: 10000001
 # 384325.00 ns: (WB) W: Addr: 10, Data: 00000100
-# 394345.00 ns: I2C START condition.
 # 
 # ====================== TRANSFER COMPLETE ======================
 # 
-# 394345.00 ns: I2C START condition.
 # 394345.00 ns: I2C_BUS WRITE Transfer:
 # Addr = 0x44
 # Data = 0xaa 
 # 399075.00 ns: (WB) R: Addr: 10, Data: 10000100
 # 399105.00 ns: (WB) W: Addr: 01, Data: 10001001
 # 399145.00 ns: (WB) W: Addr: 10, Data: 00000001
-# I2C Addr = 0x44
-# I2C Op = READ
 # 489365.00 ns: (WB) R: Addr: 10, Data: 10000001
 # 489395.00 ns: (WB) W: Addr: 10, Data: 00000010
-# Wren = 0
 # 579615.00 ns: (WB) R: Addr: 10, Data: 10000010
 # 579645.00 ns: (WB) R: Addr: 01, Data: 00110100
 # 579675.00 ns: (WB) W: Addr: 10, Data: 00000101
-# 588095.00 ns: I2C STOP condition
 # 
 # ====================== TRANSFER COMPLETE ======================
 # 
-# 588095.00 ns: I2C STOP condition
 # 588095.00 ns: I2C_BUS READ Transfer:
 # Addr: 0x44
 # Data = 0x34 
@@ -110,5 +93,5 @@
 # 1
 # Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 312
 # Stopped at ../testbench/top.sv line 312
-# End time: 02:03:01 on Feb 17,2023, Elapsed time: 0:00:05
+# End time: 02:14:13 on Feb 17,2023, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0

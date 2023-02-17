@@ -50,13 +50,6 @@ function automatic void write_data_to_q (ref data_t data, ref bit q[$]);
     {>> {q}} = data;
 endfunction
 
-// Display data captured on the SDA line
-function automatic void display_data (ref data_t data);
-    foreach (data[i]) begin
-        $display ("I2C Data = 0x%X", data[i]);
-    end
-endfunction
-
 ////////////////////////////////////////////////////////////////////////////
 
 // START: A HIGH to LOW transition on the SDA line while SCL is HIGH
@@ -91,7 +84,7 @@ endtask
 // Capture data on the sda line into a queue
 task automatic capture_bit (ref bit q[$]);
     // Temporary bit to capture data on the sda line between posedge and negedge
-    bit sda;
+    automatic bit sda;
     @(posedge scl_i);
     sda = sda_io;
     @(negedge scl_i); 
@@ -117,10 +110,11 @@ task transmit_ack ();
     tx_ack = 1'b0;
 endtask;
 
-task capture_ack();
+task capture_ack(output bit ack);
     wren = 1'b0;
+    @(posedge scl_i);
+    ack = !sda_io; // SDA remains LOW during the 9th clock pulse
     @(negedge scl_i);
-    wren = 1'b1;
 endtask;
 
 ////////////////////////////////////////////////////////////////////////////
@@ -201,20 +195,8 @@ task provide_read_data (
     write_data_to_q (read_data, q);
 
     for (int i = 0; i < read_data.size(); i++) begin
-        repeat (DATA_WIDTH) begin
-            wren = 1'b1;
-            wdata = q.pop_front();
-            @(posedge scl_i);
-            @(negedge scl_i);
-        end
-        wren = 1'b0;
-        @(posedge scl_i); // 9th clock pulse
-        ack = !sda_io; // SDA remains LOW during the 9th clock pulse
-        if (!ack) begin
-            $display ("Didn't receive ack from master :(");
-            break;
-        end
-        @(negedge scl_i);
+        repeat (DATA_WIDTH) transmit_bit(q);
+        capture_ack (.ack(ack));
     end
     transfer_complete = ack;
 endtask
