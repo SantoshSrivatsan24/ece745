@@ -122,7 +122,6 @@ endtask
 // Thread #1: Detect START and repeated START conditions
 // Thread #2: Capture data once a START condition has been detected
 // Thread #3: Detect a STOP condition and terminate data transfer
-
 task wait_for_i2c_transfer (
     output i2c_op_t op,
     output bit [DATA_WIDTH-1:0] write_data[]
@@ -134,6 +133,7 @@ task wait_for_i2c_transfer (
     capture_start(.is_busy(busy));
     capture_stop(.is_busy(busy));
     begin: CAPTURE_BYTE
+        // Wait for a START condition
         wait (busy);
 
         // Capture the slave address into a queue
@@ -142,7 +142,7 @@ task wait_for_i2c_transfer (
 
         // Capture the I2C operation (R/W)
         capture_bit(q);
-        $cast(op, read_op_from_q(q));
+        op = i2c_op_t'(read_op_from_q(q));
 
         // Acknowledge the first byte
         transmit_ack();
@@ -206,8 +206,8 @@ task monitor (
     fork
     capture_start(.is_busy(busy_));
     capture_stop(.is_busy(busy_));
-    begin: DETECT_TRANSFER
-        // Wait for a START condition (detected by capture_start)
+    begin: OBSERVE_TRANSFER
+        // Wait for a START condition
         wait (busy_);
 
         // Capture the slave address into a queue
@@ -216,7 +216,7 @@ task monitor (
 
         // Capture the I2C operation (R/W)
         capture_bit(q);
-        $cast(op, read_op_from_q(q));
+        op = i2c_op_t'(read_op_from_q(q));
 
         // Acknowledge the first byte
         @(negedge scl_i);
