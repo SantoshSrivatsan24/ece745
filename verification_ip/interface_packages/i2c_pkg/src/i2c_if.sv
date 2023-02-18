@@ -81,18 +81,15 @@ endtask
 
 // Capture data on the sda line into a queue
 task automatic capture_bit (ref bit q[$]);
-    // Temporary bit to capture data on the sda line between posedge and negedge
-    automatic bit sda;
     @(posedge scl_i);
-    sda = sda_io;
     @(negedge scl_i); 
     // Wait until we're sure we didn't see a repeated START/STOP condition
-    q.push_back(sda);
+    q.push_back(sda_io);
 endtask
 
 ////////////////////////////////////////////////////////////////////////////
 
-// Transmit data from a queue on the sda line
+// Transmit data from a queue onto the sda line
 task automatic transmit_bit (ref bit q[$]);
     // Allow the slave to drive the SDA line (MSB first)
     wren = 1'b1; 
@@ -154,11 +151,10 @@ task wait_for_i2c_transfer (
         end
     end
     join_any
-
-    // Read data from queue for a write command
-    if (op == WRITE) write_data = read_data_from_q (q);
     // Kill all threads, return to testbench
     disable fork;
+    // Read data from queue for a write command
+    if (op == WRITE) write_data = read_data_from_q (q);
 endtask
 
 ////////////////////////////////////////////////////////////////////////////
