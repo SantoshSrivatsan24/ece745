@@ -13,7 +13,6 @@ vcd add /top/DUT/scl_i
 vcd add /top/DUT/sda_i
 vcd add /top/DUT/scl_o
 vcd add /top/DUT/sda_o
-vcd add /top/addr
 
 vcd add /top/i2c_bus/*
 

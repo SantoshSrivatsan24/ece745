@@ -113,8 +113,8 @@ end
 bit [I2C_DATA_WIDTH-1:0]	i2c_wdata[];
 bit [I2C_DATA_WIDTH-1:0]	i2c_rdata[];
 bit [WB_DATA_WIDTH-1:0] 	dpr_rdata;
+bit 						op;
 bit 						transfer_complete;
-bit op;
 
 byte round3_wdata = 8'd64;
 byte round3_rdata = 8'd63;
@@ -178,7 +178,7 @@ initial begin: I2C_FLOW
 	wait (!rst);
 	forever begin
 		i2c_bus.wait_for_i2c_transfer (.op(op), .write_data(i2c_wdata));
-		if (op == 1) begin
+		if (op == 1'b1) begin
 			i2c_bus.provide_read_data(.read_data(i2c_rdata), .transfer_complete(transfer_complete));
 		end
 	end
