@@ -1,7 +1,5 @@
 `timescale 1ns / 10ps
 
-`define TEMP
-
 `define CSR_ADDR	2'h0
 `define DPR_ADDR 	2'h1
 `define CMDR_ADDR 	2'h2
@@ -159,9 +157,6 @@ initial begin: TEST_FLOW
 		// Read
 		i2c_rdata[0] = round3_rdata;
 		wb_start();
-		// wb_write(.wdata(`SLAVE_ADDR));
-		// wb_write(.wdata(8'haa));
-		// wb_start();
 		wb_write(.wdata(`SLAVE_ADDR | 8'h1));
 		wb_read(.rdata(dpr_rdata));
 		round3_wdata++;

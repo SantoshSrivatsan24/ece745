@@ -96,6 +96,8 @@ task automatic transmit_bit (ref bit q[$]);
     wdata = q.pop_front();
     @(posedge scl_i);
     @(negedge scl_i);
+    // Release the SDA line
+    wren = 1'b0;
 endtask
 
 ////////////////////////////////////////////////////////////////////////////
