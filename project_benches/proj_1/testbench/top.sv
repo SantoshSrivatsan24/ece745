@@ -1,5 +1,7 @@
 `timescale 1ns / 10ps
 
+`define CLK_PHASE 	5
+
 `define CSR_ADDR	2'h0
 `define DPR_ADDR 	2'h1
 `define CMDR_ADDR 	2'h2
@@ -19,7 +21,7 @@
 	$display ("%s", x); \
 	$display ("--------------------------------") \
 
-`define BANNER2(x) \
+`define FANCY_BANNER(x) \
 	$display ("********************************"); \
 	$display ("%s", x); \
 	$display ("********************************") \
@@ -51,7 +53,7 @@ triand  [NUM_I2C_BUSSES-1:0] sda;
 
 initial begin: CLK_GEN
 	 clk = 1'b0;
-	 forever #5 clk = ~clk;
+	 forever #CLK_PHASE clk = ~clk;
 end
 
 // ****************************************************************************
@@ -90,9 +92,9 @@ bit [I2C_DATA_WIDTH-1:0] i2c_data[];
 bit i2c_op;
 
 initial begin: I2C_MONITORING
-	$timeformat(-9, 2, " ns", 12);
+	wait (!rst);
 	forever begin
-		#10 i2c_bus.monitor (.addr(i2c_addr), .op(i2c_op), .data(i2c_data));
+		i2c_bus.monitor (.addr(i2c_addr), .op(i2c_op), .data(i2c_data));
 		if (!i2c_op) begin
 			`BANNER ("I2C BUS WRITE TRANSFER");
 			$display ("Addr = 0x%x", i2c_addr);
@@ -123,7 +125,7 @@ initial begin: TEST_FLOW
 	wb_set_bus(.bus_id(8'h00));
 
 	// Round 1: 32 incrementing writes from 0 to 31
-	`BANNER2("ROUND 1 BEGIN");
+	`FANCY_BANNER("ROUND 1 BEGIN");
 	wb_start();
 	wb_write(.wdata(`SLAVE_ADDR));
 	for (byte wdata = 8'd0; wdata < 8'd32; wdata++) begin
@@ -131,7 +133,7 @@ initial begin: TEST_FLOW
 	end
 	wb_stop();
 	// Round 2: 32 incrementing reads from 100 to 131
-	`BANNER2("ROUND 2 BEGIN");
+	`FANCY_BANNER("ROUND 2 BEGIN");
 	i2c_rdata = new[32];
 	for (byte i = 0; i < 32; i++) begin
 		i2c_rdata[i] = i + 8'd100;
@@ -146,7 +148,7 @@ initial begin: TEST_FLOW
 	end
 	wb_stop();
 	// Round 3: Alternate writes and reads for 64 transfers
-	`BANNER2("ROUND 3 BEGIN");
+	`FANCY_BANNER("ROUND 3 BEGIN");
 	i2c_rdata.delete();
 	i2c_rdata = new[1];
 	for (int i = 0; i < 64; i++) begin
