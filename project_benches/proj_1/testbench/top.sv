@@ -138,9 +138,9 @@ initial begin: TEST_FLOW
 	for (byte i = 0; i < 32; i++) begin
 		i2c_rdata[i] = i + 8'd100;
 	end
-	wb_start();
-	wb_write(.wdata(`SLAVE_ADDR));
-	wb_write(.wdata(8'haa));
+	// wb_start();
+	// wb_write(.wdata(`SLAVE_ADDR));
+	// wb_write(.wdata(8'haa));
 	wb_start();
 	wb_write(.wdata(`SLAVE_ADDR | 8'h1));
 	for (byte i = 0; i < 32; i++) begin
