@@ -7,7 +7,8 @@ interface i2c_if #(
     int DATA_WIDTH = 8
 )(
     input wire      scl_i,
-    inout triand    sda_io
+    input wire      sda_i,
+    output wire     sda_o
 );
 
 typedef enum bit {WRITE=1'b0, READ=1'b1} i2c_op_t;
@@ -16,12 +17,12 @@ typedef bit [DATA_WIDTH-1:0] data_t [];
 // Global signals
 static bit busy    = 1'b0;
 static bit busy_   = 1'b0;
-static bit tx_ack  = 1'b0;
-static bit wren    = 1'b0;  
+static bit sda_ack  = 1'b0;
+static bit sda_we    = 1'b0;  
 static bit wdata;
 
-assign sda_io = tx_ack  ? 'b0   : 'bz;
-assign sda_io = wren    ? wdata : 'bz;
+assign sda_o = sda_ack  ? 'b0   : 'bz;
+assign sda_o = sda_we   ? wdata : 'bz;
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -53,7 +54,7 @@ endfunction
 // START: A HIGH to LOW transition on the SDA line while SCL is HIGH
 task automatic capture_start (ref bit is_busy);
     forever begin
-        @(negedge sda_io);
+        @(negedge sda_i);
         if (scl_i) begin
             // A repeated START occurs if we get a START while the bus is busy
             if (is_busy)
@@ -69,7 +70,7 @@ endtask
 // STOP: A LOW to HIGH transition on the SDA line while SCL is HIGH
 task automatic capture_stop(ref bit is_busy);
     forever begin
-        @(posedge sda_io);
+        @(posedge sda_i);
         if (scl_i) begin
             is_busy = 1'b0;
             break;
@@ -84,7 +85,7 @@ task automatic capture_bit (ref bit q[$]);
     @(posedge scl_i);
     @(negedge scl_i); 
     // Wait until we're sure we didn't see a repeated START/STOP condition
-    q.push_back(sda_io);
+    q.push_back(sda_i);
 endtask
 
 ////////////////////////////////////////////////////////////////////////////
@@ -92,35 +93,35 @@ endtask
 // Transmit data from a queue onto the sda line
 task automatic transmit_bit (ref bit q[$]);
     // Allow the slave to drive the SDA line (MSB first)
-    wren = 1'b1; 
+    sda_we = 1'b1; 
     wdata = q.pop_front();
     @(posedge scl_i);
     @(negedge scl_i);
     // Release the SDA line
-    wren = 1'b0;
+    sda_we = 1'b0;
 endtask
 
 ////////////////////////////////////////////////////////////////////////////
 
 // ACK: slave pulls SDA low. Remains low for the HIGH period of the clock
 task transmit_ack ();
-    tx_ack = 1'b1;
+    sda_ack = 1'b1;
     @(negedge scl_i);
-    tx_ack = 1'b0;
+    sda_ack = 1'b0;
 endtask
 
 task capture_ack(output bit ack);
-    wren = 1'b0;
+    sda_we = 1'b0;
     @(posedge scl_i);
-    ack = !sda_io; // SDA remains LOW during the 9th clock pulse
+    ack = !sda_i; // SDA remains LOW during the 9th clock pulse
     @(negedge scl_i);
 endtask
 
 ////////////////////////////////////////////////////////////////////////////
 
 // Thread #1: Detect START and repeated START conditions
-// Thread #2: Capture data once a START condition has been detected
-// Thread #3: Detect a STOP condition and terminate data transfer
+// Thread #2: Detect a STOP condition and terminate data transfer
+// Thread #3: Capture data once a START condition has been detected
 task wait_for_i2c_transfer (
     output i2c_op_t op,
     output bit [DATA_WIDTH-1:0] write_data[]
@@ -209,7 +210,7 @@ task monitor (
         wait (busy_);
 
         // Capture the slave address into a queue
-        repeat(7) capture_bit(q);
+        repeat(ADDR_WIDTH) capture_bit(q);
         addr = read_addr_from_q (q);
 
         // Capture the I2C operation (R/W)
@@ -221,7 +222,7 @@ task monitor (
 
         // Observe data transfer on the bus. Don't drive the bus
         forever begin
-            repeat(8) capture_bit(q);
+            repeat(DATA_WIDTH) capture_bit(q);
             @(negedge scl_i);
         end
     end
