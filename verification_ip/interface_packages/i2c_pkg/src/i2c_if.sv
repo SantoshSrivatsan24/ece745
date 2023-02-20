@@ -32,7 +32,7 @@ function automatic bit read_op_from_q (ref bit q[$]);
 endfunction
 
 function automatic bit [6:0] read_addr_from_q (ref bit q[$]);
-    {<< 7 {read_addr_from_q}} = q;
+    {<< ADDR_WIDTH {read_addr_from_q}} = q;
     q.delete();
 endfunction
 

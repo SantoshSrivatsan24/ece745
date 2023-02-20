@@ -1,5 +1,5 @@
 # vsim -c -classdebug -msgmode both -do "set NoQuitOnFinish 1; do vcd.do" optimized_debug_top_tb 
-# Start time: 12:22:54 on Feb 20,2023
+# Start time: 17:43:23 on Feb 20,2023
 # //  Questa Sim
 # //  Version 2022.2_1 linux May 19 2022
 # //
@@ -763,5 +763,5 @@
 # 1
 # Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 168
 # Stopped at ../testbench/top.sv line 168
-# End time: 12:23:24 on Feb 20,2023, Elapsed time: 0:00:30
+# End time: 17:43:33 on Feb 20,2023, Elapsed time: 0:00:10
 # Errors: 0, Warnings: 0
