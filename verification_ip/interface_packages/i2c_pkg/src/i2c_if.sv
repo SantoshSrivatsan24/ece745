@@ -168,9 +168,6 @@ task provide_read_data (
 );
     automatic bit q[$];
     automatic bit ack;
-    automatic int num_bytes_received = read_data.size();
-    automatic int num_bytes_sent = 0;
-
     fork
     capture_start(.is_busy (busy));
     capture_stop(.is_busy(busy));
@@ -179,17 +176,16 @@ task provide_read_data (
         for (int i = 0; i < read_data.size(); i++) begin
             repeat (DATA_WIDTH) transmit_bit(q);
             capture_ack (.ack(ack));
-            if (!ack)
-                break;
-            else 
-                num_bytes_sent++;
+            // A NACK during a read means the master does not want the slave to send any more bytes
+            if (!ack) break;
         end
         // Block until repeated START/STOP
         forever @(posedge scl_i); 
     end
     join_any
     disable fork;
-    transfer_complete = (num_bytes_sent == num_bytes_received);
+    // Transfer complete if the slave receives a NACK from the master
+    transfer_complete = !ack;
 endtask
 
 ////////////////////////////////////////////////////////////////////////////

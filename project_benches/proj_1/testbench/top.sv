@@ -124,6 +124,8 @@ initial begin: TEST_FLOW
 	wb_enable();
 	wb_set_bus(.bus_id(8'h00));
 
+	/////////////////////////////////////////////////////
+
 	// Round 1: 32 incrementing writes from 0 to 31
 	`FANCY_BANNER("ROUND 1 BEGIN");
 	wb_start();
@@ -132,21 +134,28 @@ initial begin: TEST_FLOW
 		wb_write(.wdata(wdata));
 	end
 	wb_stop();
+
+	/////////////////////////////////////////////////////
+
 	// Round 2: 32 incrementing reads from 100 to 131
 	`FANCY_BANNER("ROUND 2 BEGIN");
+	// Data to provide
 	i2c_rdata = new[32];
 	for (byte i = 0; i < 32; i++) begin
 		i2c_rdata[i] = i + 8'd100;
 	end
-	// wb_start();
-	// wb_write(.wdata(`SLAVE_ADDR));
-	// wb_write(.wdata(8'haa));
 	wb_start();
 	wb_write(.wdata(`SLAVE_ADDR | 8'h1));
-	for (byte i = 0; i < 32; i++) begin
-		wb_read(.rdata(dpr_rdata));
+	// Read with ACK
+	for (byte i = 0; i < 31; i++) begin
+		wb_read_ack(.rdata(dpr_rdata));
 	end
+	// Read with NACK. Signal slave to stop transfer
+	wb_read_nack (.rdata(dpr_rdata));
 	wb_stop();
+
+	/////////////////////////////////////////////////////
+
 	// Round 3: Alternate writes and reads for 64 transfers
 	`FANCY_BANNER("ROUND 3 BEGIN");
 	i2c_rdata.delete();
@@ -160,11 +169,14 @@ initial begin: TEST_FLOW
 		i2c_rdata[0] = round3_rdata;
 		wb_start();
 		wb_write(.wdata(`SLAVE_ADDR | 8'h1));
-		wb_read(.rdata(dpr_rdata));
+		wb_read_nack(.rdata(dpr_rdata));
 		round3_wdata++;
 		round3_rdata--;
 	end
 	wb_stop();
+
+	/////////////////////////////////////////////////////
+
 	$finish;
 end
 
@@ -288,9 +300,17 @@ task wb_write(input byte wdata);
 	wb_wait();
 endtask;
 
-// Issue a READ command (slave writes to the DPR)
-task wb_read(output byte rdata);
+// Issue a READ with ACK command (slave writes to the DPR)
+task wb_read_ack(output byte rdata);
 	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_READ_ACK));
+	wb_wait();
+	wb_bus.master_read (.addr(`DPR_ADDR), .data(rdata));
+endtask
+
+// Issue a READ with NACK command
+// Signal slave to stop transfer
+task wb_read_nack(output byte rdata);
+	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_READ_NACK));
 	wb_wait();
 	wb_bus.master_read (.addr(`DPR_ADDR), .data(rdata));
 endtask
