@@ -159,7 +159,7 @@ initial begin: TEST_FLOW
 	/////////////////////////////////////////////////////
 
 	// Round 3: Alternate writes and reads for 64 transfers
-	`FANCY_BANNER("ROUND 3 BEGIN: Alternating reads and writes for 64 transfers");
+	`FANCY_BANNER("ROUND 3 BEGIN: Alternating writes and reads for 64 transfers");
 	i2c_rdata.delete();
 	i2c_rdata = new[1];
 	for (int i = 0; i < 64; i++) begin

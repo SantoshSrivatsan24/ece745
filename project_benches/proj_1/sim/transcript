@@ -1,5 +1,5 @@
 # vsim -c -classdebug -msgmode both -do "set NoQuitOnFinish 1; do vcd.do" optimized_debug_top_tb 
-# Start time: 09:46:19 on Feb 22,2023
+# Start time: 09:52:17 on Feb 22,2023
 # //  Questa Sim
 # //  Version 2022.2_1 linux May 19 2022
 # //
@@ -119,7 +119,7 @@
 # Data = 130 
 # Data = 131 
 # ************************************************************
-# ROUND 3 BEGIN: Alternating reads and writes for 64 transfers
+# ROUND 3 BEGIN: Alternating writes and reads for 64 transfers
 # ************************************************************
 # ================================
 # I2C BUS WRITE TRANSFER
@@ -766,5 +766,5 @@
 # 1
 # Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 182
 # Stopped at ../testbench/top.sv line 182
-# End time: 09:46:30 on Feb 22,2023, Elapsed time: 0:00:11
+# End time: 09:52:27 on Feb 22,2023, Elapsed time: 0:00:10
 # Errors: 0, Warnings: 0
