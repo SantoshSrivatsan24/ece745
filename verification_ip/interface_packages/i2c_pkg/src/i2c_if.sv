@@ -1,6 +1,8 @@
 // ECE 745: Project 1
 // I2C Interface for an IICMB controller
 
+import i2c_pkg::*;
+
 interface i2c_if #(
     int NUM_BUSSES = 1,
     int ADDR_WIDTH = 7,
@@ -11,7 +13,7 @@ interface i2c_if #(
     output wire     sda_o
 );
 
-typedef enum bit {WRITE=1'b0, READ=1'b1} i2c_op_t;
+// typedef enum bit {WRITE=1'b0, READ=1'b1} i2c_op_t;
 typedef bit [DATA_WIDTH-1:0] data_t [];
 
 // Global signals

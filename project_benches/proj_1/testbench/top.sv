@@ -22,9 +22,11 @@
 	$display ("--------------------------------") \
 
 `define FANCY_BANNER(x) \
-	$display ("********************************"); \
+	$display ("************************************************************"); \
 	$display ("%s", x); \
-	$display ("********************************") \
+	$display ("************************************************************") \
+
+import i2c_pkg::*;
 
 module top();
 
@@ -89,13 +91,13 @@ logic wb_we;
 
 bit [I2C_ADDR_WIDTH-1:0] i2c_addr;
 bit [I2C_DATA_WIDTH-1:0] i2c_data[];
-bit i2c_op;
+i2c_op_t 				 i2c_op;
 
 initial begin: I2C_MONITORING
 	wait (!rst);
 	forever begin
 		i2c_bus.monitor (.addr(i2c_addr), .op(i2c_op), .data(i2c_data));
-		if (!i2c_op) begin
+		if (i2c_op == WRITE) begin
 			`BANNER ("I2C BUS WRITE TRANSFER");
 			$display ("Addr = 0x%x", i2c_addr);
 			foreach (i2c_data[i]) $display("Data = %0d ", i2c_data[i]);
@@ -113,7 +115,7 @@ end
 bit [I2C_DATA_WIDTH-1:0]	i2c_wdata[];
 bit [I2C_DATA_WIDTH-1:0]	i2c_rdata[];
 bit [WB_DATA_WIDTH-1:0] 	dpr_rdata;
-bit 						op;
+i2c_op_t 					op;
 bit 						transfer_complete;
 
 byte round3_wdata = 8'd64;
@@ -127,7 +129,7 @@ initial begin: TEST_FLOW
 	/////////////////////////////////////////////////////
 
 	// Round 1: 32 incrementing writes from 0 to 31
-	`FANCY_BANNER("ROUND 1 BEGIN");
+	`FANCY_BANNER("ROUND 1 BEGIN: 32 incrementing writes from 0 to 31");
 	wb_start();
 	wb_write(.wdata(`SLAVE_ADDR));
 	for (byte wdata = 8'd0; wdata < 8'd32; wdata++) begin
@@ -138,7 +140,7 @@ initial begin: TEST_FLOW
 	/////////////////////////////////////////////////////
 
 	// Round 2: 32 incrementing reads from 100 to 131
-	`FANCY_BANNER("ROUND 2 BEGIN");
+	`FANCY_BANNER("ROUND 2 BEGIN: 32 incrementing reads from 100 to 131");
 	// Data to provide
 	i2c_rdata = new[32];
 	for (byte i = 0; i < 32; i++) begin
@@ -157,7 +159,7 @@ initial begin: TEST_FLOW
 	/////////////////////////////////////////////////////
 
 	// Round 3: Alternate writes and reads for 64 transfers
-	`FANCY_BANNER("ROUND 3 BEGIN");
+	`FANCY_BANNER("ROUND 3 BEGIN: Alternating reads and writes for 64 transfers");
 	i2c_rdata.delete();
 	i2c_rdata = new[1];
 	for (int i = 0; i < 64; i++) begin
@@ -187,7 +189,7 @@ initial begin: I2C_FLOW
 	wait (!rst);
 	forever begin
 		i2c_bus.wait_for_i2c_transfer (.op(op), .write_data(i2c_wdata));
-		if (op == 1'b1) begin
+		if (op == READ) begin
 			i2c_bus.provide_read_data(.read_data(i2c_rdata), .transfer_complete(transfer_complete));
 		end
 	end
