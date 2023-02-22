@@ -93,7 +93,7 @@ bit [I2C_ADDR_WIDTH-1:0] i2c_addr;
 bit [I2C_DATA_WIDTH-1:0] i2c_data[];
 i2c_op_t 				 i2c_op;
 
-initial begin: I2C_MONITORING
+initial begin: MONITOR_I2C_BUS
 	wait (!rst);
 	forever begin
 		i2c_bus.monitor (.addr(i2c_addr), .op(i2c_op), .data(i2c_data));
