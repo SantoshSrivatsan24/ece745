@@ -13,7 +13,6 @@ interface i2c_if #(
     output wire     sda_o
 );
 
-// typedef enum bit {WRITE=1'b0, READ=1'b1} i2c_op_t;
 typedef bit [DATA_WIDTH-1:0] data_t [];
 
 // Global signals
@@ -84,10 +83,12 @@ endtask
 
 // Capture data on the sda line into a queue
 task automatic capture_bit (ref bit q[$]);
+    bit data;
     @(posedge scl_i);
+    data = sda_i;
     @(negedge scl_i); 
     // Wait until we're sure we didn't see a repeated START/STOP condition
-    q.push_back(sda_i);
+    q.push_back(data);
 endtask
 
 ////////////////////////////////////////////////////////////////////////////
