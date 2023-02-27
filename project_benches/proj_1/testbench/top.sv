@@ -16,15 +16,20 @@
 
 `define SLAVE_ADDR	(8'h22 << 1)
 
-`define BANNER(x) \
-	$display ("================================"); \
+`define I2C_BANNER(x) \
+	$display ("------------------------------------------------------------"); \
 	$display ("%s", x); \
-	$display ("--------------------------------") \
+	$display ("------------------------------------------------------------")
+
+`define WB_BANNER(t, x) \
+	$display ("============================================================"); \
+	$display ("%s (%t)", x, t)
 
 `define FANCY_BANNER(x) \
-	$display ("************************************************************"); \
+	$display ("\n************************************************************"); \
 	$display ("%s", x); \
-	$display ("************************************************************") \
+	$display ("************************************************************\n")
+
 
 import i2c_pkg::*;
 
@@ -74,17 +79,20 @@ logic [WB_ADDR_WIDTH-1:0] wb_addr;
 logic [WB_DATA_WIDTH-1:0] wb_data;
 logic wb_we;
 
-// initial begin: WB_MONITORING
-// 	$timeformat(-9, 2, " ns", 12);
-// 	forever begin
-// 		#10 wb_bus.master_monitor (.addr(wb_addr), .data(wb_data), .we(wb_we));
-// 		if (wb_we) begin
-// 			$display("%t: (WB) W: Addr: %b, Data: %b", $time, wb_addr, wb_data);
-// 		end else begin
-// 			$display("%t: (WB) R: Addr: %b, Data: %b", $time, wb_addr, wb_data);
-// 		end
-// 	end
-// end
+initial begin: WB_MONITORING
+	$timeformat(-9, 2, " ns", 0);
+	wait (!rst);
+	forever begin
+		wb_bus.master_monitor (.addr(wb_addr), .data(wb_data), .we(wb_we));
+
+		if (wb_we) begin
+			case (wb_data)
+				8'b0000_0100 : begin `WB_BANNER ($time, "WB BUS: Issue a START command"); end
+				8'b0000_0101 : begin `WB_BANNER ($time, "WB BUS: Issue a STOP command"); end
+			endcase
+		end
+	end
+end
 
 // ****************************************************************************
 // Monitor I2C bus and display transfers in the transcript
@@ -98,14 +106,15 @@ initial begin: MONITOR_I2C_BUS
 	forever begin
 		i2c_bus.monitor (.addr(i2c_addr), .op(i2c_op), .data(i2c_data));
 		if (i2c_op == WRITE) begin
-			`BANNER ("I2C BUS WRITE TRANSFER");
-			$display ("Addr = 0x%x", i2c_addr);
-			foreach (i2c_data[i]) $display("Data = %0d ", i2c_data[i]);
+			`I2C_BANNER ("I2C BUS WRITE TRANSFER");	
 		end else begin
-			`BANNER ("I2C BUS READ TRANSFER");
-			$display("Addr = 0x%x", i2c_addr);
-			foreach (i2c_data[i]) $display("Data = %0d ", i2c_data[i]);
+			`I2C_BANNER ("I2C BUS READ TRANSFER");
 		end
+		$display ("Addr = 0x%x", i2c_addr);
+		$write ("Data = ");
+		foreach (i2c_data[i]) 
+			$write("%0d  ", i2c_data[i]);
+		$display ();
 	end
 end
 
