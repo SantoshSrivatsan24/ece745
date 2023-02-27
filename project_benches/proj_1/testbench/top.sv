@@ -16,10 +16,10 @@
 
 `define SLAVE_ADDR	(8'h22 << 1)
 
-`define I2C_BANNER(x) \
-	$display ("------------------------------------------------------------"); \
-	$display ("%s", x); \
-	$display ("------------------------------------------------------------")
+`define I2C_BANNER(t, x) \
+	$display ("========================================="); \
+	$display ("%s (%t)", x, t); \
+	$display ("-----------------------------------------")
 
 `define WB_BANNER(t, x) \
 	$display ("============================================================"); \
@@ -79,20 +79,19 @@ logic [WB_ADDR_WIDTH-1:0] wb_addr;
 logic [WB_DATA_WIDTH-1:0] wb_data;
 logic wb_we;
 
-initial begin: WB_MONITORING
-	$timeformat(-9, 2, " ns", 0);
-	wait (!rst);
-	forever begin
-		wb_bus.master_monitor (.addr(wb_addr), .data(wb_data), .we(wb_we));
+// initial begin: WB_MONITORING
+// 	wait (!rst);
+// 	forever begin
+// 		wb_bus.master_monitor (.addr(wb_addr), .data(wb_data), .we(wb_we));
 
-		if (wb_we) begin
-			case (wb_data)
-				8'b0000_0100 : begin `WB_BANNER ($time, "WB BUS: Issue a START command"); end
-				8'b0000_0101 : begin `WB_BANNER ($time, "WB BUS: Issue a STOP command"); end
-			endcase
-		end
-	end
-end
+// 		if (wb_we) begin
+// 			case (wb_data)
+// 				8'b0000_0100 : begin `WB_BANNER ($time, "WB BUS: Issue a START command"); end
+// 				8'b0000_0101 : begin `WB_BANNER ($time, "WB BUS: Issue a STOP command"); end
+// 			endcase
+// 		end
+// 	end
+// end
 
 // ****************************************************************************
 // Monitor I2C bus and display transfers in the transcript
@@ -102,13 +101,14 @@ bit [I2C_DATA_WIDTH-1:0] i2c_data[];
 i2c_op_t 				 i2c_op;
 
 initial begin: MONITOR_I2C_BUS
+	$timeformat(-9, 2, " ns", 0);
 	wait (!rst);
 	forever begin
 		i2c_bus.monitor (.addr(i2c_addr), .op(i2c_op), .data(i2c_data));
 		if (i2c_op == WRITE) begin
-			`I2C_BANNER ("I2C BUS WRITE TRANSFER");	
+			`I2C_BANNER ($time, "I2C BUS WRITE TRANSFER");	
 		end else begin
-			`I2C_BANNER ("I2C BUS READ TRANSFER");
+			`I2C_BANNER ($time, "I2C BUS READ TRANSFER");
 		end
 		$display ("Addr = 0x%x", i2c_addr);
 		$write ("Data = ");
