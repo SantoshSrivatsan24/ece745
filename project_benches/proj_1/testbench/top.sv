@@ -188,6 +188,7 @@ initial begin: TEST_FLOW
 
 	/////////////////////////////////////////////////////
 
+	#1000 `FANCY_BANNER ("DONE!");
 	$finish;
 end
 
