@@ -6,6 +6,7 @@ interface wb_if       #(
   // System sigals
   input wire clk_i,
   input wire rst_i,
+  input wire irq_i,
   // Master signals
   output reg cyc_o,
   output reg stb_o,
@@ -24,6 +25,21 @@ interface wb_if       #(
   );
 
   initial reset_bus();
+
+// ****************************************************************************              
+   task wait_for_reset();
+       if (rst_i !== 0) @(negedge rst_i);
+   endtask
+
+// ****************************************************************************              
+   task wait_for_num_clocks(int num_clocks);
+       repeat (num_clocks) @(posedge clk_i);
+   endtask
+
+// ****************************************************************************              
+   task wait_for_interrupt();
+       @(posedge irq_i);
+   endtask
 
 // ****************************************************************************              
    task reset_bus();
