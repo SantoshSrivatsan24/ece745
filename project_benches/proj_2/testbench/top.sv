@@ -262,6 +262,7 @@ initial begin: TEST_FLOW
 	ncsu_config_db #(virtual wb_if #(.ADDR_WIDTH(2), .DATA_WIDTH(8)))::set("tst.env.wb_agent.wb_driver", wb_bus);
 	driver = new ("tst.env.wb_agent.wb_driver", null);
 	wb_trans = new ("wb_trans");
+	// Create a new transaction. TODO: The generator is supposed to do this.
 	wb_trans.wb_op = 1'b0;
 	wb_trans.wb_addr = 8'h22;
 	wb_trans.wb_data = new [3];

@@ -23,59 +23,53 @@ class wb_driver extends ncsu_component #(.T(wb_transaction));
         end 
     endfunction
 
-    // Enable the IICMB core
-    virtual task wb_enable();
+    local task wb_enable();
         wb_bus.master_write (.addr(`CSR_ADDR), .data('b11xx_xxxx)); 
     endtask
 
     // Wait for IRQ to go high. Clear IRQ by reading the CMDR register
-    virtual task wb_wait();
-        logic [7:0] cmdr_rdata;
+    local task wb_wait();
+        bit [7:0] cmdr_rdata;
         wb_bus.wait_for_interrupt ();
         wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
     endtask
 
-    virtual task wb_set_bus(input byte bus_id);
+    local task wb_set_bus(input byte bus_id);
         wb_bus.master_write (.addr(`DPR_ADDR), .data(bus_id));
         wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_SET_BUS));
         wb_wait();
     endtask
 
-    // Issue a START command
-    virtual task wb_start();
+    local task wb_start();
         wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_START));
         wb_wait();
     endtask
 
-    // Issue a STOP command
-    virtual task wb_stop();
+    local task wb_stop();
         wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_STOP));
         wb_wait();
     endtask
 
-    // Issue a WRITE command
-    virtual task wb_write(input byte wdata);
+    local task wb_write(input byte wdata);
         wb_bus.master_write (.addr(	`DPR_ADDR), .data (wdata));
         wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_WRITE));
         wb_wait();
     endtask;
 
     // Issue a READ with ACK command (slave writes to the DPR)
-    virtual task wb_read_ack(output byte rdata);
+    local task wb_read_ack(output byte rdata);
         wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_READ_ACK));
         wb_wait();
         wb_bus.master_read (.addr(`DPR_ADDR), .data(rdata));
     endtask
 
-    // Issue a READ with NACK command
-    // Signal slave to stop transfer
-    virtual task wb_read_nack(output byte rdata);
+    // Issue a READ with NACK command. Signal slave to stop transfer
+    local task wb_read_nack(output byte rdata);
         wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_READ_NACK));
         wb_wait();
         wb_bus.master_read (.addr(`DPR_ADDR), .data(rdata));
     endtask
 
-    // Override parent's bl_put
     virtual task bl_put (input T trans);
         bit [7:0] addr = {trans.wb_addr, trans.wb_op};
         ncsu_info("ncsu_component::bl_put()", $sformatf(" of %s called",get_full_name()), NCSU_NONE);
