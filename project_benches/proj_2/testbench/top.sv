@@ -1,7 +1,5 @@
 `timescale 1ns / 10ps
 
-`define CLK_PHASE 	5
-
 `define CSR_ADDR	2'h0
 `define DPR_ADDR 	2'h1
 `define CMDR_ADDR 	2'h2
@@ -31,7 +29,9 @@
 	$display ("************************************************************\n")
 
 
+import ncsu_pkg::*;
 import i2c_pkg::*;
+import wb_pkg::*;
 
 module top();
 
@@ -54,6 +54,9 @@ wire [WB_DATA_WIDTH-1:0] dat_rd_i;
 wire irq;
 tri  [NUM_I2C_BUSSES-1:0] scl;
 triand  [NUM_I2C_BUSSES-1:0] sda;
+
+wb_driver driver;
+wb_transaction wb_trans;
 
 // ****************************************************************************
 // Clock generator
@@ -121,89 +124,6 @@ end
 // ****************************************************************************
 // Define the flow of the simulation
 
-bit [I2C_DATA_WIDTH-1:0]	i2c_wdata[];
-bit [I2C_DATA_WIDTH-1:0]	i2c_rdata[];
-bit [WB_DATA_WIDTH-1:0] 	dpr_rdata;
-i2c_op_t 					op;
-bit 						transfer_complete;
-
-byte round3_wdata = 8'd64;
-byte round3_rdata = 8'd63;
-
-initial begin: TEST_FLOW
-	wait (!rst)
-	wb_enable();
-	wb_set_bus(.bus_id(8'h00));
-
-	/////////////////////////////////////////////////////
-
-	// Round 1: 32 incrementing writes from 0 to 31
-	`FANCY_BANNER("ROUND 1 BEGIN: 32 incrementing writes from 0 to 31");
-	wb_start();
-	wb_write(.wdata(`SLAVE_ADDR));
-	for (byte wdata = 8'd0; wdata < 8'd32; wdata++) begin
-		wb_write(.wdata(wdata));
-	end
-	wb_stop();
-
-	/////////////////////////////////////////////////////
-
-	// Round 2: 32 incrementing reads from 100 to 131
-	`FANCY_BANNER("ROUND 2 BEGIN: 32 incrementing reads from 100 to 131");
-	// Data to provide
-	i2c_rdata = new[32];
-	for (byte i = 0; i < 32; i++) begin
-		i2c_rdata[i] = i + 8'd100;
-	end
-	wb_start();
-	wb_write(.wdata(`SLAVE_ADDR | 8'h1));
-	// Read with ACK
-	for (byte i = 0; i < 31; i++) begin
-		wb_read_ack(.rdata(dpr_rdata));
-	end
-	// Read with NACK. Signal slave to stop transfer
-	wb_read_nack (.rdata(dpr_rdata));
-	wb_stop();
-
-	/////////////////////////////////////////////////////
-
-	// Round 3: Alternate writes and reads for 64 transfers
-	`FANCY_BANNER("ROUND 3 BEGIN: Alternating writes and reads for 64 transfers");
-	i2c_rdata.delete();
-	i2c_rdata = new[1];
-	for (int i = 0; i < 64; i++) begin
-		// Write
-		wb_start();
-		wb_write(.wdata(`SLAVE_ADDR));
-		wb_write(.wdata(round3_wdata));
-		// Read
-		i2c_rdata[0] = round3_rdata;
-		wb_start();
-		wb_write(.wdata(`SLAVE_ADDR | 8'h1));
-		wb_read_nack(.rdata(dpr_rdata));
-		round3_wdata++;
-		round3_rdata--;
-	end
-	wb_stop();
-
-	/////////////////////////////////////////////////////
-
-	#1000 `FANCY_BANNER ("DONE!");
-	$finish;
-end
-
-////////////////////////////////////////////////////////////////////////////
-
-initial begin: I2C_FLOW
-	// Wait for reset because a STOP condition occurs at 0ns
-	wait (!rst);
-	forever begin
-		i2c_bus.wait_for_i2c_transfer (.op(op), .write_data(i2c_wdata));
-		if (op == READ) begin
-			i2c_bus.provide_read_data(.read_data(i2c_rdata), .transfer_complete(transfer_complete));
-		end
-	end
-end
 
 // ****************************************************************************
 // Instantiate the Wishbone master Bus Functional Model
@@ -215,6 +135,7 @@ wb_bus (
 	// System sigals
 	.clk_i(clk),
 	.rst_i(rst),
+	.irq_i(irq),
 	// Master signals
 	.cyc_o(cyc),
 	.stb_o(stb),
@@ -283,7 +204,7 @@ endtask
 // Wait for IRQ to go high. Clear IRQ by reading the CMDR register
 task wb_wait();
 	logic [WB_DATA_WIDTH-1:0] 	cmdr_rdata;
-	wait (irq);
+	wb_bus.wait_for_interrupt ();
 	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
 endtask
 
@@ -326,5 +247,101 @@ task wb_read_nack(output byte rdata);
 	wb_wait();
 	wb_bus.master_read (.addr(`DPR_ADDR), .data(rdata));
 endtask
+
+
+bit [I2C_DATA_WIDTH-1:0]	i2c_wdata[];
+bit [I2C_DATA_WIDTH-1:0]	i2c_rdata[];
+bit [WB_DATA_WIDTH-1:0] 	dpr_rdata;
+i2c_op_t 					op;
+bit 						transfer_complete;
+
+byte round3_wdata = 8'd64;
+byte round3_rdata = 8'd63;
+
+initial begin: TEST_FLOW
+	ncsu_config_db #(virtual wb_if #(.ADDR_WIDTH(2), .DATA_WIDTH(8)))::set("tst.env.wb_agent.wb_driver", wb_bus);
+	driver = new ("tst.env.wb_agent.wb_driver", null);
+	wb_trans = new ("wb_trans");
+	wb_trans.wb_op = 1'b0;
+	wb_trans.wb_addr = 8'h22;
+	wb_trans.wb_data = new [3];
+	for (byte i = 8'd0; i < 8'd3; i++) begin
+		wb_trans.wb_data[i] = i;
+	end
+
+	wait (!rst);
+	wb_enable();
+	wb_set_bus(.bus_id(8'h00));
+	driver.bl_put (wb_trans);
+
+	/////////////////////////////////////////////////////
+
+	// Round 1: 32 incrementing writes from 0 to 31
+	// `FANCY_BANNER("ROUND 1 BEGIN: 32 incrementing writes from 0 to 31");
+	// wb_start();
+	// wb_write(.wdata(`SLAVE_ADDR));
+	// for (byte wdata = 8'd0; wdata < 8'd32; wdata++) begin
+	// 	wb_write(.wdata(wdata));
+	// end
+	// wb_stop();
+
+	/////////////////////////////////////////////////////
+
+	// Round 2: 32 incrementing reads from 100 to 131
+	// `FANCY_BANNER("ROUND 2 BEGIN: 32 incrementing reads from 100 to 131");
+	// // Data to provide
+	// i2c_rdata = new[32];
+	// for (byte i = 0; i < 32; i++) begin
+	// 	i2c_rdata[i] = i + 8'd100;
+	// end
+	// wb_start();
+	// wb_write(.wdata(`SLAVE_ADDR | 8'h1));
+	// // Read with ACK
+	// for (byte i = 0; i < 31; i++) begin
+	// 	wb_read_ack(.rdata(dpr_rdata));
+	// end
+	// // Read with NACK. Signal slave to stop transfer
+	// wb_read_nack (.rdata(dpr_rdata));
+	// wb_stop();
+
+	/////////////////////////////////////////////////////
+
+	// Round 3: Alternate writes and reads for 64 transfers
+	// `FANCY_BANNER("ROUND 3 BEGIN: Alternating writes and reads for 64 transfers");
+	// i2c_rdata.delete();
+	// i2c_rdata = new[1];
+	// for (int i = 0; i < 64; i++) begin
+	// 	// Write
+	// 	wb_start();
+	// 	wb_write(.wdata(`SLAVE_ADDR));
+	// 	wb_write(.wdata(round3_wdata));
+	// 	// Read
+	// 	i2c_rdata[0] = round3_rdata;
+	// 	wb_start();
+	// 	wb_write(.wdata(`SLAVE_ADDR | 8'h1));
+	// 	wb_read_nack(.rdata(dpr_rdata));
+	// 	round3_wdata++;
+	// 	round3_rdata--;
+	// end
+	// wb_stop();
+
+	/////////////////////////////////////////////////////
+
+	#1000 `FANCY_BANNER ("DONE!");
+	$finish;
+end
+
+////////////////////////////////////////////////////////////////////////////
+
+initial begin: I2C_FLOW
+	// Wait for reset because a STOP condition occurs at 0ns
+	wait (!rst);
+	forever begin
+		i2c_bus.wait_for_i2c_transfer (.op(op), .write_data(i2c_wdata));
+		if (op == READ) begin
+			i2c_bus.provide_read_data(.read_data(i2c_rdata), .transfer_complete(transfer_complete));
+		end
+	end
+end
 
 endmodule

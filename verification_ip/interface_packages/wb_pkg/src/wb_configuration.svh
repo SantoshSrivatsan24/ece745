@@ -1,6 +1,4 @@
-import ncsu_pkg::*;
-
-class wb_configuration extends ncsu_component;
+class wb_configuration extends ncsu_configuration;
 
 
 endclass

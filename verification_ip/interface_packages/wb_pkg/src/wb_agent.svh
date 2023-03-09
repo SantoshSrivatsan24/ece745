@@ -1,6 +1,4 @@
-import ncsu_pkg::*;
-
-class wb_agent extends ncsu_component;
+class wb_agent extends ncsu_component #(.T(wb_transaction));
 
 
 endclass
