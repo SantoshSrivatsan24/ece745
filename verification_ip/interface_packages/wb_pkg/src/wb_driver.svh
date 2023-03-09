@@ -23,21 +23,13 @@ class wb_driver extends ncsu_component #(.T(wb_transaction));
         end 
     endfunction
 
-    local task wb_enable();
-        wb_bus.master_write (.addr(`CSR_ADDR), .data('b11xx_xxxx)); 
-    endtask
-
+	//////////////////////////////////////////////////////////////////////
+    
     // Wait for IRQ to go high. Clear IRQ by reading the CMDR register
     local task wb_wait();
         bit [7:0] cmdr_rdata;
         wb_bus.wait_for_interrupt ();
         wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-    endtask
-
-    local task wb_set_bus(input byte bus_id);
-        wb_bus.master_write (.addr(`DPR_ADDR), .data(bus_id));
-        wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_SET_BUS));
-        wb_wait();
     endtask
 
     local task wb_start();
@@ -70,6 +62,18 @@ class wb_driver extends ncsu_component #(.T(wb_transaction));
         wb_bus.master_read (.addr(`DPR_ADDR), .data(rdata));
     endtask
 
+	//////////////////////////////////////////////////////////////////////
+
+    task wb_enable();
+        wb_bus.master_write (.addr(`CSR_ADDR), .data('b11xx_xxxx)); 
+    endtask
+
+    task wb_set_bus(input byte bus_id);
+        wb_bus.master_write (.addr(`DPR_ADDR), .data(bus_id));
+        wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_SET_BUS));
+        wb_wait();
+    endtask
+
     virtual task bl_put (input T trans);
         bit [7:0] addr = {trans.wb_addr, trans.wb_op};
         ncsu_info("ncsu_component::bl_put()", $sformatf(" of %s called",get_full_name()), NCSU_NONE);
@@ -81,4 +85,5 @@ class wb_driver extends ncsu_component #(.T(wb_transaction));
 	    wb_stop();
     endtask
 
+	//////////////////////////////////////////////////////////////////////
 endclass

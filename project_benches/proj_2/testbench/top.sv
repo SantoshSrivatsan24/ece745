@@ -196,67 +196,7 @@ i2c_bus (
 		// ------------------------------------
 	);
 
-// Enable the IICMB core
-task wb_enable();
-	wb_bus.master_write (.addr(`CSR_ADDR), .data('b11xx_xxxx)); 
-endtask
-
-// Wait for IRQ to go high. Clear IRQ by reading the CMDR register
-task wb_wait();
-	logic [WB_DATA_WIDTH-1:0] 	cmdr_rdata;
-	wb_bus.wait_for_interrupt ();
-	wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-endtask
-
-task wb_set_bus(input byte bus_id);
-	wb_bus.master_write (.addr(`DPR_ADDR), .data(bus_id));
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_SET_BUS));
-	wb_wait();
-endtask
-
-// Issue a START command
-task wb_start();
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_START));
-	wb_wait();
-endtask
-
-// Issue a STOP command
-task wb_stop();
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_STOP));
-	wb_wait();
-endtask
-
-// Issue a WRITE command
-task wb_write(input byte wdata);
-	wb_bus.master_write (.addr(	`DPR_ADDR), .data (wdata));
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_WRITE));
-	wb_wait();
-endtask;
-
-// Issue a READ with ACK command (slave writes to the DPR)
-task wb_read_ack(output byte rdata);
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_READ_ACK));
-	wb_wait();
-	wb_bus.master_read (.addr(`DPR_ADDR), .data(rdata));
-endtask
-
-// Issue a READ with NACK command
-// Signal slave to stop transfer
-task wb_read_nack(output byte rdata);
-	wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_READ_NACK));
-	wb_wait();
-	wb_bus.master_read (.addr(`DPR_ADDR), .data(rdata));
-endtask
-
-
-bit [I2C_DATA_WIDTH-1:0]	i2c_wdata[];
-bit [I2C_DATA_WIDTH-1:0]	i2c_rdata[];
-bit [WB_DATA_WIDTH-1:0] 	dpr_rdata;
-i2c_op_t 					op;
-bit 						transfer_complete;
-
-byte round3_wdata = 8'd64;
-byte round3_rdata = 8'd63;
+////////////////////////////////////////////////////////////////////////////
 
 initial begin: TEST_FLOW
 	ncsu_config_db #(virtual wb_if #(.ADDR_WIDTH(2), .DATA_WIDTH(8)))::set("tst.env.wb_agent.wb_driver", wb_bus);
@@ -271,68 +211,21 @@ initial begin: TEST_FLOW
 	end
 
 	wait (!rst);
-	wb_enable();
-	wb_set_bus(.bus_id(8'h00));
-	driver.bl_put (wb_trans);
+	driver.wb_enable	();
+	driver.wb_set_bus	(.bus_id(8'h00));
+	driver.bl_put 		(wb_trans);
 
-	/////////////////////////////////////////////////////
-
-	// Round 1: 32 incrementing writes from 0 to 31
-	// `FANCY_BANNER("ROUND 1 BEGIN: 32 incrementing writes from 0 to 31");
-	// wb_start();
-	// wb_write(.wdata(`SLAVE_ADDR));
-	// for (byte wdata = 8'd0; wdata < 8'd32; wdata++) begin
-	// 	wb_write(.wdata(wdata));
-	// end
-	// wb_stop();
-
-	/////////////////////////////////////////////////////
-
-	// Round 2: 32 incrementing reads from 100 to 131
-	// `FANCY_BANNER("ROUND 2 BEGIN: 32 incrementing reads from 100 to 131");
-	// // Data to provide
-	// i2c_rdata = new[32];
-	// for (byte i = 0; i < 32; i++) begin
-	// 	i2c_rdata[i] = i + 8'd100;
-	// end
-	// wb_start();
-	// wb_write(.wdata(`SLAVE_ADDR | 8'h1));
-	// // Read with ACK
-	// for (byte i = 0; i < 31; i++) begin
-	// 	wb_read_ack(.rdata(dpr_rdata));
-	// end
-	// // Read with NACK. Signal slave to stop transfer
-	// wb_read_nack (.rdata(dpr_rdata));
-	// wb_stop();
-
-	/////////////////////////////////////////////////////
-
-	// Round 3: Alternate writes and reads for 64 transfers
-	// `FANCY_BANNER("ROUND 3 BEGIN: Alternating writes and reads for 64 transfers");
-	// i2c_rdata.delete();
-	// i2c_rdata = new[1];
-	// for (int i = 0; i < 64; i++) begin
-	// 	// Write
-	// 	wb_start();
-	// 	wb_write(.wdata(`SLAVE_ADDR));
-	// 	wb_write(.wdata(round3_wdata));
-	// 	// Read
-	// 	i2c_rdata[0] = round3_rdata;
-	// 	wb_start();
-	// 	wb_write(.wdata(`SLAVE_ADDR | 8'h1));
-	// 	wb_read_nack(.rdata(dpr_rdata));
-	// 	round3_wdata++;
-	// 	round3_rdata--;
-	// end
-	// wb_stop();
-
-	/////////////////////////////////////////////////////
 
 	#1000 `FANCY_BANNER ("DONE!");
 	$finish;
 end
 
 ////////////////////////////////////////////////////////////////////////////
+
+bit [I2C_DATA_WIDTH-1:0]	i2c_wdata[];
+bit [I2C_DATA_WIDTH-1:0]	i2c_rdata[];
+i2c_op_t 					op;
+bit 						transfer_complete;
 
 initial begin: I2C_FLOW
 	// Wait for reset because a STOP condition occurs at 0ns
