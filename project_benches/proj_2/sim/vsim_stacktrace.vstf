@@ -229,3 +229,181 @@
 # End of Stack Trace
 
 
+# Current time Fri Mar 10 15:44:13 2023
+# Program = vsim
+# Id = "2022.2_1"
+# Version = "2022.05"
+# Date = "May 19 2022"
+# Platform = "linux"
+# Signature = ad023991cfb54258fd275c6be907a2aa
+# 0    0xf6345c30: '/mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/interface_packages/wb_pkg/src/wb_driver.svh:91'
+# 1    0xf6346c4a: '/mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/interface_packages/wb_pkg/src/wb_driver.svh:89'
+# 2    0xf6348ba1: '../testbench/top.sv:216'
+# 3    0x09d6dfb9: '<unknown (@0x9d6dfb9)>'
+# 4    0x082fb5c4: '<unknown (@0x82fb5c4)>'
+# 5    0x081aa244: '<unknown (@0x81aa244)>'
+# 6    0x08338a5d: '<unknown (@0x8338a5d)>'
+# 7    0x0884ddc0: '<unknown (@0x884ddc0)>'
+# 8    0x08853467: '<unknown (@0x8853467)>'
+# 9    0x0885523f: '<unknown (@0x885523f)>'
+# 10   0x08b1f227: '<unknown (@0x8b1f227)>'
+# 11   0x0a203c8b: '<unknown (@0xa203c8b)>'
+# 12   0x0a20327a: '<unknown (@0xa20327a)>'
+# 13   0x0a208803: '<unknown (@0xa208803)>'
+# 14   0x0a20891a: '<unknown (@0xa20891a)>'
+# 15   0x0a209fc1: '<unknown (@0xa209fc1)>'
+# 16   0x0a20a336: '<unknown (@0xa20a336)>'
+# 17   0x08da3967: '<unknown (@0x8da3967)>'
+# 18   0x0a2b2037: '<unknown (@0xa2b2037)>'
+# 19   0x0a30c30c: '<unknown (@0xa30c30c)>'
+# 20   0x0a30f178: '<unknown (@0xa30f178)>'
+# 21   0x0a2cb538: '<unknown (@0xa2cb538)>'
+# 22   0x0a2cb845: '<unknown (@0xa2cb845)>'
+# 23   0x0a09c275: '<unknown (@0xa09c275)>'
+# 24   0x08817bff: '<unknown (@0x8817bff)>'
+# 25   0x086b33de: '<unknown (@0x86b33de)>'
+# End of Stack Trace
+
+
+# Current time Fri Mar 10 15:48:08 2023
+# Program = vsim
+# Id = "2022.2_1"
+# Version = "2022.05"
+# Date = "May 19 2022"
+# Platform = "linux"
+# Signature = ad023991cfb54258fd275c6be907a2aa
+# 0    0xf6345c30: '/mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/interface_packages/wb_pkg/src/wb_driver.svh:91'
+# 1    0xf6346c4a: '/mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/interface_packages/wb_pkg/src/wb_driver.svh:89'
+# 2    0xf6348ba1: '../testbench/top.sv:215'
+# 3    0x09d6dfb9: '<unknown (@0x9d6dfb9)>'
+# 4    0x082fb5c4: '<unknown (@0x82fb5c4)>'
+# 5    0x081aa244: '<unknown (@0x81aa244)>'
+# 6    0x08338a5d: '<unknown (@0x8338a5d)>'
+# 7    0x0884ddc0: '<unknown (@0x884ddc0)>'
+# 8    0x08853467: '<unknown (@0x8853467)>'
+# 9    0x0885523f: '<unknown (@0x885523f)>'
+# 10   0x08b1f227: '<unknown (@0x8b1f227)>'
+# 11   0x0a203c8b: '<unknown (@0xa203c8b)>'
+# 12   0x0a20327a: '<unknown (@0xa20327a)>'
+# 13   0x0a208803: '<unknown (@0xa208803)>'
+# 14   0x0a20891a: '<unknown (@0xa20891a)>'
+# 15   0x0a209fc1: '<unknown (@0xa209fc1)>'
+# 16   0x0a20a336: '<unknown (@0xa20a336)>'
+# 17   0x08da3967: '<unknown (@0x8da3967)>'
+# 18   0x0a2b2037: '<unknown (@0xa2b2037)>'
+# 19   0x0a30c30c: '<unknown (@0xa30c30c)>'
+# 20   0x0a30f178: '<unknown (@0xa30f178)>'
+# 21   0x0a2cb538: '<unknown (@0xa2cb538)>'
+# 22   0x0a2cb845: '<unknown (@0xa2cb845)>'
+# 23   0x0a09c275: '<unknown (@0xa09c275)>'
+# 24   0x08817bff: '<unknown (@0x8817bff)>'
+# 25   0x086b33de: '<unknown (@0x86b33de)>'
+# End of Stack Trace
+
+
+# Current time Fri Mar 10 15:52:26 2023
+# Program = vsim
+# Id = "2022.2_1"
+# Version = "2022.05"
+# Date = "May 19 2022"
+# Platform = "linux"
+# Signature = ad023991cfb54258fd275c6be907a2aa
+# 0    0xf6345c30: '/mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/interface_packages/wb_pkg/src/wb_driver.svh:91'
+# 1    0xf6346c4a: '/mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/interface_packages/wb_pkg/src/wb_driver.svh:89'
+# 2    0xf6348ba1: '../testbench/top.sv:215'
+# 3    0x09d6dfb9: '<unknown (@0x9d6dfb9)>'
+# 4    0x082fb5c4: '<unknown (@0x82fb5c4)>'
+# 5    0x081aa244: '<unknown (@0x81aa244)>'
+# 6    0x08338a5d: '<unknown (@0x8338a5d)>'
+# 7    0x0884ddc0: '<unknown (@0x884ddc0)>'
+# 8    0x08853467: '<unknown (@0x8853467)>'
+# 9    0x0885523f: '<unknown (@0x885523f)>'
+# 10   0x08b1f227: '<unknown (@0x8b1f227)>'
+# 11   0x0a203c8b: '<unknown (@0xa203c8b)>'
+# 12   0x0a20327a: '<unknown (@0xa20327a)>'
+# 13   0x0a208803: '<unknown (@0xa208803)>'
+# 14   0x0a20891a: '<unknown (@0xa20891a)>'
+# 15   0x0a209fc1: '<unknown (@0xa209fc1)>'
+# 16   0x0a20a336: '<unknown (@0xa20a336)>'
+# 17   0x08da3967: '<unknown (@0x8da3967)>'
+# 18   0x0a2b2037: '<unknown (@0xa2b2037)>'
+# 19   0x0a30c30c: '<unknown (@0xa30c30c)>'
+# 20   0x0a30f178: '<unknown (@0xa30f178)>'
+# 21   0x0a2cb538: '<unknown (@0xa2cb538)>'
+# 22   0x0a2cb845: '<unknown (@0xa2cb845)>'
+# 23   0x0a09c275: '<unknown (@0xa09c275)>'
+# 24   0x08817bff: '<unknown (@0x8817bff)>'
+# 25   0x086b33de: '<unknown (@0x86b33de)>'
+# End of Stack Trace
+
+
+# Current time Fri Mar 10 16:02:07 2023
+# Program = vsim
+# Id = "2022.2_1"
+# Version = "2022.05"
+# Date = "May 19 2022"
+# Platform = "linux"
+# Signature = ad023991cfb54258fd275c6be907a2aa
+# 0    0xf63475c5: '/mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/interface_packages/wb_pkg/src/wb_transaction.svh:25'
+# 1    0xf6348e0f: '../testbench/top.sv:215'
+# 2    0x09d6dfb9: '<unknown (@0x9d6dfb9)>'
+# 3    0x082fb5c4: '<unknown (@0x82fb5c4)>'
+# 4    0x081aa244: '<unknown (@0x81aa244)>'
+# 5    0x08338a5d: '<unknown (@0x8338a5d)>'
+# 6    0x0884ddc0: '<unknown (@0x884ddc0)>'
+# 7    0x08853467: '<unknown (@0x8853467)>'
+# 8    0x0885523f: '<unknown (@0x885523f)>'
+# 9    0x08b1f227: '<unknown (@0x8b1f227)>'
+# 10   0x0a203c8b: '<unknown (@0xa203c8b)>'
+# 11   0x0a20327a: '<unknown (@0xa20327a)>'
+# 12   0x0a208803: '<unknown (@0xa208803)>'
+# 13   0x0a20891a: '<unknown (@0xa20891a)>'
+# 14   0x0a209fc1: '<unknown (@0xa209fc1)>'
+# 15   0x0a20a336: '<unknown (@0xa20a336)>'
+# 16   0x08da3967: '<unknown (@0x8da3967)>'
+# 17   0x0a2b2037: '<unknown (@0xa2b2037)>'
+# 18   0x0a30c30c: '<unknown (@0xa30c30c)>'
+# 19   0x0a30f178: '<unknown (@0xa30f178)>'
+# 20   0x0a2cb538: '<unknown (@0xa2cb538)>'
+# 21   0x0a2cb845: '<unknown (@0xa2cb845)>'
+# 22   0x0a09c275: '<unknown (@0xa09c275)>'
+# 23   0x08817bff: '<unknown (@0x8817bff)>'
+# 24   0x086b33de: '<unknown (@0x86b33de)>'
+# End of Stack Trace
+
+
+# Current time Fri Mar 10 16:02:53 2023
+# Program = vsim
+# Id = "2022.2_1"
+# Version = "2022.05"
+# Date = "May 19 2022"
+# Platform = "linux"
+# Signature = ad023991cfb54258fd275c6be907a2aa
+# 0    0xf63475c5: '/mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/interface_packages/wb_pkg/src/wb_transaction.svh:25'
+# 1    0xf6348e0f: '../testbench/top.sv:215'
+# 2    0x09d6dfb9: '<unknown (@0x9d6dfb9)>'
+# 3    0x082fb5c4: '<unknown (@0x82fb5c4)>'
+# 4    0x081aa244: '<unknown (@0x81aa244)>'
+# 5    0x08338a5d: '<unknown (@0x8338a5d)>'
+# 6    0x0884ddc0: '<unknown (@0x884ddc0)>'
+# 7    0x08853467: '<unknown (@0x8853467)>'
+# 8    0x0885523f: '<unknown (@0x885523f)>'
+# 9    0x08b1f227: '<unknown (@0x8b1f227)>'
+# 10   0x0a203c8b: '<unknown (@0xa203c8b)>'
+# 11   0x0a20327a: '<unknown (@0xa20327a)>'
+# 12   0x0a208803: '<unknown (@0xa208803)>'
+# 13   0x0a20891a: '<unknown (@0xa20891a)>'
+# 14   0x0a209fc1: '<unknown (@0xa209fc1)>'
+# 15   0x0a20a336: '<unknown (@0xa20a336)>'
+# 16   0x08da3967: '<unknown (@0x8da3967)>'
+# 17   0x0a2b2037: '<unknown (@0xa2b2037)>'
+# 18   0x0a30c30c: '<unknown (@0xa30c30c)>'
+# 19   0x0a30f178: '<unknown (@0xa30f178)>'
+# 20   0x0a2cb538: '<unknown (@0xa2cb538)>'
+# 21   0x0a2cb845: '<unknown (@0xa2cb845)>'
+# 22   0x0a09c275: '<unknown (@0xa09c275)>'
+# 23   0x08817bff: '<unknown (@0x8817bff)>'
+# 24   0x086b33de: '<unknown (@0x86b33de)>'
+# End of Stack Trace
+
+

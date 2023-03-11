@@ -1,15 +1,29 @@
-class wb_transaction extends ncsu_transaction;
+class wb_transaction #(
+    parameter int ADDR_WIDTH = 2,
+    parameter int DATA_WIDTH = 8
+) extends ncsu_transaction;
+
+    // typedef wb_transaction #(ADDR_WIDTH, DATA_WIDTH) wb_transaction_t;
 
     // TODO: Figure out why we call this macro
     // It's so that we can register this object with a factory
     // `ncsu_register_object(wb_transaction)
-
-    bit wb_op;
-    bit [6:0] wb_addr;
-    bit [7:0] wb_data [];
+    local bit cmd;
+    local bit [ADDR_WIDTH-1:0] addr;
+    local bit [DATA_WIDTH-1:0] data;
 
     function new (string name = "");
         super.new(name);
+    endfunction
+
+    function void create (bit cmd, bit [ADDR_WIDTH-1:0] addr, bit [DATA_WIDTH-1:0] data);
+        this.cmd = cmd;
+        this.addr = addr;
+        this.data = data;
+    endfunction
+
+    function void print ();
+        $display ("cmd = %b, addr = %b, data = %b", this.cmd, this.addr, this.data);
     endfunction
 
 endclass

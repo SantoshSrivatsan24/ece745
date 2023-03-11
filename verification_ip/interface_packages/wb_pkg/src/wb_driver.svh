@@ -17,72 +17,26 @@ class wb_driver extends ncsu_component #(.T(wb_transaction));
 
     function new (string name = "", ncsu_component #(T) parent = null);
         super.new (name, parent);
+        // TODO: Move this to the agent
         if ( !(ncsu_config_db#(virtual wb_if #(.ADDR_WIDTH(2), .DATA_WIDTH(8)))::get(get_full_name(), this.wb_bus))) begin;
             $display("abc_agent::ncsu_config_db::get() call for BFM handle failed for name: %s ", get_full_name());
             $finish;
         end 
     endfunction
 
-	//////////////////////////////////////////////////////////////////////
-    
-    // Wait for IRQ to go high. Clear IRQ by reading the CMDR register
-    local task wb_wait();
-        bit [7:0] cmdr_rdata;
-        wb_bus.wait_for_interrupt ();
-        wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
-    endtask
-
-    local task wb_start();
-        wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_START));
-        wb_wait();
-    endtask
-
-    local task wb_stop();
-        wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_STOP));
-        wb_wait();
-    endtask
-
-    local task wb_write(input byte wdata);
-        wb_bus.master_write (.addr(	`DPR_ADDR), .data (wdata));
-        wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_WRITE));
-        wb_wait();
-    endtask;
-
-    // Issue a READ with ACK command (slave writes to the DPR)
-    local task wb_read_ack(output byte rdata);
-        wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_READ_ACK));
-        wb_wait();
-        wb_bus.master_read (.addr(`DPR_ADDR), .data(rdata));
-    endtask
-
-    // Issue a READ with NACK command. Signal slave to stop transfer
-    local task wb_read_nack(output byte rdata);
-        wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_READ_NACK));
-        wb_wait();
-        wb_bus.master_read (.addr(`DPR_ADDR), .data(rdata));
-    endtask
-
-	//////////////////////////////////////////////////////////////////////
-
     task wb_enable();
         wb_bus.master_write (.addr(`CSR_ADDR), .data('b11xx_xxxx)); 
     endtask
 
-    task wb_set_bus(input byte bus_id);
-        wb_bus.master_write (.addr(`DPR_ADDR), .data(bus_id));
-        wb_bus.master_write (.addr(`CMDR_ADDR), .data(`CMD_SET_BUS));
-        wb_wait();
-    endtask
-
     virtual task bl_put (input T trans);
-        bit [7:0] addr = {trans.wb_addr, trans.wb_op};
-        ncsu_info("ncsu_component::bl_put()", $sformatf(" of %s called",get_full_name()), NCSU_NONE);
-        wb_start();
-        wb_write(.wdata(addr));
-	    foreach(trans.wb_data[i]) begin
-		    wb_write(.wdata(trans.wb_data[i]));
-	    end
-	    wb_stop();
+        bit [7:0] cmdr_rdata;
+        if (trans.cmd) begin
+            wb_bus.master_write(.addr(trans.addr), .data(trans.data));
+            wb_bus.wait_for_interrupt ();
+            wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
+        end else begin
+            wb_bus.master_write(.addr(trans.addr), .data(trans.data));
+        end
     endtask
 
 	//////////////////////////////////////////////////////////////////////

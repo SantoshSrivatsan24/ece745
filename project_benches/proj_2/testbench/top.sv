@@ -56,7 +56,8 @@ tri  [NUM_I2C_BUSSES-1:0] scl;
 triand  [NUM_I2C_BUSSES-1:0] sda;
 
 wb_driver driver;
-wb_transaction wb_trans;
+wb_monitor monitor;
+wb_transaction #(.ADDR_WIDTH(WB_ADDR_WIDTH), .DATA_WIDTH(WB_DATA_WIDTH)) wb_trans;
 
 // ****************************************************************************
 // Clock generator
@@ -199,22 +200,39 @@ i2c_bus (
 ////////////////////////////////////////////////////////////////////////////
 
 initial begin: TEST_FLOW
-	ncsu_config_db #(virtual wb_if #(.ADDR_WIDTH(2), .DATA_WIDTH(8)))::set("tst.env.wb_agent.wb_driver", wb_bus);
-	driver = new ("tst.env.wb_agent.wb_driver", null);
+	ncsu_config_db #(virtual wb_if #(.ADDR_WIDTH(WB_ADDR_WIDTH), .DATA_WIDTH(WB_DATA_WIDTH)))::set("tst.env.wb_agent", wb_bus);
+	driver = new ("tst.env.wb_agent", null);
+	monitor = new ("tst.env.wb_agent", null);
+
 	wb_trans = new ("wb_trans");
-	// Create a new transaction. TODO: The generator is supposed to do this.
-	wb_trans.wb_op = 1'b0;
-	wb_trans.wb_addr = 8'h22;
-	wb_trans.wb_data = new [3];
-	for (byte i = 8'd0; i < 8'd3; i++) begin
-		wb_trans.wb_data[i] = i;
-	end
 
 	wait (!rst);
-	driver.wb_enable	();
-	driver.wb_set_bus	(.bus_id(8'h00));
-	driver.bl_put 		(wb_trans);
+	monitor.run();
+	driver.wb_enable();
 
+	wb_trans.create (0, `DPR_ADDR, 8'h00);
+	driver.bl_put(wb_trans);
+
+	wb_trans.create (1, `CMDR_ADDR, `CMD_SET_BUS);
+	driver.bl_put(wb_trans);
+
+	wb_trans.create (1, `CMDR_ADDR, `CMD_START);
+	driver.bl_put (wb_trans);
+
+	wb_trans.create (0, `DPR_ADDR, 8'h22);
+	driver.bl_put (wb_trans);
+
+	wb_trans.create (1, `CMDR_ADDR, `CMD_WRITE);
+	driver.bl_put (wb_trans);
+
+	wb_trans.create (0, `DPR_ADDR, 8'hab);
+	driver.bl_put (wb_trans);
+
+	wb_trans.create (1, `CMDR_ADDR, `CMD_WRITE);
+	driver.bl_put (wb_trans);
+	
+	wb_trans.create (1, `CMDR_ADDR, `CMD_STOP);
+	driver.bl_put (wb_trans);
 
 	#1000 `FANCY_BANNER ("DONE!");
 	$finish;
