@@ -55,8 +55,9 @@ wire irq;
 tri  [NUM_I2C_BUSSES-1:0] scl;
 triand  [NUM_I2C_BUSSES-1:0] sda;
 
-wb_driver driver;
-wb_monitor monitor;
+// wb_driver driver;
+// wb_monitor monitor;
+wb_agent agent;
 wb_transaction #(.ADDR_WIDTH(WB_ADDR_WIDTH), .DATA_WIDTH(WB_DATA_WIDTH)) wb_trans;
 
 // ****************************************************************************
@@ -201,38 +202,42 @@ i2c_bus (
 
 initial begin: TEST_FLOW
 	ncsu_config_db #(virtual wb_if #(.ADDR_WIDTH(WB_ADDR_WIDTH), .DATA_WIDTH(WB_DATA_WIDTH)))::set("tst.env.wb_agent", wb_bus);
-	driver = new ("tst.env.wb_agent", null);
-	monitor = new ("tst.env.wb_agent", null);
 
+	// driver = new ("tst.env.wb_agent", null);
+	// monitor = new ("tst.env.wb_agent", null);
+	agent = new ("tst.env.wb_agent", null);
+	agent.build();
 	wb_trans = new ("wb_trans");
 
 	wait (!rst);
-	monitor.run();
-	driver.wb_enable();
+	agent.run();
+	
+	wb_trans.create (0, `CSR_ADDR, 8'b11xx_xxxx);
+	agent.bl_put (wb_trans);
 
 	wb_trans.create (0, `DPR_ADDR, 8'h00);
-	driver.bl_put(wb_trans);
+	agent.bl_put(wb_trans);
 
 	wb_trans.create (1, `CMDR_ADDR, `CMD_SET_BUS);
-	driver.bl_put(wb_trans);
+	agent.bl_put(wb_trans);
 
 	wb_trans.create (1, `CMDR_ADDR, `CMD_START);
-	driver.bl_put (wb_trans);
+	agent.bl_put (wb_trans);
 
 	wb_trans.create (0, `DPR_ADDR, 8'h22);
-	driver.bl_put (wb_trans);
+	agent.bl_put (wb_trans);
 
 	wb_trans.create (1, `CMDR_ADDR, `CMD_WRITE);
-	driver.bl_put (wb_trans);
+	agent.bl_put (wb_trans);
 
 	wb_trans.create (0, `DPR_ADDR, 8'hab);
-	driver.bl_put (wb_trans);
+	agent.bl_put (wb_trans);
 
 	wb_trans.create (1, `CMDR_ADDR, `CMD_WRITE);
-	driver.bl_put (wb_trans);
+	agent.bl_put (wb_trans);
 	
 	wb_trans.create (1, `CMDR_ADDR, `CMD_STOP);
-	driver.bl_put (wb_trans);
+	agent.bl_put (wb_trans);
 
 	#1000 `FANCY_BANNER ("DONE!");
 	$finish;

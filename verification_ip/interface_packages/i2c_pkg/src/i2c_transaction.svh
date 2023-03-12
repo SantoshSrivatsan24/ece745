@@ -1,4 +1,7 @@
-class i2c_transaction extends ncsu_transaction;
+class i2c_transaction #(
+    parameter int ADDR_WIDTH = 7,
+    parameter int DATA_WIDTH = 8
+)extends ncsu_transaction;
 
     // TODO: Figure out why we call this macro
     // It's so that we can register this object with a factory

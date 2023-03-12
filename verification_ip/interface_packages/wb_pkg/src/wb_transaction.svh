@@ -8,9 +8,9 @@ class wb_transaction #(
     // TODO: Figure out why we call this macro
     // It's so that we can register this object with a factory
     // `ncsu_register_object(wb_transaction)
-    local bit cmd;
-    local bit [ADDR_WIDTH-1:0] addr;
-    local bit [DATA_WIDTH-1:0] data;
+    bit cmd;
+    bit [ADDR_WIDTH-1:0] addr;
+    bit [DATA_WIDTH-1:0] data;
 
     function new (string name = "");
         super.new(name);

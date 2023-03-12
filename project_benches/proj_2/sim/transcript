@@ -1,5 +1,5 @@
 # vsim -c -classdebug -msgmode both -do "set NoQuitOnFinish 1; do vcd.do" optimized_debug_top_tb 
-# Start time: 18:00:55 on Mar 11,2023
+# Start time: 18:53:05 on Mar 12,2023
 # //  Questa Sim
 # //  Version 2022.2_1 linux May 19 2022
 # //
@@ -49,34 +49,36 @@
 # ----------------------------------------------------------------
 # 
 # 
-# tst.env.wb_agent wb_monitor::run() (W) Addr = 0x00 Data = 0x11000000
-# tst.env.wb_agent wb_monitor::run() (W) Addr = 0x01 Data = 0x00000000
-# tst.env.wb_agent wb_monitor::run() (W) Addr = 0x02 Data = 0x00000110
-# tst.env.wb_agent wb_monitor::run() (R) Addr = 0x02 Data = 0x10000110
-# tst.env.wb_agent wb_monitor::run() (W) Addr = 0x02 Data = 0x00000100
-# tst.env.wb_agent wb_monitor::run() (R) Addr = 0x02 Data = 0x10000100
-# tst.env.wb_agent wb_monitor::run() (W) Addr = 0x01 Data = 0x00100010
-# tst.env.wb_agent wb_monitor::run() (W) Addr = 0x02 Data = 0x00000001
-# tst.env.wb_agent wb_monitor::run() (R) Addr = 0x02 Data = 0x10000001
-# tst.env.wb_agent wb_monitor::run() (W) Addr = 0x01 Data = 0x10101011
-# tst.env.wb_agent wb_monitor::run() (W) Addr = 0x02 Data = 0x00000001
-# tst.env.wb_agent wb_monitor::run() (R) Addr = 0x02 Data = 0x10000001
-# tst.env.wb_agent wb_monitor::run() (W) Addr = 0x02 Data = 0x00000101
+# NCSU_INFO:Time 0.00 ns:ncsu_component::build():  of tst.env.wb_agent.driver called
+# NCSU_INFO:Time 0.00 ns:ncsu_component::build():  of tst.env.wb_agent.monitor called
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x0 Data = 0x11000000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0x00000000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0x00000110
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0x10000110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0x00000100
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0x10000100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0x00100010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0x00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0x10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0x10101011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0x00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0x10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0x00000101
 # =========================================
 # I2C BUS WRITE TRANSFER (194085.00 ns)
 # -----------------------------------------
 # Addr = 0x11
 # Data = 171   
-# tst.env.wb_agent wb_monitor::run() (R) Addr = 0x02 Data = 0x10000101
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0x10000101
 # 
 # ************************************************************
 # DONE!
 # ************************************************************
 # 
-# ** Note: $finish    : ../testbench/top.sv(238)
+# ** Note: $finish    : ../testbench/top.sv(243)
 #    Time: 195115 ns  Iteration: 0  Instance: /top
 # 1
-# Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 238
-# Stopped at ../testbench/top.sv line 238
-# End time: 18:00:56 on Mar 11,2023, Elapsed time: 0:00:01
+# Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 243
+# Stopped at ../testbench/top.sv line 243
+# End time: 18:53:06 on Mar 12,2023, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
