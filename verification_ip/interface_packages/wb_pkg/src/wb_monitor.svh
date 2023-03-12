@@ -1,9 +1,11 @@
 class wb_monitor extends ncsu_component #(.T(wb_transaction));
 
     virtual wb_if #(.ADDR_WIDTH(2), .DATA_WIDTH(8)) wb_bus;
+    ncsu_component #(T) wb_agent;
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new(name, parent);
+        $cast (this.wb_agent, this.parent);
     endfunction
 
     virtual task run ();
@@ -16,6 +18,7 @@ class wb_monitor extends ncsu_component #(.T(wb_transaction));
             end else begin
                 $display ("%s wb_monitor::run() (R) Addr = 0x%x Data = 0x%b", get_full_name(), monitored_trans.addr, monitored_trans.data);
             end
+            wb_agent.nb_put (monitored_trans);
         end
     endtask
 

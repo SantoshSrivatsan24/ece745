@@ -3,6 +3,7 @@ class wb_agent extends ncsu_component #(.T(wb_transaction));
     virtual wb_if #(.ADDR_WIDTH(2), .DATA_WIDTH(8)) wb_bus;
     wb_driver driver;
     wb_monitor monitor;
+    ncsu_component #(T) subscribers[$];
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new (name, parent);
@@ -13,6 +14,7 @@ class wb_agent extends ncsu_component #(.T(wb_transaction));
     endfunction
 
     virtual function void build();
+        super.build();
         driver = new("driver", this);
         driver.build();
         driver.wb_bus = this.wb_bus;
@@ -25,10 +27,24 @@ class wb_agent extends ncsu_component #(.T(wb_transaction));
         driver.bl_put(trans);
     endtask
 
+    function void connect_subscriber(ncsu_component #(T) subscriber);
+        subscribers.push_back (subscriber);
+    endfunction
+
+    virtual function void nb_put(T trans);
+        foreach (subscribers[i]) begin
+            subscribers[i].nb_put (trans);
+        end
+    endfunction
+
     virtual task run();
         fork
             monitor.run();
         join_none
     endtask
+
+    virtual function void test();
+        $display ("agent");
+    endfunction
 
 endclass
