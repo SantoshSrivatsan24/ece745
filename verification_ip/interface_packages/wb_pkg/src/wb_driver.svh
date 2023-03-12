@@ -18,11 +18,6 @@ class wb_driver extends ncsu_component #(.T(wb_transaction));
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new (name, parent);
-        // TODO: Move this to the agent
-        // if ( !(ncsu_config_db#(virtual wb_if #(.ADDR_WIDTH(2), .DATA_WIDTH(8)))::get(get_full_name(), this.wb_bus))) begin;
-        //     $display("abc_agent::ncsu_config_db::get() call for BFM handle failed for name: %s ", get_full_name());
-        //     $finish;
-        // end 
     endfunction
 
     virtual task bl_put (input T trans);

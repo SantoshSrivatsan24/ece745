@@ -11,6 +11,7 @@ class wb_transaction #(
     bit cmd;
     bit [ADDR_WIDTH-1:0] addr;
     bit [DATA_WIDTH-1:0] data;
+    bit we;
 
     function new (string name = "");
         super.new(name);
