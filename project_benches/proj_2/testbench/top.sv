@@ -204,9 +204,6 @@ i2c_bus (
 initial begin: TEST_FLOW
 	ncsu_config_db #(virtual wb_if #(.ADDR_WIDTH(WB_ADDR_WIDTH), .DATA_WIDTH(WB_DATA_WIDTH)))::set("tst.env.wb_agent", wb_bus);
 
-	// driver = new ("tst.env.wb_agent", null);
-	// monitor = new ("tst.env.wb_agent", null);
-	// agent = new ("tst.env.wb_agent", null);
 	env = new ("tst.env", null);
 	env.build();
 	wb_trans = new ("wb_trans");
