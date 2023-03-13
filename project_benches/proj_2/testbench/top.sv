@@ -32,6 +32,7 @@
 import ncsu_pkg::*;
 import i2c_pkg::*;
 import wb_pkg::*;
+import i2cmb_env_pkg::*;
 
 module top();
 
@@ -57,7 +58,7 @@ triand  [NUM_I2C_BUSSES-1:0] sda;
 
 // wb_driver driver;
 // wb_monitor monitor;
-wb_agent agent;
+i2cmb_environment env;
 wb_transaction #(.ADDR_WIDTH(WB_ADDR_WIDTH), .DATA_WIDTH(WB_DATA_WIDTH)) wb_trans;
 
 // ****************************************************************************
@@ -205,39 +206,40 @@ initial begin: TEST_FLOW
 
 	// driver = new ("tst.env.wb_agent", null);
 	// monitor = new ("tst.env.wb_agent", null);
-	agent = new ("tst.env.wb_agent", null);
-	agent.build();
+	// agent = new ("tst.env.wb_agent", null);
+	env = new ("tst.env", null);
+	env.build();
 	wb_trans = new ("wb_trans");
 
 	wait (!rst);
-	agent.run();
+	env.agent.run();
 	
 	wb_trans.create (0, `CSR_ADDR, 8'b11xx_xxxx);
-	agent.bl_put (wb_trans);
+	env.agent.bl_put (wb_trans);
 
 	wb_trans.create (0, `DPR_ADDR, 8'h00);
-	agent.bl_put(wb_trans);
+	env.agent.bl_put(wb_trans);
 
 	wb_trans.create (1, `CMDR_ADDR, `CMD_SET_BUS);
-	agent.bl_put(wb_trans);
+	env.agent.bl_put(wb_trans);
 
 	wb_trans.create (1, `CMDR_ADDR, `CMD_START);
-	agent.bl_put (wb_trans);
+	env.agent.bl_put (wb_trans);
 
 	wb_trans.create (0, `DPR_ADDR, 8'h22);
-	agent.bl_put (wb_trans);
+	env.agent.bl_put (wb_trans);
 
 	wb_trans.create (1, `CMDR_ADDR, `CMD_WRITE);
-	agent.bl_put (wb_trans);
+	env.agent.bl_put (wb_trans);
 
 	wb_trans.create (0, `DPR_ADDR, 8'hab);
-	agent.bl_put (wb_trans);
+	env.agent.bl_put (wb_trans);
 
 	wb_trans.create (1, `CMDR_ADDR, `CMD_WRITE);
-	agent.bl_put (wb_trans);
+	env.agent.bl_put (wb_trans);
 	
 	wb_trans.create (1, `CMDR_ADDR, `CMD_STOP);
-	agent.bl_put (wb_trans);
+	env.agent.bl_put (wb_trans);
 
 	#1000 `FANCY_BANNER ("DONE!");
 	$finish;

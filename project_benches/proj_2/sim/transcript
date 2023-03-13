@@ -1,5 +1,5 @@
 # vsim -c -classdebug -msgmode both -do "set NoQuitOnFinish 1; do vcd.do" optimized_debug_top_tb 
-# Start time: 19:48:48 on Mar 12,2023
+# Start time: 20:11:18 on Mar 12,2023
 # //  Questa Sim
 # //  Version 2022.2_1 linux May 19 2022
 # //
@@ -19,6 +19,7 @@
 # Loading work.ncsu_pkg(fast)
 # Loading work.wb_pkg(fast)
 # Loading work.i2c_pkg(fast)
+# Loading work.i2cmb_env_pkg(fast)
 # Loading work.top_sv_unit(fast)
 # Loading work.top(fast)
 # Loading work.wb_if(fast__2)
@@ -49,6 +50,7 @@
 # ----------------------------------------------------------------
 # 
 # 
+# NCSU_INFO:Time 0.00 ns:ncsu_component::build():  of tst.env called
 # NCSU_INFO:Time 0.00 ns:ncsu_component::build():  of tst.env.wb_agent called
 # NCSU_INFO:Time 0.00 ns:ncsu_component::build():  of tst.env.wb_agent.driver called
 # NCSU_INFO:Time 0.00 ns:ncsu_component::build():  of tst.env.wb_agent.monitor called
@@ -76,10 +78,10 @@
 # DONE!
 # ************************************************************
 # 
-# ** Note: $finish    : ../testbench/top.sv(243)
+# ** Note: $finish    : ../testbench/top.sv(245)
 #    Time: 195115 ns  Iteration: 0  Instance: /top
 # 1
-# Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 243
-# Stopped at ../testbench/top.sv line 243
-# End time: 19:48:49 on Mar 12,2023, Elapsed time: 0:00:01
+# Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 245
+# Stopped at ../testbench/top.sv line 245
+# End time: 20:11:20 on Mar 12,2023, Elapsed time: 0:00:02
 # Errors: 0, Warnings: 0
