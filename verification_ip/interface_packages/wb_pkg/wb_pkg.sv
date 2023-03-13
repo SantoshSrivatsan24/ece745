@@ -2,6 +2,8 @@ package wb_pkg;
 
     import ncsu_pkg::*;
 
+    `include "wb_macros.svh"
+    
     `include "src/wb_transaction.svh"
     `include "src/wb_configuration.svh"
     `include "src/wb_driver.svh"

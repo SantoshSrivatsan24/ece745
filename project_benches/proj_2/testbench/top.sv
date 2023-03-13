@@ -60,6 +60,7 @@ triand  [NUM_I2C_BUSSES-1:0] sda;
 // wb_monitor monitor;
 i2cmb_environment env;
 wb_transaction #(.ADDR_WIDTH(WB_ADDR_WIDTH), .DATA_WIDTH(WB_DATA_WIDTH)) wb_trans;
+i2c_transaction #(.ADDR_WIDTH(I2C_ADDR_WIDTH), .DATA_WIDTH(I2C_DATA_WIDTH)) i2c_trans;
 
 // ****************************************************************************
 // Clock generator
@@ -102,27 +103,27 @@ logic wb_we;
 // ****************************************************************************
 // Monitor I2C bus and display transfers in the transcript
 
-bit [I2C_ADDR_WIDTH-1:0] i2c_addr;
-bit [I2C_DATA_WIDTH-1:0] i2c_data[];
-i2c_op_t 				 i2c_op;
+// bit [I2C_ADDR_WIDTH-1:0] i2c_addr;
+// bit [I2C_DATA_WIDTH-1:0] i2c_data[];
+// i2c_op_t 				 i2c_op;
 
-initial begin: MONITOR_I2C_BUS
-	$timeformat(-9, 2, " ns", 0);
-	wait (!rst);
-	forever begin
-		i2c_bus.monitor (.addr(i2c_addr), .op(i2c_op), .data(i2c_data));
-		if (i2c_op == WRITE) begin
-			`I2C_BANNER ($time, "I2C BUS WRITE TRANSFER");	
-		end else begin
-			`I2C_BANNER ($time, "I2C BUS READ TRANSFER");
-		end
-		$display ("Addr = 0x%x", i2c_addr);
-		$write ("Data = ");
-		foreach (i2c_data[i]) 
-			$write("%0d  ", i2c_data[i]);
-		$display ();
-	end
-end
+// initial begin: MONITOR_I2C_BUS
+// 	$timeformat(-9, 2, " ns", 0);
+// 	wait (!rst);
+// 	forever begin
+// 		i2c_bus.monitor (.addr(i2c_addr), .op(i2c_op), .data(i2c_data));
+// 		if (i2c_op == WRITE) begin
+// 			`I2C_BANNER ($time, "I2C BUS WRITE TRANSFER");	
+// 		end else begin
+// 			`I2C_BANNER ($time, "I2C BUS READ TRANSFER");
+// 		end
+// 		$display ("Addr = 0x%x", i2c_addr);
+// 		$write ("Data = ");
+// 		foreach (i2c_data[i]) 
+// 			$write("%0d  ", i2c_data[i]);
+// 		$display ();
+// 	end
+// end
 
 // ****************************************************************************
 // Define the flow of the simulation
@@ -159,11 +160,11 @@ wb_bus (
 // ****************************************************************************
 // Instantiate the I2C slave Bus Functional Model
 i2c_if #(
-	.NUM_BUSSES(NUM_I2C_BUSSES),
 	.ADDR_WIDTH(I2C_ADDR_WIDTH),
 	.DATA_WIDTH(I2C_DATA_WIDTH)
 )
 i2c_bus (
+	.rst_i  (rst),
 	.scl_i 	(scl),
 	.sda_i  (sda),
 	.sda_o  (sda)
@@ -203,40 +204,41 @@ i2c_bus (
 
 initial begin: TEST_FLOW
 	ncsu_config_db #(virtual wb_if #(.ADDR_WIDTH(WB_ADDR_WIDTH), .DATA_WIDTH(WB_DATA_WIDTH)))::set("tst.env.wb_agent", wb_bus);
+	ncsu_config_db #(virtual i2c_if #(.ADDR_WIDTH(I2C_ADDR_WIDTH), .DATA_WIDTH(I2C_DATA_WIDTH)))::set("tst.env.i2c_agent", i2c_bus);
 
 	env = new ("tst.env", null);
 	env.build();
 	wb_trans = new ("wb_trans");
 
 	wait (!rst);
-	env.agent.run();
+	env.agent0.run();
 	
 	wb_trans.create (0, `CSR_ADDR, 8'b11xx_xxxx);
-	env.agent.bl_put (wb_trans);
+	env.agent0.bl_put (wb_trans);
 
 	wb_trans.create (0, `DPR_ADDR, 8'h00);
-	env.agent.bl_put(wb_trans);
+	env.agent0.bl_put(wb_trans);
 
 	wb_trans.create (1, `CMDR_ADDR, `CMD_SET_BUS);
-	env.agent.bl_put(wb_trans);
+	env.agent0.bl_put(wb_trans);
 
 	wb_trans.create (1, `CMDR_ADDR, `CMD_START);
-	env.agent.bl_put (wb_trans);
+	env.agent0.bl_put (wb_trans);
 
 	wb_trans.create (0, `DPR_ADDR, 8'h22);
-	env.agent.bl_put (wb_trans);
+	env.agent0.bl_put (wb_trans);
 
 	wb_trans.create (1, `CMDR_ADDR, `CMD_WRITE);
-	env.agent.bl_put (wb_trans);
+	env.agent0.bl_put (wb_trans);
 
 	wb_trans.create (0, `DPR_ADDR, 8'hab);
-	env.agent.bl_put (wb_trans);
+	env.agent0.bl_put (wb_trans);
 
 	wb_trans.create (1, `CMDR_ADDR, `CMD_WRITE);
-	env.agent.bl_put (wb_trans);
+	env.agent0.bl_put (wb_trans);
 	
 	wb_trans.create (1, `CMDR_ADDR, `CMD_STOP);
-	env.agent.bl_put (wb_trans);
+	env.agent0.bl_put (wb_trans);
 
 	#1000 `FANCY_BANNER ("DONE!");
 	$finish;
@@ -253,11 +255,17 @@ initial begin: I2C_FLOW
 	// Wait for reset because a STOP condition occurs at 0ns
 	wait (!rst);
 	forever begin
-		i2c_bus.wait_for_i2c_transfer (.op(op), .write_data(i2c_wdata));
-		if (op == READ) begin
-			i2c_bus.provide_read_data(.read_data(i2c_rdata), .transfer_complete(transfer_complete));
+		env.agent1.bl_get (i2c_trans);
+		if (i2c_trans.op == READ) begin
+			env.agent1.set_data (i2c_rdata);
+			env.agent1.bl_put (i2c_trans);
 		end
 	end
+end
+
+initial begin: I2C_MONITOR
+	wait (!rst);
+	env.agent1.run();
 end
 
 endmodule

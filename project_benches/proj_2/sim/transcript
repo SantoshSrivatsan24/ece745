@@ -1,5 +1,5 @@
 # vsim -c -classdebug -msgmode both -do "set NoQuitOnFinish 1; do vcd.do" optimized_debug_top_tb 
-# Start time: 20:32:18 on Mar 12,2023
+# Start time: 18:25:00 on Mar 13,2023
 # //  Questa Sim
 # //  Version 2022.2_1 linux May 19 2022
 # //
@@ -16,6 +16,7 @@
 # //
 # Loading sv_std.std
 # Loading work.wb_if(fast)
+# Loading work.i2c_if(fast)
 # Loading work.ncsu_pkg(fast)
 # Loading work.wb_pkg(fast)
 # Loading work.i2c_pkg(fast)
@@ -24,7 +25,7 @@
 # Loading work.top(fast)
 # Loading work.wb_if(fast__2)
 # Loading work.i2c_if_sv_unit(fast)
-# Loading work.i2c_if(fast__1)
+# Loading work.i2c_if(fast__2)
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -50,53 +51,40 @@
 # ----------------------------------------------------------------
 # 
 # 
-# NCSU_INFO:Time 0.00 ns:ncsu_component::build():  of tst.env called
-# NCSU_INFO:Time 0.00 ns:ncsu_component::build():  of tst.env.wb_agent called
-# NCSU_INFO:Time 0.00 ns:ncsu_component::build():  of tst.env.wb_agent.driver called
-# NCSU_INFO:Time 0.00 ns:ncsu_component::build():  of tst.env.wb_agent.monitor called
-# NCSU_INFO:Time 0.00 ns:ncsu_component::build():  of tst.env.predictor called
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x0 Data = 0x11000000
-# The predictor who is a subscriber to the agent receives a transaction from the wishbone monitor
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0x00000000
-# The predictor who is a subscriber to the agent receives a transaction from the wishbone monitor
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0x00000110
-# The predictor who is a subscriber to the agent receives a transaction from the wishbone monitor
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0x10000110
-# The predictor who is a subscriber to the agent receives a transaction from the wishbone monitor
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0x00000100
-# The predictor who is a subscriber to the agent receives a transaction from the wishbone monitor
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0x10000100
-# The predictor who is a subscriber to the agent receives a transaction from the wishbone monitor
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0x00100010
-# The predictor who is a subscriber to the agent receives a transaction from the wishbone monitor
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0x00000001
-# The predictor who is a subscriber to the agent receives a transaction from the wishbone monitor
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0x10000001
-# The predictor who is a subscriber to the agent receives a transaction from the wishbone monitor
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0x10101011
-# The predictor who is a subscriber to the agent receives a transaction from the wishbone monitor
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0x00000001
-# The predictor who is a subscriber to the agent receives a transaction from the wishbone monitor
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0x10000001
-# The predictor who is a subscriber to the agent receives a transaction from the wishbone monitor
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0x00000101
-# The predictor who is a subscriber to the agent receives a transaction from the wishbone monitor
-# =========================================
-# I2C BUS WRITE TRANSFER (194085.00 ns)
-# -----------------------------------------
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.wb_agent called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.wb_agent.driver called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.wb_agent.monitor called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.i2c_agent called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.i2c_agent.driver called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of  called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.predictor called
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x0 Data = 0b11000000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b00000000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000110
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b00100010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b10101011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000101
+# Op = WRITE
 # Addr = 0x11
 # Data = 171   
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0x10000101
-# The predictor who is a subscriber to the agent receives a transaction from the wishbone monitor
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000101
 # 
 # ************************************************************
 # DONE!
 # ************************************************************
 # 
-# ** Note: $finish    : ../testbench/top.sv(242)
+# ** Note: $finish    : ../testbench/top.sv(244)
 #    Time: 195115 ns  Iteration: 0  Instance: /top
 # 1
-# Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 242
-# Stopped at ../testbench/top.sv line 242
-# End time: 20:32:20 on Mar 12,2023, Elapsed time: 0:00:02
+# Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 244
+# Stopped at ../testbench/top.sv line 244
+# End time: 18:25:02 on Mar 13,2023, Elapsed time: 0:00:02
 # Errors: 0, Warnings: 0

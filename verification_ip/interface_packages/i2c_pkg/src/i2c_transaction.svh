@@ -9,9 +9,13 @@ class i2c_transaction #(
     // Since the generator generates different types of `wb` transactions. Not I2C transactions
     // `ncsu_register_object (i2c_transaction)
 
-    bit i2c_op;
-    bit [6:0] i2c_addr;
-    bit [7:0] i2c_data [];
+    i2c_op_t op;
+    bit [ADDR_WIDTH-1:0] addr;
+    bit [DATA_WIDTH-1:0] data [];
     bit transfer_complete;
+
+    function new (string name = "");
+        super.new(name);
+    endfunction
 
 endclass

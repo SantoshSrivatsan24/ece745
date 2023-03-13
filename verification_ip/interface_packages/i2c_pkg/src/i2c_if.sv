@@ -4,10 +4,10 @@
 import i2c_pkg::*;
 
 interface i2c_if #(
-    int NUM_BUSSES = 1,
     int ADDR_WIDTH = 7,
     int DATA_WIDTH = 8
 )(
+    input wire      rst_i,
     input wire      scl_i,
     input wire      sda_i,
     output wire     sda_o
@@ -230,6 +230,12 @@ task monitor (
     disable fork;
     // Read data from queue for a read/write command
     data = read_data_from_q (q);
+endtask
+
+////////////////////////////////////////////////////////////////////////////
+
+task wait_for_reset ();
+    if (rst_i !== 0) @(negedge rst_i);
 endtask
 
 endinterface
