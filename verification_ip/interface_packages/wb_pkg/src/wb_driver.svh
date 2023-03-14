@@ -11,7 +11,7 @@ class wb_driver extends ncsu_component #(.T(wb_transaction));
         bit [7:0] cmdr_rdata;
         if (trans.cmd) begin
             wb_bus.master_write(.addr(trans.addr), .data(trans.data));
-            wb_bus.wait_for_interrupt ();
+            wb_bus.wait_for_interrupt();
             wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
         end else begin
             wb_bus.master_write(.addr(trans.addr), .data(trans.data));

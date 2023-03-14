@@ -56,11 +56,10 @@ wire irq;
 tri  [NUM_I2C_BUSSES-1:0] scl;
 triand  [NUM_I2C_BUSSES-1:0] sda;
 
-// wb_driver driver;
-// wb_monitor monitor;
 i2cmb_environment env;
 wb_transaction #(.ADDR_WIDTH(WB_ADDR_WIDTH), .DATA_WIDTH(WB_DATA_WIDTH)) wb_trans;
 i2c_transaction #(.ADDR_WIDTH(I2C_ADDR_WIDTH), .DATA_WIDTH(I2C_DATA_WIDTH)) i2c_trans;
+bit [I2C_DATA_WIDTH-1:0] i2c_rdata [];
 
 // ****************************************************************************
 // Clock generator
@@ -74,60 +73,9 @@ end
 // Reset generator
 
 // Active high reset (pg. 14, iicmb_mb spec)
-
 initial begin: RST_GEN
 	#113 rst = 1'b0;
 end
-
-// ****************************************************************************
-// Monitor Wishbone bus and display transfers in the transcript
-
-logic [WB_ADDR_WIDTH-1:0] wb_addr;
-logic [WB_DATA_WIDTH-1:0] wb_data;
-logic wb_we;
-
-// initial begin: WB_MONITORING
-// 	wait (!rst);
-// 	forever begin
-// 		wb_bus.master_monitor (.addr(wb_addr), .data(wb_data), .we(wb_we));
-
-// 		if (wb_we) begin
-// 			case (wb_data)
-// 				8'b0000_0100 : begin `WB_BANNER ($time, "WB BUS: Issue a START command"); end
-// 				8'b0000_0101 : begin `WB_BANNER ($time, "WB BUS: Issue a STOP command"); end
-// 			endcase
-// 		end
-// 	end
-// end
-
-// ****************************************************************************
-// Monitor I2C bus and display transfers in the transcript
-
-// bit [I2C_ADDR_WIDTH-1:0] i2c_addr;
-// bit [I2C_DATA_WIDTH-1:0] i2c_data[];
-// i2c_op_t 				 i2c_op;
-
-// initial begin: MONITOR_I2C_BUS
-// 	$timeformat(-9, 2, " ns", 0);
-// 	wait (!rst);
-// 	forever begin
-// 		i2c_bus.monitor (.addr(i2c_addr), .op(i2c_op), .data(i2c_data));
-// 		if (i2c_op == WRITE) begin
-// 			`I2C_BANNER ($time, "I2C BUS WRITE TRANSFER");	
-// 		end else begin
-// 			`I2C_BANNER ($time, "I2C BUS READ TRANSFER");
-// 		end
-// 		$display ("Addr = 0x%x", i2c_addr);
-// 		$write ("Data = ");
-// 		foreach (i2c_data[i]) 
-// 			$write("%0d  ", i2c_data[i]);
-// 		$display ();
-// 	end
-// end
-
-// ****************************************************************************
-// Define the flow of the simulation
-
 
 // ****************************************************************************
 // Instantiate the Wishbone master Bus Functional Model
@@ -213,32 +161,48 @@ initial begin: TEST_FLOW
 	wait (!rst);
 	env.agent0.run();
 	
-	wb_trans.create (0, `CSR_ADDR, 8'b11xx_xxxx);
-	env.agent0.bl_put (wb_trans);
-
-	wb_trans.create (0, `DPR_ADDR, 8'h00);
+	wb_trans.create(0, `CSR_ADDR, 8'b11xx_xxxx);
 	env.agent0.bl_put(wb_trans);
 
-	wb_trans.create (1, `CMDR_ADDR, `CMD_SET_BUS);
+	wb_trans.create(0, `DPR_ADDR, 8'h00);
 	env.agent0.bl_put(wb_trans);
 
-	wb_trans.create (1, `CMDR_ADDR, `CMD_START);
-	env.agent0.bl_put (wb_trans);
+	wb_trans.create(1, `CMDR_ADDR, `CMD_SET_BUS);
+	env.agent0.bl_put(wb_trans);
 
-	wb_trans.create (0, `DPR_ADDR, 8'h22);
-	env.agent0.bl_put (wb_trans);
+	wb_trans.create(1, `CMDR_ADDR, `CMD_START);
+	env.agent0.bl_put(wb_trans);
 
-	wb_trans.create (1, `CMDR_ADDR, `CMD_WRITE);
-	env.agent0.bl_put (wb_trans);
+	wb_trans.create(0, `DPR_ADDR, `SLAVE_ADDR);
+	env.agent0.bl_put(wb_trans);
 
-	wb_trans.create (0, `DPR_ADDR, 8'hab);
-	env.agent0.bl_put (wb_trans);
+	wb_trans.create(1, `CMDR_ADDR, `CMD_WRITE);
+	env.agent0.bl_put(wb_trans);
 
-	wb_trans.create (1, `CMDR_ADDR, `CMD_WRITE);
-	env.agent0.bl_put (wb_trans);
+	wb_trans.create(0, `DPR_ADDR, 8'hab);
+	env.agent0.bl_put(wb_trans);
+
+	wb_trans.create(1, `CMDR_ADDR, `CMD_WRITE);
+	env.agent0.bl_put(wb_trans);
+
+	i2c_rdata = new[1];
+	i2c_rdata = {8'd24};
+	env.agent1.set_data(i2c_rdata);
 	
-	wb_trans.create (1, `CMDR_ADDR, `CMD_STOP);
-	env.agent0.bl_put (wb_trans);
+	wb_trans.create(1, `CMDR_ADDR, `CMD_START);
+	env.agent0.bl_put(wb_trans);
+
+	wb_trans.create(0, `DPR_ADDR, `SLAVE_ADDR | 1'b1);
+	env.agent0.bl_put(wb_trans);
+
+	wb_trans.create(1, `CMDR_ADDR, `CMD_WRITE);
+	env.agent0.bl_put(wb_trans);
+
+	wb_trans.create(1, `CMDR_ADDR, `CMD_READ_NACK);
+	env.agent0.bl_put(wb_trans);
+
+	wb_trans.create(1, `CMDR_ADDR, `CMD_STOP);
+	env.agent0.bl_put(wb_trans);
 
 	#1000 `FANCY_BANNER ("DONE!");
 	$finish;
@@ -246,18 +210,12 @@ end
 
 ////////////////////////////////////////////////////////////////////////////
 
-bit [I2C_DATA_WIDTH-1:0]	i2c_wdata[];
-bit [I2C_DATA_WIDTH-1:0]	i2c_rdata[];
-i2c_op_t 					op;
-bit 						transfer_complete;
-
 initial begin: I2C_FLOW
 	// Wait for reset because a STOP condition occurs at 0ns
 	wait (!rst);
 	forever begin
 		env.agent1.bl_get (i2c_trans);
 		if (i2c_trans.op == READ) begin
-			env.agent1.set_data (i2c_rdata);
 			env.agent1.bl_put (i2c_trans);
 		end
 	end
