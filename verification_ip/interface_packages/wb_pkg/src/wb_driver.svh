@@ -18,5 +18,10 @@ class wb_driver extends ncsu_component #(.T(wb_transaction));
         end
     endtask
 
+    virtual task bl_get (output T trans);
+        trans = new ("read_trans");
+        wb_bus.master_read(.addr(`DPR_ADDR), .data(trans.data));
+    endtask
+
 	//////////////////////////////////////////////////////////////////////
 endclass

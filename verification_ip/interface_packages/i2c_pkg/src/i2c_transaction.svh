@@ -18,4 +18,12 @@ class i2c_transaction #(
         super.new(name);
     endfunction
 
+    function void display();
+        $display ("I2C Op = %s", op.name);
+        $display ("I2C Addr = 0x%x", addr);
+        foreach (data[i])
+            $write ("I2C Data = %0d", data[i]);
+        $display();
+    endfunction
+
 endclass

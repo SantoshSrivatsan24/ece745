@@ -23,7 +23,7 @@ class wb_transaction #(
         this.data = data;
     endfunction
 
-    function void print ();
+    function void display ();
         $display ("cmd = %b, addr = %b, data = %b", this.cmd, this.addr, this.data);
     endfunction
 

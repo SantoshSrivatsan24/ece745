@@ -58,6 +58,7 @@ triand  [NUM_I2C_BUSSES-1:0] sda;
 
 i2cmb_environment env;
 wb_transaction #(.ADDR_WIDTH(WB_ADDR_WIDTH), .DATA_WIDTH(WB_DATA_WIDTH)) wb_trans;
+wb_transaction #(.ADDR_WIDTH(WB_ADDR_WIDTH), .DATA_WIDTH(WB_DATA_WIDTH)) wb_read_trans;
 i2c_transaction #(.ADDR_WIDTH(I2C_ADDR_WIDTH), .DATA_WIDTH(I2C_DATA_WIDTH)) i2c_trans;
 bit [I2C_DATA_WIDTH-1:0] i2c_rdata [];
 
@@ -200,6 +201,7 @@ initial begin: TEST_FLOW
 
 	wb_trans.create(1, `CMDR_ADDR, `CMD_READ_NACK);
 	env.agent0.bl_put(wb_trans);
+	env.agent0.bl_get(wb_read_trans);
 
 	wb_trans.create(1, `CMDR_ADDR, `CMD_STOP);
 	env.agent0.bl_put(wb_trans);
