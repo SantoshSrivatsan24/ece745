@@ -1,11 +1,10 @@
-class wb_transaction #(
+class wb_transaction_base #(
     parameter int ADDR_WIDTH = 2,
     parameter int DATA_WIDTH = 8
 ) extends ncsu_transaction;
 
-    // TODO: Figure out why we call this macro
-    // It's so that we can register this object with a factory
-    `ncsu_register_object (wb_transaction #(2, 8))
+    // Register this object with a factory
+    `ncsu_register_object (wb_transaction_base)
     
     bit cmd;
     bit [ADDR_WIDTH-1:0] addr;

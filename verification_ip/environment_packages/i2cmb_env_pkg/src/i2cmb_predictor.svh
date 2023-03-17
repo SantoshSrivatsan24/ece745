@@ -37,9 +37,9 @@ typedef union packed {
     cmdr_t cmdr;
 } cmdr_u;
 
-class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
+class i2cmb_predictor extends ncsu_component #(.T(wb_transaction_base));
 
-    local wb_transaction #(.ADDR_WIDTH(2), .DATA_WIDTH(8)) wb_trans;
+    local wb_transaction_base #(.ADDR_WIDTH(2), .DATA_WIDTH(8)) wb_trans;
     local i2c_transaction #(.ADDR_WIDTH(7), .DATA_WIDTH(8)) i2c_trans;
 
     local bus_state_t current_bus_state;
@@ -90,7 +90,7 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
                 next_bus_state = STATE_IDLE; 
             end 
             else begin
-                $error ("Invalid command");
+                next_bus_state = STATE_IDLE;
             end
         end
 
@@ -102,9 +102,7 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
             end
             else if (cmdr.err || cmdr.al) begin
                 next_bus_state = STATE_IDLE;
-            end
-            else begin
-                $error ("Invalid flag");
+                $error ("error / arbitration lost");
             end
         end
 
@@ -144,9 +142,7 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
             end
             else if (cmdr.err || cmdr.al) begin
                 next_bus_state = STATE_IDLE;
-            end
-            else begin
-                $error ("Invalid flag");
+                $error ("error / arbitration lost");
             end
         end
 

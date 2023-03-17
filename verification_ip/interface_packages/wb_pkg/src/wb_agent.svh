@@ -1,4 +1,4 @@
-class wb_agent extends ncsu_component #(.T(wb_transaction));
+class wb_agent extends ncsu_component #(.T(wb_transaction_base));
 
     virtual wb_if #(.ADDR_WIDTH(2), .DATA_WIDTH(8)) wb_bus;
     wb_driver driver;
