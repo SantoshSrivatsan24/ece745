@@ -5,7 +5,7 @@ class wb_transaction #(
 
     // TODO: Figure out why we call this macro
     // It's so that we can register this object with a factory
-    // `ncsu_register_object(wb_transaction)
+    `ncsu_register_object (wb_transaction #(2, 8))
     
     bit cmd;
     bit [ADDR_WIDTH-1:0] addr;
