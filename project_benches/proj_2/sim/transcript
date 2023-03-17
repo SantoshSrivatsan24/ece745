@@ -1,5 +1,5 @@
 # vsim -c -classdebug -msgmode both -do "set NoQuitOnFinish 1; do vcd.do" optimized_debug_top_tb 
-# Start time: 18:54:18 on Mar 16,2023
+# Start time: 20:08:47 on Mar 16,2023
 # //  Questa Sim
 # //  Version 2022.2_1 linux May 19 2022
 # //
@@ -61,51 +61,37 @@
 # NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.predictor called
 # tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x0 Data = 0b11000000
 # ** Error: Invalid command
-#    Time: 145 ns  Scope: i2cmb_env_pkg.i2cmb_predictor.run_golden_model File: /mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/environment_packages/i2cmb_env_pkg/src/i2cmb_predictor.svh Line: 92
+#    Time: 145 ns  Scope: i2cmb_env_pkg.i2cmb_predictor.run_golden_model File: /mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/environment_packages/i2cmb_env_pkg/src/i2cmb_predictor.svh Line: 93
 # tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b00000000
 # ** Error: Invalid command
-#    Time: 185 ns  Scope: i2cmb_env_pkg.i2cmb_predictor.run_golden_model File: /mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/environment_packages/i2cmb_env_pkg/src/i2cmb_predictor.svh Line: 92
+#    Time: 185 ns  Scope: i2cmb_env_pkg.i2cmb_predictor.run_golden_model File: /mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/environment_packages/i2cmb_env_pkg/src/i2cmb_predictor.svh Line: 93
 # tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000110
 # tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000110
 # tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
 # tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
 # tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01000100
 # tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b01000001
 # tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b10101011
 # tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b01000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000101
 # Op = WRITE
 # Addr = 0x22
 # Data = 171   
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000101
 # I2C Op = WRITE
 # I2C Addr = 0x22
 # I2C Data = 171 
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01000101
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00011000
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000101
-# Op = READ
-# Addr = 0x22
-# Data = 24   
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000101
-# I2C Op = READ
-# I2C Addr = 0x22
-# I2C Data = 24 
 # 
 # ************************************************************
 # DONE!
 # ************************************************************
 # 
-# ** Note: $finish    : ../testbench/top.sv(210)
-#    Time: 390465 ns  Iteration: 0  Instance: /top
+# ** Note: $finish    : ../testbench/top.sv(214)
+#    Time: 195115 ns  Iteration: 0  Instance: /top
 # 1
-# Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 210
-# Stopped at ../testbench/top.sv line 210
-# End time: 18:54:21 on Mar 16,2023, Elapsed time: 0:00:03
+# Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 214
+# Stopped at ../testbench/top.sv line 214
+# End time: 20:08:49 on Mar 16,2023, Elapsed time: 0:00:02
 # Errors: 2, Warnings: 0

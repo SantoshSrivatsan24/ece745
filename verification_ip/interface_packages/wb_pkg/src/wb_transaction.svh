@@ -3,11 +3,10 @@ class wb_transaction #(
     parameter int DATA_WIDTH = 8
 ) extends ncsu_transaction;
 
-    // typedef wb_transaction #(ADDR_WIDTH, DATA_WIDTH) wb_transaction_t;
-
     // TODO: Figure out why we call this macro
     // It's so that we can register this object with a factory
     // `ncsu_register_object(wb_transaction)
+    
     bit cmd;
     bit [ADDR_WIDTH-1:0] addr;
     bit [DATA_WIDTH-1:0] data;

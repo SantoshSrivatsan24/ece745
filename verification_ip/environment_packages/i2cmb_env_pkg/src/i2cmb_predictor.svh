@@ -71,6 +71,7 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
         end
     endfunction
 
+
     // The predictor models the byte-level FSM in the DUT. 
     // It incrementally constructs an i2c transaction
     local function bit run_golden_model();

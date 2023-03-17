@@ -56,7 +56,8 @@ wire irq;
 tri  [NUM_I2C_BUSSES-1:0] scl;
 triand  [NUM_I2C_BUSSES-1:0] sda;
 
-i2cmb_environment env;
+// i2cmb_environment env;
+i2cmb_test test;
 wb_transaction #(.ADDR_WIDTH(WB_ADDR_WIDTH), .DATA_WIDTH(WB_DATA_WIDTH)) wb_trans;
 wb_transaction #(.ADDR_WIDTH(WB_ADDR_WIDTH), .DATA_WIDTH(WB_DATA_WIDTH)) wb_read_trans;
 i2c_transaction #(.ADDR_WIDTH(I2C_ADDR_WIDTH), .DATA_WIDTH(I2C_DATA_WIDTH)) i2c_trans;
@@ -155,56 +156,59 @@ initial begin: TEST_FLOW
 	ncsu_config_db #(virtual wb_if #(.ADDR_WIDTH(WB_ADDR_WIDTH), .DATA_WIDTH(WB_DATA_WIDTH)))::set("tst.env.wb_agent", wb_bus);
 	ncsu_config_db #(virtual i2c_if #(.ADDR_WIDTH(I2C_ADDR_WIDTH), .DATA_WIDTH(I2C_DATA_WIDTH)))::set("tst.env.i2c_agent", i2c_bus);
 
-	env = new ("tst.env", null);
-	env.build();
-	wb_trans = new ("wb_trans");
+	// env = new ("tst.env", null);
+	// env.build();
+	// wb_trans = new ("wb_trans");
+
+	test = new ("tst", null);
 
 	wait (!rst);
-	env.agent0.run();
+	test.run();
+	// env.agent0.run();
 	
-	wb_trans.create(0, `CSR_ADDR, 8'b11xx_xxxx);
-	env.agent0.bl_put(wb_trans);
+	// wb_trans.create(0, `CSR_ADDR, 8'b11xx_xxxx);
+	// env.agent0.bl_put(wb_trans);
 
-	wb_trans.create(0, `DPR_ADDR, 8'h00);
-	env.agent0.bl_put(wb_trans);
+	// wb_trans.create(0, `DPR_ADDR, 8'h00);
+	// env.agent0.bl_put(wb_trans);
 
-	wb_trans.create(1, `CMDR_ADDR, `CMD_SET_BUS);
-	env.agent0.bl_put(wb_trans);
+	// wb_trans.create(1, `CMDR_ADDR, `CMD_SET_BUS);
+	// env.agent0.bl_put(wb_trans);
 
-	wb_trans.create(1, `CMDR_ADDR, `CMD_START);
-	env.agent0.bl_put(wb_trans);
+	// wb_trans.create(1, `CMDR_ADDR, `CMD_START);
+	// env.agent0.bl_put(wb_trans);
 
-	wb_trans.create(0, `DPR_ADDR, `SLAVE_ADDR);
-	env.agent0.bl_put(wb_trans);
+	// wb_trans.create(0, `DPR_ADDR, `SLAVE_ADDR);
+	// env.agent0.bl_put(wb_trans);
 
-	wb_trans.create(1, `CMDR_ADDR, `CMD_WRITE);
-	env.agent0.bl_put(wb_trans);
+	// wb_trans.create(1, `CMDR_ADDR, `CMD_WRITE);
+	// env.agent0.bl_put(wb_trans);
 
-	wb_trans.create(0, `DPR_ADDR, 8'hab);
-	env.agent0.bl_put(wb_trans);
+	// wb_trans.create(0, `DPR_ADDR, 8'hab);
+	// env.agent0.bl_put(wb_trans);
 
-	wb_trans.create(1, `CMDR_ADDR, `CMD_WRITE);
-	env.agent0.bl_put(wb_trans);
+	// wb_trans.create(1, `CMDR_ADDR, `CMD_WRITE);
+	// env.agent0.bl_put(wb_trans);
 
-	i2c_rdata = new[1];
-	i2c_rdata = {8'd24};
-	env.agent1.set_data(i2c_rdata);
+	// i2c_rdata = new[1];
+	// i2c_rdata = {8'd24};
+	// env.agent1.set_data(i2c_rdata);
 	
-	wb_trans.create(1, `CMDR_ADDR, `CMD_START);
-	env.agent0.bl_put(wb_trans);
+	// wb_trans.create(1, `CMDR_ADDR, `CMD_START);
+	// env.agent0.bl_put(wb_trans);
 
-	wb_trans.create(0, `DPR_ADDR, `SLAVE_ADDR | 1'b1);
-	env.agent0.bl_put(wb_trans);
+	// wb_trans.create(0, `DPR_ADDR, `SLAVE_ADDR | 1'b1);
+	// env.agent0.bl_put(wb_trans);
 
-	wb_trans.create(1, `CMDR_ADDR, `CMD_WRITE);
-	env.agent0.bl_put(wb_trans);
+	// wb_trans.create(1, `CMDR_ADDR, `CMD_WRITE);
+	// env.agent0.bl_put(wb_trans);
 
-	wb_trans.create(1, `CMDR_ADDR, `CMD_READ_NACK);
-	env.agent0.bl_put(wb_trans);
-	env.agent0.bl_get(wb_read_trans);
+	// wb_trans.create(1, `CMDR_ADDR, `CMD_READ_NACK);
+	// env.agent0.bl_put(wb_trans);
+	// env.agent0.bl_get(wb_read_trans);
 
-	wb_trans.create(1, `CMDR_ADDR, `CMD_STOP);
-	env.agent0.bl_put(wb_trans);
+	// wb_trans.create(1, `CMDR_ADDR, `CMD_STOP);
+	// env.agent0.bl_put(wb_trans);
 
 	#1000 `FANCY_BANNER ("DONE!");
 	$finish;
@@ -212,20 +216,20 @@ end
 
 ////////////////////////////////////////////////////////////////////////////
 
-initial begin: I2C_FLOW
-	// Wait for reset because a STOP condition occurs at 0ns
-	wait (!rst);
-	forever begin
-		env.agent1.bl_get (i2c_trans);
-		if (i2c_trans.op == READ) begin
-			env.agent1.bl_put (i2c_trans);
-		end
-	end
-end
+// initial begin: I2C_FLOW
+// 	// Wait for reset because a STOP condition occurs at 0ns
+// 	wait (!rst);
+// 	forever begin
+// 		env.agent1.bl_get (i2c_trans);
+// 		if (i2c_trans.op == READ) begin
+// 			env.agent1.bl_put (i2c_trans);
+// 		end
+// 	end
+// end
 
-initial begin: I2C_MONITOR
-	wait (!rst);
-	env.agent1.run();
-end
+// initial begin: I2C_MONITOR
+// 	wait (!rst);
+// 	env.agent1.run();
+// end
 
 endmodule

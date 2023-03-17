@@ -9,3 +9,5 @@
 `define CMD_WRITE     3'b001
 `define CMD_SET_BUS   3'b110
 `define CMD_WAIT      3'b000
+
+`define SLAVE_ADDR	(8'h22 << 1)

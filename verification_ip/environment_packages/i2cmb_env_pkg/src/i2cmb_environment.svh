@@ -1,7 +1,7 @@
 class i2cmb_environment extends ncsu_component #(.T(i2c_transaction));
 
-    wb_agent agent0;
-    i2c_agent agent1;
+    wb_agent agent_wb;
+    i2c_agent agent_i2c;
     i2cmb_predictor predictor;
 
     function new (string name = "", ncsu_component_base parent = null);
@@ -10,18 +10,26 @@ class i2cmb_environment extends ncsu_component #(.T(i2c_transaction));
 
     virtual function void build ();
         super.build();
-        agent0 = new ("wb_agent", this);
-        agent0.build();
-        agent1 = new ("i2c_agent", this);
-        agent1.build();
+        agent_wb = new ("wb_agent", this);
+        agent_wb.build();
+        agent_i2c = new ("i2c_agent", this);
+        agent_i2c.build();
         predictor = new ("predictor", this);
         predictor.build();
-        agent0.connect_subscriber (predictor);
+        agent_wb.connect_subscriber (predictor);
     endfunction
 
     virtual task run ();
-        agent0.run();
-        agent1.run();
+        agent_wb.run();
+        agent_i2c.run();
     endtask
+
+    function wb_agent get_wb_agent();
+        return agent_wb;
+    endfunction
+
+    function i2c_agent get_i2c_agent();
+        return agent_i2c;
+    endfunction
 
 endclass
