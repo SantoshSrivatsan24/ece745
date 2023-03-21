@@ -9,10 +9,10 @@ class wb_driver extends ncsu_component #(.T(wb_transaction_base));
 
     virtual task bl_put (input T trans);
         bit [7:0] cmdr_rdata;
-        if (trans.cmd) begin
-            wb_bus.master_write(.addr(trans.addr), .data(trans.data));
+        if (trans.addr == CMDR_ADDR) begin
+            wb_bus.master_write(.addr(CMDR_ADDR), .data(trans.data));
             wb_bus.wait_for_interrupt();
-            wb_bus.master_read (.addr(`CMDR_ADDR), .data(cmdr_rdata));
+            wb_bus.master_read (.addr(CMDR_ADDR), .data(cmdr_rdata));
         end else begin
             wb_bus.master_write(.addr(trans.addr), .data(trans.data));
         end
@@ -20,7 +20,7 @@ class wb_driver extends ncsu_component #(.T(wb_transaction_base));
 
     virtual task bl_get (output T trans);
         trans = new ("read_trans");
-        wb_bus.master_read(.addr(`DPR_ADDR), .data(trans.data));
+        wb_bus.master_read(.addr(DPR_ADDR), .data(trans.data));
     endtask
 
 	//////////////////////////////////////////////////////////////////////

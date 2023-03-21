@@ -1,6 +1,6 @@
 class i2cmb_generator extends ncsu_component #(.T(wb_transaction_base));
 
-    T transactions[9];
+    T transactions[15];
     wb_agent agent_wb;
     i2c_agent agent_i2c;
 
@@ -9,40 +9,41 @@ class i2cmb_generator extends ncsu_component #(.T(wb_transaction_base));
     endfunction
 
     virtual task run();
+
         $cast(transactions[0], ncsu_object_factory::create("wb_transaction_base"));
-        transactions[0].create (0, `CSR_ADDR, 8'b11xx_xxxx);
+        transactions[0].create (`CSR_ADDR, 8'b11xx_xxxx);
         agent_wb.bl_put (transactions[0]);
 
         $cast(transactions[1], ncsu_object_factory::create("wb_transaction_base"));
-        transactions[1].create (0, `DPR_ADDR, 8'h00);
+        transactions[1].create (`DPR_ADDR, 8'h00);
         agent_wb.bl_put (transactions[1]);
 
         $cast(transactions[2], ncsu_object_factory::create("wb_transaction_base"));
-        transactions[2].create(1, `CMDR_ADDR, `CMD_SET_BUS);
+        transactions[2].create(`CMDR_ADDR, `CMD_SET_BUS);
         agent_wb.bl_put (transactions[2]);
 
         $cast(transactions[3], ncsu_object_factory::create("wb_transaction_base"));
-        transactions[3].create(1, `CMDR_ADDR, `CMD_START);
+        transactions[3].create(`CMDR_ADDR, `CMD_START);
         agent_wb.bl_put (transactions[3]);
 
         $cast(transactions[4], ncsu_object_factory::create("wb_transaction_base"));
-        transactions[4].create(0, `DPR_ADDR, `SLAVE_ADDR);
+        transactions[4].create(`DPR_ADDR, `SLAVE_ADDR);
         agent_wb.bl_put (transactions[4]);
 
         $cast(transactions[5], ncsu_object_factory::create("wb_transaction_base"));
-        transactions[5].create(1, `CMDR_ADDR, `CMD_WRITE);
+        transactions[5].create(`CMDR_ADDR, `CMD_WRITE);
         agent_wb.bl_put (transactions[5]);
 
         $cast(transactions[6], ncsu_object_factory::create("wb_transaction_base"));
-        transactions[6].create(0, `DPR_ADDR, 8'hab);
+        transactions[6].create(`DPR_ADDR, 8'hab);
         agent_wb.bl_put (transactions[6]);
 
         $cast(transactions[7], ncsu_object_factory::create("wb_transaction_base"));
-        transactions[7].create(1, `CMDR_ADDR, `CMD_WRITE);
+        transactions[7].create(`CMDR_ADDR, `CMD_WRITE);
         agent_wb.bl_put (transactions[7]);
 
         $cast(transactions[8], ncsu_object_factory::create("wb_transaction_base"));
-        transactions[8].create(1, `CMDR_ADDR, `CMD_STOP);
+        transactions[8].create(`CMDR_ADDR, `CMD_STOP);
         agent_wb.bl_put (transactions[8]);
     endtask
 
