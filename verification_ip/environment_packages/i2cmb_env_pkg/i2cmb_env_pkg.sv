@@ -15,6 +15,7 @@ package i2cmb_env_pkg;
     `include "src/i2cmb_generator_base.svh"
     `include "src/i2cmb_write_generator.svh"
     `include "src/i2cmb_read_generator.svh"
+    `include "src/i2cmb_alt_generator.svh"
     `include "src/i2cmb_test.svh"
 
 endpackage

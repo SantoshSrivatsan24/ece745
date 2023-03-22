@@ -4,28 +4,25 @@ class i2cmb_read_generator extends i2cmb_generator_base;
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new (name, parent);
-        i2c_rdata = new[32];
-        for (byte i = 8'd0; i < 8'd32; i++) begin
-            i2c_rdata[i] = i + 8'd100;
-        end
     endfunction
 
+    // Round 2: 32 incrementing reads from 100 to 131
     virtual task run ();
-        // // 32 incrementing reads from 100 to 131
-        // agent_i2c.set_data(i2c_rdata);
-        // generate_transaction (`CSR_ADDR, 8'b11xx_xxxx);
-        // generate_transaction (`DPR_ADDR, 8'h00);
-        // generate_transaction (`CMDR_ADDR, `CMD_SET_BUS);
-        // generate_transaction (`CMDR_ADDR, `CMD_START);
-        // generate_transaction (`DPR_ADDR, `SLAVE_ADDR | 8'h1);
-        // generate_transaction (`CMDR_ADDR, `CMD_WRITE);
-        // repeat (31) begin
-        //     generate_transaction (`CMDR_ADDR, `CMD_READ_ACK);
-        //     agent_wb.bl_get (wb_trans);
-        // end
-        // generate_transaction (`CMDR_ADDR, `CMD_READ_NACK);
-        // agent_wb.bl_get (wb_trans);
-        // generate_transaction (`CMDR_ADDR, `CMD_STOP);
+        bit [7:0] i2c_data[] = new[32];
+        super.run();
+
+        // Data read from the I2C bus
+        for (byte i = 8'd0; i < 8'd32; i++) begin
+            i2c_data[i] = i + 8'd100;
+        end
+
+        // Generate a sequence beginning with a START and ending with
+        // a STOP command
+        this.generate_sequence (
+            .seq_type   (SEQ_START_READ_STOP),
+            .i2c_addr   (7'h24), 
+            .i2c_data   (i2c_data)
+        );
     endtask
 
 endclass

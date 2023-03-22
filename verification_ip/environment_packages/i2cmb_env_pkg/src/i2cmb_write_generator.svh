@@ -6,19 +6,24 @@ class i2cmb_write_generator extends i2cmb_generator_base;
         super.new (name, parent);
     endfunction
 
+    // Round 1: 32 incrementing writes from 0 to 31
     virtual task run ();
-        // 32 incrementing writes from 0 to 31
-        // generate_transaction (`CSR_ADDR, 8'b11xx_xxxx);
-        // generate_transaction (`DPR_ADDR, 8'h00);
-        // generate_transaction (`CMDR_ADDR, `CMD_SET_BUS);
-        // generate_transaction (`CMDR_ADDR, `CMD_START);
-        // generate_transaction (`DPR_ADDR, `SLAVE_ADDR);
-        // generate_transaction (`CMDR_ADDR, `CMD_WRITE);
-        // for (byte wdata = 8'd0; wdata < 8'd32; wdata++) begin
-        //     generate_transaction (`DPR_ADDR, wdata);
-        //     generate_transaction (`CMDR_ADDR, `CMD_WRITE);
-        // end
-        // generate_transaction (`CMDR_ADDR, `CMD_STOP);
+        bit [7:0] i2c_data[] = new[32];
+        super.run();
+
+        // Data written to the I2C bus
+        for (byte i = 8'd0; i < 8'd32; i++) begin
+            i2c_data[i] = i;
+        end
+
+        // Generate a sequence beginning with a START and ending with
+        // a STOP command
+        this.generate_sequence (
+            .seq_type   (SEQ_START_WRITE_STOP),
+            .i2c_addr   (7'h24), 
+            .i2c_data   (i2c_data)
+        );
+
     endtask
 
 endclass

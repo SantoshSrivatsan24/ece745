@@ -1,5 +1,5 @@
 # vsim -c -classdebug -msgmode both -do "set NoQuitOnFinish 1; do vcd.do" optimized_debug_top_tb 
-# Start time: 00:33:24 on Mar 22,2023
+# Start time: 11:10:11 on Mar 22,2023
 # //  Questa Sim
 # //  Version 2022.2_1 linux May 19 2022
 # //
@@ -65,32 +65,1807 @@
 # tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000110
 # tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
 # tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01000000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 64   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 64  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00111111
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 63   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 63  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 65   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 65  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00111110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 62   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 62  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01000010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 66   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 66  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00111101
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 61   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 61  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01000011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 67   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 67  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00111100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 60   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 60  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01000100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 68   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 68  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00111011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 59   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 59  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
 # tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01000101
 # tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
 # tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000010
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000010
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b01100100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 69   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 69  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
 # tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
 # tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b10010110
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00111010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 58   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 58  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01000110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 70   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 70  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00111001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 57   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 57  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01000111
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 71   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 71  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00111000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 56   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 56  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 72   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 72  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00110111
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 55   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 55  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 73   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 73  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00110110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 54   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 54  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 74   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 74  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00110101
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 53   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 53  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 75   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 75  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00110100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 52   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 52  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 76   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 76  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00110011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 51   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 51  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001101
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 77   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 77  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00110010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 50   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 50  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 78   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 78  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00110001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 49   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 49  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001111
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 79   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 79  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00110000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 48   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 48  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01010000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 80   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 80  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00101111
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 47   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 47  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01010001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 81   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 81  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00101110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 46   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 46  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01010010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 82   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 82  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00101101
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 45   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 45  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01010011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 83   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 83  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00101100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 44   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 44  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01010100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 84   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 84  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00101011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 43   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 43  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01010101
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 85   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 85  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00101010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 42   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 42  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01010110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 86   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 86  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00101001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 41   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 41  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01010111
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 87   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 87  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00101000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 40   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 40  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01011000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 88   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 88  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00100111
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 39   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 39  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01011001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 89   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 89  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00100110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 38   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 38  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01011010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 90   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 90  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00100101
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 37   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 37  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01011011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 91   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 91  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00100100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 36   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 36  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01011100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 92   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 92  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00100011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 35   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 35  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01011101
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 93   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 93  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00100010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 34   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 34  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01011110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 94   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 94  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00100001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 33   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 33  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01011111
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 95   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 95  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00100000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 32   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 32  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01100000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 96   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 96  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00011111
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 31   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 31  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01100001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 97   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 97  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00011110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 30   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 30  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01100010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 98   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 98  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00011101
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 29   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 29  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01100011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 99   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 99  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00011100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 28   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 28  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01100100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 100   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 100  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00011011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 27   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 27  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01100101
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 101   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 101  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00011010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 26   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 26  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01100110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 102   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 102  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00011001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 25   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 25  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01100111
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 103   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 103  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00011000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 24   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 24  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01101000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 104   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 104  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00010111
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 23   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 23  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01101001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 105   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 105  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00010110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 22   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 22  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01101010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 106   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 106  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00010101
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 21   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 21  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01101011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 107   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 107  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00010100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 20   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 20  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01101100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 108   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 108  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00010011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 19   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 19  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01101101
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 109   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 109  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00010010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 18   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 18  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01101110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 110   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 110  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00010001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 17   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 17  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01101111
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 111   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 111  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00010000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 16   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 16  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01110000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 112   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 112  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00001111
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 15   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 15  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01110001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 113   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 113  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00001110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 14   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 14  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01110010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 114   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 114  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00001101
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 13   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 13  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01110011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 115   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 115  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00001100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 12   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 12  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01110100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 116   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 116  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00001011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 11   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 11  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01110101
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 117   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 117  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00001010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 10   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 10  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01110110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 118   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 118  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 9   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 9  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01110111
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 119   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 119  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 8   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 8  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01111000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 120   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 120  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00000111
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 7   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 7  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01111001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 121   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 121  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00000110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 6   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 6  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01111010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 122   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 122  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00000101
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 5   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 5  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01111011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 123   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 123  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00000100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 4   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 4  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01111100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 124   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 124  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 3   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 3  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01111101
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 125   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 125  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00000010
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 2   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 2  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01111110
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 126   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 126  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = READ
+# Addr = 0x24
+# Data = 1   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = READ
+# I2C Addr = 0x24
+# I2C Data = 1  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001000
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01111111
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
+# Op = WRITE
+# Addr = 0x24
+# Data = 127   
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
+# I2C Op = WRITE
+# I2C Addr = 0x24
+# I2C Data = 127  
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01001001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00000000
 # tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000101
 # Op = READ
-# Addr = 0x22
-# Data = 100  150   
+# Addr = 0x24
+# Data = 0   
 # tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000101
 # I2C Op = READ
-# I2C Addr = 0x22
-# I2C Data = 100  150  
+# I2C Addr = 0x24
+# I2C Data = 0  
 # 
 # ************************************************************
 # DONE!
 # ************************************************************
 # 
 # ** Note: $finish    : ../testbench/top.sv(214)
-#    Time: 285385 ns  Iteration: 0  Instance: /top
+#    Time: 25005195 ns  Iteration: 0  Instance: /top
 # 1
 # Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 214
 # Stopped at ../testbench/top.sv line 214
-# End time: 00:33:26 on Mar 22,2023, Elapsed time: 0:00:02
+# End time: 11:10:37 on Mar 22,2023, Elapsed time: 0:00:26
 # Errors: 0, Warnings: 0
