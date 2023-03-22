@@ -11,7 +11,7 @@ class i2c_monitor extends ncsu_component #(.T(i2c_transaction));
     virtual task run ();
         T monitored_trans = new ("monitored_trans");
         i2c_bus.wait_for_reset();
-        forever begin: MONITOR_I2C_BUS
+        forever begin
 		    i2c_bus.monitor (.addr(monitored_trans.addr), .op(monitored_trans.op), .data(monitored_trans.data));
             $display ("Op = %s", monitored_trans.op.name);
             $display ("Addr = 0x%x", monitored_trans.addr);

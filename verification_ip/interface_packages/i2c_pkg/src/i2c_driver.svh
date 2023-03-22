@@ -12,13 +12,14 @@ class i2c_driver extends ncsu_component #(.T(i2c_transaction));
         this.data = data;
     endfunction
 
-    virtual task bl_get (output T trans);
+    virtual task bl_get(output T trans);
         trans = new ("i2c_trans");
         i2c_bus.wait_for_i2c_transfer (.op(trans.op), .write_data(trans.data));
     endtask
 
-    virtual task bl_put (input T trans);
-        i2c_bus.provide_read_data(.read_data(this.data), .transfer_complete(trans.transfer_complete));
+    virtual task bl_put(input T trans);
+        i2c_bus.provide_read_data(.read_data(trans.data), .transfer_complete(trans.transfer_complete));
+        wait (trans.transfer_complete);
     endtask
 
 endclass

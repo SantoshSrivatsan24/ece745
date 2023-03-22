@@ -23,13 +23,13 @@ class i2c_agent extends ncsu_component #(.T(i2c_transaction));
         monitor.i2c_bus = this.i2c_bus;
     endfunction
 
-    virtual task bl_get (output T trans);
-        driver.bl_get(trans);
-    endtask
-
     function void set_data(input bit [7:0] data[]);
         driver.set_data (data);
     endfunction
+
+    virtual task bl_get (output T trans);
+        driver.bl_get(trans);
+    endtask
 
     virtual task bl_put (input T trans);
         driver.bl_put(trans);

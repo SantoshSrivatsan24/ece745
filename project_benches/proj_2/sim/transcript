@@ -1,5 +1,5 @@
 # vsim -c -classdebug -msgmode both -do "set NoQuitOnFinish 1; do vcd.do" optimized_debug_top_tb 
-# Start time: 11:40:19 on Mar 21,2023
+# Start time: 00:33:24 on Mar 22,2023
 # //  Questa Sim
 # //  Version 2022.2_1 linux May 19 2022
 # //
@@ -65,29 +65,32 @@
 # tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000110
 # tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000100
 # tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000100
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01000100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b01000101
 # tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b01000001
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x1 Data = 0b10101011
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000001
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b01000001
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000001
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000010
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000010
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b01100100
+# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000011
+# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b10010110
 # tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x2 Data = 0b00000101
-# Op = WRITE
+# Op = READ
 # Addr = 0x22
-# Data = 171   
+# Data = 100  150   
 # tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000101
-# I2C Op = WRITE
+# I2C Op = READ
 # I2C Addr = 0x22
-# I2C Data = 171 
+# I2C Data = 100  150  
 # 
 # ************************************************************
 # DONE!
 # ************************************************************
 # 
 # ** Note: $finish    : ../testbench/top.sv(214)
-#    Time: 195115 ns  Iteration: 0  Instance: /top
+#    Time: 285385 ns  Iteration: 0  Instance: /top
 # 1
 # Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 214
 # Stopped at ../testbench/top.sv line 214
-# End time: 11:40:22 on Mar 21,2023, Elapsed time: 0:00:03
+# End time: 00:33:26 on Mar 22,2023, Elapsed time: 0:00:02
 # Errors: 0, Warnings: 0
