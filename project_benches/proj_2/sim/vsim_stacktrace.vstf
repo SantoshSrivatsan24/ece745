@@ -2403,3 +2403,42 @@
 # End of Stack Trace
 
 
+# Current time Wed Mar 22 17:45:42 2023
+# Program = vsim
+# Id = "2022.2_1"
+# Version = "2022.05"
+# Date = "May 19 2022"
+# Platform = "linux"
+# Signature = ad023991cfb54258fd275c6be907a2aa
+# 0    0xf6345cc6: '/mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/interface_packages/wb_pkg/src/wb_agent.svh:17'
+# 1    0xf6345e32: '/mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/interface_packages/wb_pkg/src/wb_agent.svh:17'
+# 2    0xf64d2ab0: '/mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/environment_packages/i2cmb_env_pkg/src/i2cmb_environment.svh:21'
+# 3    0xf64d3563: '/mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/environment_packages/i2cmb_env_pkg/src/i2cmb_environment.svh:17'
+# 4    0xf64c3478: '/mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/environment_packages/i2cmb_env_pkg/src/i2cmb_test.svh:12'
+# 5    0xf64c3bd9: '/mnt/ncsudrive/s/srsrivat/spring23/ece745/lab_1_provided_files/ece745_projects/project_benches/proj_2/sim/../../../verification_ip/environment_packages/i2cmb_env_pkg/src/i2cmb_test.svh:7'
+# 6    0xf64d74e9: '../testbench/top.sv:163'
+# 7    0x09d6dfb9: '<unknown (@0x9d6dfb9)>'
+# 8    0x081aa31e: '<unknown (@0x81aa31e)>'
+# 9    0x08338a5d: '<unknown (@0x8338a5d)>'
+# 10   0x0884ddc0: '<unknown (@0x884ddc0)>'
+# 11   0x08853467: '<unknown (@0x8853467)>'
+# 12   0x0885523f: '<unknown (@0x885523f)>'
+# 13   0x08b1f227: '<unknown (@0x8b1f227)>'
+# 14   0x0a203c8b: '<unknown (@0xa203c8b)>'
+# 15   0x0a20327a: '<unknown (@0xa20327a)>'
+# 16   0x0a208803: '<unknown (@0xa208803)>'
+# 17   0x0a20891a: '<unknown (@0xa20891a)>'
+# 18   0x0a209fc1: '<unknown (@0xa209fc1)>'
+# 19   0x0a20a336: '<unknown (@0xa20a336)>'
+# 20   0x08da3967: '<unknown (@0x8da3967)>'
+# 21   0x0a2b2037: '<unknown (@0xa2b2037)>'
+# 22   0x0a30c30c: '<unknown (@0xa30c30c)>'
+# 23   0x0a30f178: '<unknown (@0xa30f178)>'
+# 24   0x0a2cb538: '<unknown (@0xa2cb538)>'
+# 25   0x0a2cb845: '<unknown (@0xa2cb845)>'
+# 26   0x0a09c275: '<unknown (@0xa09c275)>'
+# 27   0x08817bff: '<unknown (@0x8817bff)>'
+# 28   0x086b33de: '<unknown (@0x86b33de)>'
+# End of Stack Trace
+
+

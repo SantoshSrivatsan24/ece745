@@ -70,10 +70,10 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction_base));
             this.addr_complete = 1'b0;
             this.i2c_trans.op = this.i2c_op;
             this.i2c_trans.addr = this.i2c_addr;
-            {>> 8 {this.i2c_trans.data}} = this.i2c_data;
-            this.i2c_trans.display();
+            {>> 8 {this.i2c_trans.data}} = this.i2c_data;;
             this.i2c_data.delete();
             this.scoreboard.nb_transport (this.i2c_trans, this.i2c_trans);
+            this.i2c_trans = new ("predicted_trans");
         end
     endfunction
 
