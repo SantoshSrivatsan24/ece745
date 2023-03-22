@@ -11,11 +11,11 @@ class i2cmb_read_generator extends i2cmb_generator_base;
         bit [7:0] i2c_data[] = new[32];
         super.run();
 
+        `FANCY_BANNER("ROUND 2 BEGIN: 32 incrementing reads from 100 to 131")
         // Data read from the I2C bus
         for (byte i = 8'd0; i < 8'd32; i++) begin
             i2c_data[i] = i + 8'd100;
         end
-
         // Generate a sequence beginning with a START and ending with
         // a STOP command
         this.generate_sequence (

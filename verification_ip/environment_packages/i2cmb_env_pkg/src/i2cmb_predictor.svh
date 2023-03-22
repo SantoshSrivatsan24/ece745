@@ -39,6 +39,7 @@ typedef union packed {
 
 class i2cmb_predictor extends ncsu_component #(.T(wb_transaction_base));
 
+    local i2cmb_scoreboard scoreboard;
     local wb_transaction_base #(.ADDR_WIDTH(2), .DATA_WIDTH(8)) wb_trans;
     local i2c_transaction #(.ADDR_WIDTH(7), .DATA_WIDTH(8)) i2c_trans;
 
@@ -57,6 +58,10 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction_base));
         this.current_bus_state = STATE_IDLE;
     endfunction
 
+    function void set_scoreboard (i2cmb_scoreboard scbd);
+        this.scoreboard = scbd;
+    endfunction
+
     virtual function void nb_put (input T trans);
         bit transfer_complete;
         this.wb_trans = trans;
@@ -68,6 +73,7 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction_base));
             {>> 8 {this.i2c_trans.data}} = this.i2c_data;
             this.i2c_trans.display();
             this.i2c_data.delete();
+            this.scoreboard.nb_transport (this.i2c_trans, this.i2c_trans);
         end
     endfunction
 

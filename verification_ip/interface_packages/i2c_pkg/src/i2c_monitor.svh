@@ -4,7 +4,7 @@ class i2c_monitor extends ncsu_component #(.T(i2c_transaction));
     ncsu_component #(T) i2c_agent;
 
     function new (string name = "", ncsu_component_base parent = null);
-        super.new();
+        super.new(name, parent);
         $cast(this.i2c_agent, this.parent);
     endfunction
 
@@ -18,6 +18,7 @@ class i2c_monitor extends ncsu_component #(.T(i2c_transaction));
 		    $write   ("Data = ");
 		    foreach (monitored_trans.data[i]) $write("%0d  ", monitored_trans.data[i]);
 		    $display ();
+            i2c_agent.nb_put (monitored_trans);
         end
     endtask
 

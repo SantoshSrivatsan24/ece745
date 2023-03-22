@@ -3,6 +3,7 @@ class i2cmb_environment extends ncsu_component #(.T(i2c_transaction));
     wb_agent agent_wb;
     i2c_agent agent_i2c;
     i2cmb_predictor predictor;
+    i2cmb_scoreboard scoreboard;
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new(name, parent);
@@ -16,7 +17,11 @@ class i2cmb_environment extends ncsu_component #(.T(i2c_transaction));
         agent_i2c.build();
         predictor = new ("predictor", this);
         predictor.build();
+        scoreboard = new ("scoreboard", this);
+        scoreboard.build();
+        predictor.set_scoreboard (scoreboard);
         agent_wb.connect_subscriber (predictor);
+        agent_i2c.connect_subscriber (scoreboard);
     endfunction
 
     virtual task run ();

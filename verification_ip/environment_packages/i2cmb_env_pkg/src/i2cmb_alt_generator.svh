@@ -14,6 +14,7 @@ class i2cmb_alt_generator extends i2cmb_generator_base;
 
         super.run();
 
+        `FANCY_BANNER("ROUND 3 BEGIN: Alternating writes and reads for 64 transfers")
         i2c_data[0] = wdata;
         // Generate a sequence that begins and ends with a START command
         this.generate_sequence (

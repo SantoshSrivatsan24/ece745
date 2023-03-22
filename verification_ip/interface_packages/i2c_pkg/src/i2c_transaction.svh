@@ -18,6 +18,31 @@ class i2c_transaction #(
         super.new(name);
     endfunction
 
+    function bit compare (i2c_transaction rhs);
+        bit compare_op;
+        bit compare_data;
+        bit compare_addr;
+
+        compare_op = (this.op == rhs.op);
+        compare_addr = (this.addr == rhs.addr); 
+        if (this.data.size() != rhs.data.size()) begin
+            compare_data = 1'b0;
+        end else begin
+            for (int i = 0; i < data.size(); i++) begin
+                compare_data = (this.data[i] == rhs.data[i]);
+                if (!compare_data) break;
+            end
+        end
+        compare = compare_op && compare_addr && compare_data;
+    endfunction
+
+    virtual function string convert2string();
+        string str;
+        $swrite (str, "I2C Op: %s\n", this.op.name);
+        $swrite (str, "%sI2C Addr: 0x%x\n", str, this.addr);
+        return str;
+    endfunction
+
     function void display();
         $display ("I2C Op = %s", op.name);
         $display ("I2C Addr = 0x%x", addr);

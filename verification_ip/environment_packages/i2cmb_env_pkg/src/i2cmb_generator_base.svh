@@ -65,6 +65,7 @@ class i2cmb_generator_base extends ncsu_component #(.T(wb_transaction_base));
     ///////////////////////////////////////////////////////////////////////////
     task generate_sequence (seq_type_t seq_type, [6:0] i2c_addr, bit [7:0] i2c_data[]);
 
+        `BANNER ($time, "GENERATE SEQUENCE OF WB TRANSACTIONS")
         fork 
         begin
             generate_i2c_transaction (i2c_data);

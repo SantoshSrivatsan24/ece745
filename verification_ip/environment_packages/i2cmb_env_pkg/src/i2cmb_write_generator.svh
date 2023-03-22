@@ -10,12 +10,12 @@ class i2cmb_write_generator extends i2cmb_generator_base;
     virtual task run ();
         bit [7:0] i2c_data[] = new[32];
         super.run();
-
+        
+        `FANCY_BANNER("ROUND 1 BEGIN: 32 incrementing writes from 0 to 31")
         // Data written to the I2C bus
         for (byte i = 8'd0; i < 8'd32; i++) begin
             i2c_data[i] = i;
         end
-
         // Generate a sequence beginning with a START and ending with
         // a STOP command
         this.generate_sequence (
