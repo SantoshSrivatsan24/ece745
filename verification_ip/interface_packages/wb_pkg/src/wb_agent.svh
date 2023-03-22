@@ -1,10 +1,10 @@
-class wb_agent extends ncsu_component #(.T(wb_transaction_base));
+class wb_agent extends ncsu_component #(.T(wb_transaction));
 
-    virtual wb_if #(.ADDR_WIDTH(2), .DATA_WIDTH(8)) bus;
-    wb_configuration configuration;
-    wb_driver driver;
-    wb_monitor monitor;
-    ncsu_component #(T) subscribers[$];
+    local virtual wb_if #(.ADDR_WIDTH(2), .DATA_WIDTH(8)) bus;
+    local wb_configuration configuration;
+    local wb_driver driver;
+    local wb_monitor monitor;
+    local ncsu_component #(T) subscribers[$];
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new (name, parent);
@@ -22,14 +22,14 @@ class wb_agent extends ncsu_component #(.T(wb_transaction_base));
         super.build();
         driver = new("driver", this);
         driver.set_configuration (this.configuration);
+        driver.set_bus (this.bus);
         driver.build();
-        driver.bus = this.bus;
         
         monitor = new ("monitor", this);
         monitor.set_configuration (this.configuration);
         monitor.set_agent (this);
+        monitor.set_bus (this.bus);
         monitor.build();
-        monitor.bus = this.bus;
     endfunction
 
     virtual task bl_put (input T trans);

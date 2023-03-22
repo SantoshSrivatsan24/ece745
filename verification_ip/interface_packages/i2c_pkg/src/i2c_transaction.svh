@@ -43,14 +43,4 @@ class i2c_transaction #(
         end
         convert2string = $sformatf("\nOp: %s\nAddr: 0x%x\nData: %s\n", this.op.name, this.addr, data);
     endfunction
-
-    function void display();
-        $display ("I2C Op = %s", op.name);
-        $display ("I2C Addr = 0x%x", addr);
-        $write ("I2C Data =");
-        foreach (data[i])
-            $write (" %0d ", data[i]);
-        $display();
-    endfunction
-
 endclass

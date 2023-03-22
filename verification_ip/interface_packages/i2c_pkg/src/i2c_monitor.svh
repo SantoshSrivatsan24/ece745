@@ -1,11 +1,15 @@
 class i2c_monitor extends ncsu_component #(.T(i2c_transaction));
 
-    virtual i2c_if #(.ADDR_WIDTH(7), .DATA_WIDTH(8)) bus; 
-    i2c_configuration configuration;
-    ncsu_component #(T) agent;
+    local virtual i2c_if #(.ADDR_WIDTH(7), .DATA_WIDTH(8)) bus; 
+    local i2c_configuration configuration;
+    local ncsu_component #(T) agent;
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new(name, parent);
+    endfunction
+
+    function void set_bus (virtual i2c_if #(7, 8) bus);
+        this.bus = bus;
     endfunction
 
     function void set_configuration (i2c_configuration cfg);

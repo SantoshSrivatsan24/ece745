@@ -1,10 +1,14 @@
-class wb_driver extends ncsu_component #(.T(wb_transaction_base));
+class wb_driver extends ncsu_component #(.T(wb_transaction));
 
-    virtual wb_if #(.ADDR_WIDTH(2), .DATA_WIDTH(8)) bus;
-    wb_configuration configuration;
+    local virtual wb_if #(.ADDR_WIDTH(2), .DATA_WIDTH(8)) bus;
+    local wb_configuration configuration;
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new (name, parent);
+    endfunction
+
+    function void set_bus (virtual wb_if #(2, 8) bus);
+        this.bus = bus;
     endfunction
 
     function void set_configuration (wb_configuration cfg);

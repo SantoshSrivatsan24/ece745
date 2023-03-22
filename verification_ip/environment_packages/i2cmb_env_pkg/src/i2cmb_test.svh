@@ -1,8 +1,8 @@
-class i2cmb_test extends ncsu_component #(.T(wb_transaction_base));
+class i2cmb_test extends ncsu_component #(.T(wb_transaction));
 
-    i2cmb_env_configuration configuration;
-    i2cmb_environment environment;
-    i2cmb_generator_base generator;
+    local i2cmb_env_configuration configuration;
+    local i2cmb_environment environment;
+    local i2cmb_generator_base generator;
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new (name, parent);

@@ -9,12 +9,12 @@ typedef enum bit [3:0] {
     SEQ_READ_STOP
 } seq_type_t;
 
-class i2cmb_generator_base extends ncsu_component #(.T(wb_transaction_base));
+class i2cmb_generator_base extends ncsu_component #(.T(wb_transaction));
 
     `ncsu_register_object(i2cmb_generator_base)
 
-    wb_agent agent_wb;
-    i2c_agent agent_i2c;
+    local wb_agent agent_wb;
+    local i2c_agent agent_i2c;
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new (name, parent);
@@ -31,7 +31,7 @@ class i2cmb_generator_base extends ncsu_component #(.T(wb_transaction_base));
     // Generate a new wishbone transaction and pass it to the wishbone driver
     local task generate_wb_transaction (bit [1:0] wb_addr, bit [7:0] wb_data);
         T wb_trans;
-        $cast (wb_trans, ncsu_object_factory::create("wb_transaction_base"));
+        $cast (wb_trans, ncsu_object_factory::create("wb_transaction"));
         wb_trans.create (wb_addr, wb_data);
         agent_wb.bl_put (wb_trans);
     endtask

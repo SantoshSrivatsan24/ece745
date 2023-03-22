@@ -1,10 +1,10 @@
 class i2c_agent extends ncsu_component #(.T(i2c_transaction));
 
-    virtual i2c_if #(.ADDR_WIDTH(7), .DATA_WIDTH(8)) bus;
-    i2c_configuration configuration;
-    i2c_driver driver;
-    i2c_monitor monitor;
-    ncsu_component #(T) subscribers[$];
+    local virtual i2c_if #(.ADDR_WIDTH(7), .DATA_WIDTH(8)) bus;
+    local i2c_configuration configuration;
+    local i2c_driver driver;
+    local i2c_monitor monitor;
+    local ncsu_component #(T) subscribers[$];
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new (name, parent);
@@ -22,14 +22,14 @@ class i2c_agent extends ncsu_component #(.T(i2c_transaction));
         super.build();
         driver = new("driver", this);
         driver.set_configuration (this.configuration);
+        driver.set_bus (this.bus);
         driver.build();
-        driver.bus = this.bus;
         
         monitor = new ("monitor", this);
         monitor.set_configuration (this.configuration);
         monitor.set_agent (this);
+        monitor.set_bus (this.bus);
         monitor.build();
-        monitor.bus = this.bus;
     endfunction
 
     virtual task bl_get (output T trans);

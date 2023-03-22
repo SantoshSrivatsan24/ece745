@@ -37,10 +37,10 @@ typedef union packed {
     cmdr_t cmdr;
 } cmdr_u;
 
-class i2cmb_predictor extends ncsu_component #(.T(wb_transaction_base));
+class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
 
     local i2cmb_scoreboard scoreboard;
-    local wb_transaction_base #(.ADDR_WIDTH(2), .DATA_WIDTH(8)) wb_trans;
+    local wb_transaction #(.ADDR_WIDTH(2), .DATA_WIDTH(8)) wb_trans;
     local i2c_transaction #(.ADDR_WIDTH(7), .DATA_WIDTH(8)) i2c_trans;
 
     local bus_state_t current_bus_state;

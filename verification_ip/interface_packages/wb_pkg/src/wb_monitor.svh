@@ -1,12 +1,15 @@
-class wb_monitor extends ncsu_component #(.T(wb_transaction_base));
+class wb_monitor extends ncsu_component #(.T(wb_transaction));
 
-    virtual wb_if #(.ADDR_WIDTH(2), .DATA_WIDTH(8)) bus;
-    wb_configuration configuration;
-    ncsu_component #(T) agent;
+    local virtual wb_if #(.ADDR_WIDTH(2), .DATA_WIDTH(8)) bus;
+    local wb_configuration configuration;
+    local ncsu_component #(T) agent;
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new(name, parent);
-        // $cast (this.wb_agent, this.parent);
+    endfunction
+
+    function void set_bus (virtual wb_if #(2, 8) bus);
+        this.bus = bus;
     endfunction
 
     function void set_configuration (wb_configuration cfg);
