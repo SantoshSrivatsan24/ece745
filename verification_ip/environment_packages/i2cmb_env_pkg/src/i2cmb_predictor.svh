@@ -1,46 +1,6 @@
-typedef enum bit [2:0] {      
-    STATE_IDLE,
-    STATE_START,
-    STATE_STOP,
-    STATE_BUSY,
-    STATE_WRITE_BYTE,
-    STATE_READ_BYTE
-} bus_state_t;
-
-typedef enum bit [2:0] {
-    CMD_START       = 3'b100,
-    CMD_STOP        = 3'b101,
-    CMD_READ_ACK    = 3'b010,
-    CMD_READ_NAK    = 3'b011,
-    CMD_WRITE       = 3'b001,
-    CMD_SET_BUS     = 3'b110,
-    CMD_WAIT        = 3'b000
-} cmd_t;
-
-typedef enum bit [1:0] {
-    CSR_ADDR = 2'h0,
-    DPR_ADDR = 2'h1,
-    CMDR_ADDR = 2'h2
-} addr_t;
-
-typedef struct packed {
-    bit don;
-    bit nak;
-    bit al;
-    bit err;
-    bit r;
-    cmd_t cmd;
-} cmdr_t;
-
-typedef union packed {
-    byte value;
-    cmdr_t cmdr;
-} cmdr_u;
-
 class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
 
     local i2cmb_scoreboard scoreboard;
-    local wb_transaction #(.ADDR_WIDTH(2), .DATA_WIDTH(8)) wb_trans;
     local i2c_transaction #(.ADDR_WIDTH(7), .DATA_WIDTH(8)) i2c_trans;
 
     local bus_state_t current_bus_state;
@@ -54,7 +14,7 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new(name, parent);
-        this.i2c_trans = new("predicted_trans");
+        this.i2c_trans = new("expected_trans");
         this.current_bus_state = STATE_IDLE;
     endfunction
 
@@ -62,10 +22,11 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
         this.scoreboard = scbd;
     endfunction
 
+    // Receive a wb transaction from the wb agent and incrementally
+    // construct an i2c transaction
     virtual function void nb_put (input T trans);
-        bit transfer_complete;
-        this.wb_trans = trans;
-        transfer_complete = this.run_golden_model();
+
+        bit transfer_complete = this.run_golden_model(trans);
         if (transfer_complete) begin
             this.addr_complete = 1'b0;
             this.i2c_trans.op = this.i2c_op;
@@ -73,17 +34,17 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
             {>> 8 {this.i2c_trans.data}} = this.i2c_data;;
             this.i2c_data.delete();
             this.scoreboard.nb_transport (this.i2c_trans, this.i2c_trans);
-            this.i2c_trans = new ("predicted_trans");
+            this.i2c_trans = new ("expected_trans");
         end
     endfunction
 
 
     // The predictor models the byte-level FSM in the DUT. 
     // It incrementally constructs an i2c transaction
-    local function bit run_golden_model();
-        addr_t addr = addr_t'(this.wb_trans.addr);
-        cmdr_u data = this.wb_trans.data;
-        bit we      = this.wb_trans.we;
+    local function bit run_golden_model(input T trans);
+        addr_t addr = addr_t'(trans.addr);
+        cmdr_u data = trans.data;
+        bit    we   = trans.we;
         cmdr_t cmdr = data.cmdr;
         bit transfer_complete = 1'b0;
 
@@ -103,8 +64,6 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
         STATE_START: begin
             if(cmdr.don) begin
                 next_bus_state = STATE_BUSY;
-                if (this.addr_complete) // Repeated START
-                    transfer_complete = 1'b1;
             end
             else if (cmdr.err || cmdr.al) begin
                 next_bus_state = STATE_IDLE;
@@ -115,20 +74,31 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
         STATE_BUSY: begin
             if (addr == DPR_ADDR) begin
                 this.dpr = data.value;
-                if (!we) // Read data from the BFM is stored in the DPR
+                // Read data from the BFM is stored in the DPR
+                if (!we) 
                     this.i2c_data.push_back(this.dpr);
             end
             else if (addr == CMDR_ADDR && cmdr.cmd == CMD_WRITE) begin
                 next_bus_state = STATE_WRITE_BYTE;
+                if (!this.addr_complete) begin
+                    this.addr_complete = 1'b1;
+                    this.i2c_op = i2c_op_t'(dpr[0]);
+                    this.i2c_addr = this.dpr[7:1];
+                end else begin
+                    this.i2c_data.push_back(this.dpr);
+                end
             end
             else if (addr == CMDR_ADDR && (cmdr.cmd == CMD_READ_ACK || cmdr.cmd == CMD_READ_NAK)) begin
                 next_bus_state = STATE_READ_BYTE;
             end 
             else if (addr == CMDR_ADDR && cmdr.cmd == CMD_START) begin
                 next_bus_state = STATE_START;
+                if (this.addr_complete) // Repeated START
+                    transfer_complete = 1'b1;
             end
             else if (addr == CMDR_ADDR && cmdr.cmd == CMD_STOP) begin
                 next_bus_state = STATE_STOP;
+                transfer_complete = 1'b1;
             end
             else begin
                 $error ("Invalid command");
@@ -138,13 +108,6 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
         STATE_WRITE_BYTE: begin
             if(cmdr.don || cmdr.nak) begin
                 next_bus_state = STATE_BUSY;
-                if (!this.addr_complete) begin
-                    this.addr_complete = 1'b1;
-                    this.i2c_op = i2c_op_t'(dpr[0]);
-                    this.i2c_addr = this.dpr[7:1];
-                end else begin
-                    this.i2c_data.push_back(this.dpr);
-                end
             end
             else if (cmdr.err || cmdr.al) begin
                 next_bus_state = STATE_IDLE;
@@ -167,7 +130,6 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
         STATE_STOP: begin
             if (cmdr.don) begin
                 next_bus_state = STATE_IDLE;
-                transfer_complete = 1'b1;
             end
             else begin
                 $error ("Invalid command");

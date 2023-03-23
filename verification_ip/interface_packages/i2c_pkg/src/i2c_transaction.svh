@@ -39,8 +39,8 @@ class i2c_transaction #(
     virtual function string convert2string();
         string str, data;
         foreach (this.data[i]) begin
-            $swrite(data, "%s %0d ", data, this.data[i]);
+            $swrite(data, "%s%0d ", data, this.data[i]);
         end
-        convert2string = $sformatf("\nOp: %s\nAddr: 0x%x\nData: %s\n", this.op.name, this.addr, data);
+        convert2string = $sformatf("\nop\t: %s\naddr\t: 0x%x\ndata\t: %s\n", this.op.name, this.addr, data);
     endfunction
 endclass

@@ -13,5 +13,3 @@ typedef enum bit [1:0] {
     DPR_ADDR = 2'h1,
     CMDR_ADDR = 2'h2
 } addr_t;
-
-typedef enum bit {WRITE=1'b0, READ=1'b1} wb_op_t;

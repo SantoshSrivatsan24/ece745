@@ -1,5 +1,5 @@
 # vsim -c -classdebug -msgmode both -do "set NoQuitOnFinish 1; do vcd.do" optimized_debug_top_tb 
-# Start time: 18:08:25 on Mar 22,2023
+# Start time: 21:04:50 on Mar 22,2023
 # //  Questa Sim
 # //  Version 2022.2_1 linux May 19 2022
 # //
@@ -66,28 +66,1844 @@
 # ************************************************************
 # 
 # ============================================================
-# GENERATE SEQUENCE OF WB TRANSACTIONS (               25500)
+# i2cmb_write_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# 
+# ************************************************************
+# ROUND 2 BEGIN: 32 incrementing reads from 100 to 131
+# ************************************************************
+# 
 # ============================================================
-# tst.env.scoreboard nb_put: actual transaction 
-# Op: WRITE
-# Addr: 0x24
-# Data:  0  1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31 
+# i2cmb_read_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 
 # 
-# tst.env.scoreboard nb_transport: expected transaction 
-# Op: WRITE
-# Addr: 0x24
-# Data:  0  1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 
 # 
-# tst.env.scoreboard i2c_transaction MATCH!
+# tst.env.scoreboard: i2c_transaction MATCH!
+# 
+# ************************************************************
+# ROUND 3 BEGIN: Alternating writes and reads for 64 transfers
+# ************************************************************
+# 
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 64 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 64 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 63 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 63 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 65 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 65 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 62 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 62 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 66 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 66 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 61 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 61 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 67 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 67 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 60 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 60 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 68 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 68 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 59 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 59 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 69 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 69 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 58 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 58 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 70 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 70 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 57 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 57 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 71 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 71 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 56 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 56 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 72 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 72 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 55 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 55 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 73 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 73 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 54 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 54 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 74 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 74 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 53 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 53 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 75 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 75 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 52 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 52 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 76 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 76 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 51 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 51 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 77 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 77 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 50 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 50 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 78 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 78 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 49 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 49 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 79 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 79 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 48 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 48 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 80 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 80 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 47 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 47 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 81 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 81 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 46 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 46 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 82 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 82 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 45 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 45 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 83 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 83 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 44 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 44 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 84 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 84 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 43 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 43 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 85 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 85 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 42 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 42 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 86 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 86 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 41 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 41 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 87 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 87 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 40 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 40 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 88 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 88 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 39 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 39 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 89 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 89 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 38 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 38 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 90 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 90 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 37 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 37 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 91 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 91 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 36 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 36 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 92 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 92 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 35 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 35 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 93 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 93 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 34 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 34 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 94 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 94 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 33 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 33 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 95 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 95 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 32 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 32 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 96 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 96 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 31 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 31 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 97 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 97 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 30 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 30 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 98 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 98 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 29 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 29 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 99 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 99 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 28 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 28 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 100 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 100 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 27 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 27 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 101 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 101 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 26 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 26 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 102 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 102 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 25 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 25 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 103 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 103 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 24 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 24 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 104 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 104 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 23 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 23 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 105 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 105 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 22 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 22 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 106 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 106 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 21 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 21 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 107 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 107 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 20 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 20 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 108 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 108 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 19 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 19 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 109 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 109 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 18 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 18 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 110 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 110 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 17 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 17 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 111 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 111 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 16 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 16 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 112 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 112 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 15 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 15 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 113 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 113 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 14 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 14 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 114 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 114 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 13 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 13 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 115 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 115 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 12 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 12 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 116 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 116 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 11 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 11 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 117 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 117 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 10 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 10 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 118 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 118 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 9 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 9 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 119 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 119 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 8 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 8 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 120 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 120 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 7 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 7 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 121 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 121 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 6 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 6 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 122 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 122 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 5 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 5 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 123 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 123 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 4 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 4 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 124 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 124 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 3 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 3 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 125 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 125 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 2 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 2 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 126 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 126 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 1 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 1 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 127 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: WRITE
+# addr	: 0x24
+# data	: 127 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
+# ============================================================
+# i2cmb_alt_generator: initiate sequence of wb transactions
+# ------------------------------------------------------------
+# tst.env.scoreboard::nb_transport: expected i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c transaction 
+# op	: READ
+# addr	: 0x24
+# data	: 0 
+# 
+# tst.env.scoreboard: i2c_transaction MATCH!
 # 
 # ************************************************************
 # DONE!
 # ************************************************************
 # 
-# ** Note: $finish    : ../testbench/top.sv(214)
-#    Time: 2994105 ns  Iteration: 0  Instance: /top
+# ** Note: $finish    : ../testbench/top.sv(137)
+#    Time: 31000175 ns  Iteration: 0  Instance: /top
 # 1
-# Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 214
-# Stopped at ../testbench/top.sv line 214
-# End time: 18:08:30 on Mar 22,2023, Elapsed time: 0:00:05
+# Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 137
+# Stopped at ../testbench/top.sv line 137
+# End time: 21:05:21 on Mar 22,2023, Elapsed time: 0:00:31
 # Errors: 0, Warnings: 0

@@ -1,14 +1,3 @@
-typedef enum bit [3:0] {      
-    SEQ_START_WRITE_STOP,
-    SEQ_START_READ_STOP,
-    SEQ_START_WRITE_START,
-    SEQ_START_READ_START,
-    SEQ_WRITE_START,
-    SEQ_READ_START,
-    SEQ_WRITE_STOP,
-    SEQ_READ_STOP
-} seq_type_t;
-
 class i2cmb_generator_base extends ncsu_component #(.T(wb_transaction));
 
     `ncsu_register_object(i2cmb_generator_base)
@@ -30,7 +19,7 @@ class i2cmb_generator_base extends ncsu_component #(.T(wb_transaction));
 
     // Generate a new wishbone transaction and pass it to the wishbone driver
     local task generate_wb_transaction (bit [1:0] wb_addr, bit [7:0] wb_data);
-        T wb_trans;
+        wb_transaction wb_trans;
         $cast (wb_trans, ncsu_object_factory::create("wb_transaction"));
         wb_trans.create (wb_addr, wb_data);
         agent_wb.bl_put (wb_trans);
@@ -40,7 +29,7 @@ class i2cmb_generator_base extends ncsu_component #(.T(wb_transaction));
     local task generate_i2c_transaction (bit [7:0] i2c_data[]);
         i2c_transaction i2c_trans;
         agent_i2c.bl_get (i2c_trans);
-        if (i2c_trans.op == 1) begin
+        if (i2c_trans.op == READ) begin
             i2c_trans.data = i2c_data;
             agent_i2c.bl_put (i2c_trans);
             wait (i2c_trans.transfer_complete);
@@ -48,9 +37,9 @@ class i2cmb_generator_base extends ncsu_component #(.T(wb_transaction));
     endtask
 
     local task init();
-        generate_wb_transaction (`CSR_ADDR, 8'b11xx_xxxx);
-        generate_wb_transaction (`DPR_ADDR, 8'h00);
-        generate_wb_transaction (`CMDR_ADDR, `CMD_SET_BUS);
+        generate_wb_transaction (CSR_ADDR, 8'b11xx_xxxx);
+        generate_wb_transaction (DPR_ADDR, 8'h00);
+        generate_wb_transaction (CMDR_ADDR, CMD_SET_BUS);
     endtask
 
     ///////////////////////////////////////////////////////////////////////////
@@ -63,9 +52,8 @@ class i2cmb_generator_base extends ncsu_component #(.T(wb_transaction));
     //       READ  START    (READ followed by repeated START)
     //       WRITE STOP     (WRITE followed by repeated START)
     ///////////////////////////////////////////////////////////////////////////
-    task generate_sequence (seq_type_t seq_type, [6:0] i2c_addr, bit [7:0] i2c_data[]);
-
-        `BANNER ($time, "GENERATE SEQUENCE OF WB TRANSACTIONS")
+    protected task generate_sequence (seq_type_t seq_type, [6:0] i2c_addr, bit [7:0] i2c_data[]);
+        `BANNER({get_full_name(), ": initiate sequence of wb transactions"})
         fork 
         begin
             generate_i2c_transaction (i2c_data);
@@ -84,43 +72,43 @@ class i2cmb_generator_base extends ncsu_component #(.T(wb_transaction));
                 SEQ_WRITE_STOP          : WRITE_STOP;
                 SEQ_READ_STOP           : READ_STOP;
                 endcase;
-                START_WRITE_STOP    :   START ADDR(0) WDATA STOP;
-                START_READ_STOP     :   START ADDR(1) RDATA STOP;
-                START_WRITE_START   :   START ADDR(0) WDATA START;
-                START_READ_START    :   START ADDR(1) RDATA START;
-                WRITE_STOP          :         ADDR(0) WDATA STOP;
-                READ_STOP           :         ADDR(1) RDATA STOP;
-                WRITE_START         :         ADDR(0) WDATA START;
-                READ_START          :         ADDR(1) RDATA START;
+                START_WRITE_STOP        :   START ADDR(0)  WDATA STOP;
+                START_WRITE_START       :   START ADDR(0)  WDATA START;
+                WRITE_STOP              :         ADDR(0)  WDATA STOP;
+                WRITE_START             :         ADDR(0)  WDATA START;
+                START_READ_STOP         :   START ADDR(1)   RDATA STOP;
+                START_READ_START        :   START ADDR(1)   RDATA START;
+                READ_STOP               :         ADDR(1)   RDATA STOP;
+                READ_START              :         ADDR(1)   RDATA START;
                 // Leaf productions
-                START               :   {
-                                        generate_wb_transaction (`CMDR_ADDR, `CMD_START); 
-                                        };
-                ADDR (bit op = 0)   :   {
-                                        generate_wb_transaction (`DPR_ADDR, {i2c_addr, op});
-                                        generate_wb_transaction (`CMDR_ADDR, `CMD_WRITE);
-                                        };
-                WDATA               :   {
-                                        foreach (i2c_data[i]) begin
-                                            generate_wb_transaction (`DPR_ADDR, i2c_data[i]);
-                                            generate_wb_transaction (`CMDR_ADDR, `CMD_WRITE);
-                                        end
-                                        };
-                RDATA               :   {
-                                        T read_trans;
-                                        repeat (i2c_data.size() - 1) begin
-                                            generate_wb_transaction (`CMDR_ADDR, `CMD_READ_ACK);
+                START                   :   {
+                                            generate_wb_transaction (CMDR_ADDR, CMD_START); 
+                                            };
+                ADDR (bit op = 0)       :  {
+                                            generate_wb_transaction (DPR_ADDR, {i2c_addr, op});
+                                            generate_wb_transaction (CMDR_ADDR, CMD_WRITE);
+                                            };
+                WDATA                   :   {
+                                            foreach (i2c_data[i]) begin
+                                                generate_wb_transaction (DPR_ADDR, i2c_data[i]);
+                                                generate_wb_transaction (CMDR_ADDR, CMD_WRITE);
+                                            end
+                                            };
+                RDATA                   :   {
+                                            T read_trans;
+                                            repeat (i2c_data.size() - 1) begin
+                                                generate_wb_transaction (CMDR_ADDR, CMD_READ_ACK);
+                                                // Read the DPR register
+                                                agent_wb.bl_get (read_trans);
+                                            end
+                                            // Read with NAK. Signal slave to stop transfer
+                                            generate_wb_transaction (CMDR_ADDR, CMD_READ_NAK);
                                             // Read the DPR register
                                             agent_wb.bl_get (read_trans);
-                                        end
-                                        // Read with NAK. Signal slave to stop transfer
-                                        generate_wb_transaction (`CMDR_ADDR, `CMD_READ_NACK);
-                                        // Read the DPR register
-                                        agent_wb.bl_get (read_trans);
-                                        };
-                STOP                :   {
-                                        generate_wb_transaction (`CMDR_ADDR, `CMD_STOP); 
-                                        };
+                                            };
+                STOP                    :   {
+                                            generate_wb_transaction (CMDR_ADDR, CMD_STOP); 
+                                            };
             endsequence
         end
         join
