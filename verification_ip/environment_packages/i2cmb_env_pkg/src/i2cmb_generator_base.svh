@@ -53,7 +53,8 @@ class i2cmb_generator_base extends ncsu_component #(.T(wb_transaction));
     //       WRITE STOP     (WRITE followed by repeated START)
     ///////////////////////////////////////////////////////////////////////////
     protected task generate_sequence (seq_type_t seq_type, [6:0] i2c_addr, bit [7:0] i2c_data[]);
-        `BANNER({get_full_name(), ": initiate sequence of wb transactions"})
+        $timeformat(-9, 2, " ns", 0);
+        `BANNER($time, {get_full_name(), ": generate sequence of wb_transactions"})
         fork 
         begin
             generate_i2c_transaction (i2c_data);
