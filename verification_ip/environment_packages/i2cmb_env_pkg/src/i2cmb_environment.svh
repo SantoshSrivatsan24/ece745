@@ -1,4 +1,4 @@
-class i2cmb_environment extends ncsu_component #(.T(i2c_transaction));
+class i2cmb_environment extends ncsu_component;
 
     local wb_agent agent_wb;
     local i2c_agent agent_i2c;

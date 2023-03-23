@@ -1,4 +1,4 @@
-class i2cmb_generator_base extends ncsu_component #(.T(wb_transaction));
+class i2cmb_generator_base extends ncsu_component;
 
     `ncsu_register_object(i2cmb_generator_base)
 
