@@ -1,0 +1,10 @@
+make     cli GEN_TRANS_TYPE=abc_transaction_base
+make run_cli GEN_TRANS_TYPE=abc_transaction_base TEST_SEED=543210
+make run_cli GEN_TRANS_TYPE=abc_transaction_base TEST_SEED=random
+make run_cli GEN_TRANS_TYPE=abc_random_transaction TEST_SEED=random
+make run_cli GEN_TRANS_TYPE=abc_random_transaction TEST_SEED=random
+make run_cli GEN_TRANS_TYPE=abc_random_transaction TEST_SEED=random
+make run_cli GEN_TRANS_TYPE=abc_random_statistics_transaction TEST_SEED=random
+make run_cli GEN_TRANS_TYPE=abc_random_statistics_transaction TEST_SEED=random
+make run_cli GEN_TRANS_TYPE=abc_random_statistics_transaction TEST_SEED=random
+make merge_coverage
