@@ -1,5 +1,3 @@
-# vsim -c -coverage -sv_seed random -do " set NoQuitOnFinish 1; run -all; do save_coverage.do wb_transaction; do vcd.do; quit -f;" "+GEN_TRANS_TYPE=wb_transaction" optimized_debug_top_tb 
-# Start time: 21:35:28 on Mar 29,2023
 # //  Questa Sim
 # //  Version 2022.2_1 linux May 19 2022
 # //
@@ -14,77 +12,5 @@
 # //  is prohibited from disclosure under the Trade Secrets Act,
 # //  18 U.S.C. Section 1905.
 # //
-# Loading sv_std.std
-# Loading work.wb_if(fast)
-# Loading work.i2c_if(fast)
-# Loading work.ncsu_pkg(fast)
-# Loading work.wb_pkg(fast)
-# Loading work.i2c_pkg(fast)
-# Loading work.i2cmb_env_pkg(fast)
-# Loading work.top_sv_unit(fast)
-# Loading work.top(fast)
-# Loading work.wb_if(fast__2)
-# Loading work.i2c_if_sv_unit(fast)
-# Loading work.i2c_if(fast__2)
-# Loading std.standard
-# Loading std.textio(body)
-# Loading ieee.std_logic_1164(body)
-# Loading work.iicmb_m_wb(str)#1
-# Loading work.wishbone(rtl)#1
-# Loading ieee.numeric_std(body)
-# Loading work.iicmb_pkg(body)
-# Loading work.regblock(rtl)#1
-# Loading work.iicmb_int_pkg(body)
-# Loading work.iicmb_m(str)#1
-# Loading work.mbyte(rtl)#1
-# Loading work.mbit(rtl)#1
-# Loading work.conditioner_mux(str)#1
-# Loading work.conditioner(str)#1
-# Loading work.filter(rtl)#1
-# Loading work.bus_state(rtl)#1
-# Sv_Seed = 1652337885
-#  set NoQuitOnFinish 1
-# 1
-#  run -all
-# ----------------------------------------------------------------
-# //  NCSU Package 
-# //  Version 1.0a
-# ----------------------------------------------------------------
-# 
-# 
-# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env called
-# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.wb_agent called
-# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.wb_agent.driver called
-# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.wb_agent.monitor called
-# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.wb_agent.coverage called
-# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.i2c_agent called
-# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.i2c_agent.driver called
-# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.i2c_agent.monitor called
-# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.scoreboard called
-# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.predictor called
-# CSR PASS!
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x0 Data = 0b00000000
-# wb command coverage = 14.29 %
-# tst.env.wb_agent.monitor wb_monitor::run() (W) Addr = 0x0 Data = 0b11000000
-# wb command coverage = 14.29 %
-# CMDR PASS!
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x2 Data = 0b10000000
-# wb command coverage = 14.29 %
-# DPR PASS!
-# tst.env.wb_agent.monitor wb_monitor::run() (R) Addr = 0x1 Data = 0b00000000
-# wb command coverage = 14.29 %
-# 
-# ***************************************************************************
-# DONE!
-# ***************************************************************************
-# 
-# ** Note: $finish    : ../testbench/top.sv(136)
-#    Time: 1235 ns  Iteration: 0  Instance: /top
-# 1
-# Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 136
-# Stopped at ../testbench/top.sv line 136
-#  do save_coverage.do wb_transaction
-#  do vcd.do
-#  quit -f
-# End time: 21:35:30 on Mar 29,2023, Elapsed time: 0:00:02
-# Errors: 0, Warnings: 0
+# coverage read -dataset sim_and_testplan_merged ./sim_and_testplan_merged.ucdb
+# ./sim_and_testplan_merged.ucdb opened as coverage dataset "sim_and_testplan_merged"

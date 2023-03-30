@@ -18,7 +18,7 @@ class i2cmb_generator_base extends ncsu_component;
     endfunction
 
     // Generate a wishbone transaction that writes to the DUT
-    local task generate_wb_transaction_write (bit [1:0] wb_addr, bit [7:0] wb_data);
+    protected task generate_wb_transaction_write (bit [1:0] wb_addr, bit [7:0] wb_data);
         wb_transaction wb_trans = new ("wb_transaction");
         wb_trans.addr = wb_addr;
         wb_trans.data = wb_data;
@@ -27,7 +27,7 @@ class i2cmb_generator_base extends ncsu_component;
     endtask
 
     // Generate a wishnbone transaction that reads from the DUT
-    local task generate_wb_transaction_read (bit [1:0] wb_addr, ref bit [7:0] wb_data);
+    protected task generate_wb_transaction_read (bit [1:0] wb_addr, ref bit [7:0] wb_data);
         wb_transaction wb_trans = new ("wb_transaction");
         wb_trans.addr = wb_addr;
         agent_wb.bl_get_ref (wb_trans);
@@ -35,7 +35,7 @@ class i2cmb_generator_base extends ncsu_component;
     endtask
 
     // Generate an empty I2C transaction and pass it to the I2C driver
-    local task generate_i2c_transaction (bit [7:0] i2c_data[]);
+    protected task generate_i2c_transaction (bit [7:0] i2c_data[]);
         i2c_transaction i2c_trans;
         agent_i2c.bl_get (i2c_trans);
         if (i2c_trans.op == READ) begin
@@ -45,7 +45,7 @@ class i2cmb_generator_base extends ncsu_component;
         end
     endtask
 
-    local task init();
+    protected task init();
         generate_wb_transaction_write (CSR_ADDR, 8'b11xx_xxxx);
         generate_wb_transaction_write (DPR_ADDR, 8'h00);
         generate_wb_transaction_write (CMDR_ADDR, CMD_SET_BUS);
@@ -127,15 +127,6 @@ class i2cmb_generator_base extends ncsu_component;
     virtual task run ();
         // TODO: Project 3
         // Implement assertion to check default value of every register
-        bit [7:0] reg_value;
-        // this.init();
-        generate_wb_transaction_read (CSR_ADDR, reg_value);
-        assert (reg_value == 8'h00) $display ("CSR PASS!"); else $fatal ("CSR FAIL: %b", reg_value);
-        generate_wb_transaction_write (CSR_ADDR, 8'b11xx_xxxx);
-        generate_wb_transaction_read (CMDR_ADDR, reg_value);
-        assert (reg_value == 8'h80) $display ("CMDR PASS!"); else $fatal ("CMDR FAIL: %b", reg_value);
-        generate_wb_transaction_read (DPR_ADDR, reg_value);
-        assert (reg_value == 8'h00) $display ("DPR PASS!"); else $fatal ("DPR FAIL: %b", reg_value);
     endtask
 
 endclass

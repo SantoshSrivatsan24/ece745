@@ -1,6 +1,6 @@
-class i2cmb_write_generator extends i2cmb_generator_base;
+class i2cmb_generator_writes extends i2cmb_generator_base;
 
-    `ncsu_register_object(i2cmb_write_generator)
+    `ncsu_register_object(i2cmb_generator_writes)
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new (name, parent);
@@ -9,7 +9,7 @@ class i2cmb_write_generator extends i2cmb_generator_base;
     // Round 1: 32 incrementing writes from 0 to 31
     virtual task run ();
         bit [7:0] i2c_data[] = new[32];
-        super.run();
+        super.init();
         
         `FANCY_BANNER("ROUND 1 BEGIN: 32 incrementing writes from 0 to 31")
         // Data written to the I2C bus

@@ -14,9 +14,10 @@ package i2cmb_env_pkg;
     `include "src/i2cmb_predictor.svh"
     `include "src/i2cmb_environment.svh"
     `include "src/i2cmb_generator_base.svh"
-    `include "src/i2cmb_write_generator.svh"
-    `include "src/i2cmb_read_generator.svh"
-    `include "src/i2cmb_alt_generator.svh"
+    `include "src/i2cmb_generator_register_test.svh"
+    `include "src/i2cmb_generator_writes.svh"
+    `include "src/i2cmb_generator_reads.svh"
+    `include "src/i2cmb_generator_alt_rw.svh"
     `include "src/i2cmb_test.svh"
 
 endpackage

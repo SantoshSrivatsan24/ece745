@@ -5,12 +5,12 @@ include $(ECE745_PROJECT_HOME)/verification_ip/interface_packages/wb_pkg/Makefil
 include $(ECE745_PROJECT_HOME)/verification_ip/interface_packages/i2c_pkg/Makefile
 include $(ECE745_PROJECT_HOME)/verification_ip/environment_packages/i2cmb_env_pkg/Makefile
 
-GEN_TRANS_TYPE ?= wb_transaction
+GEN_TYPE ?= i2cmb_generator_base
 TEST_SEED ?= random
 CLI_DO_COMMANDS = -do " \
                     set NoQuitOnFinish 1; \
                     run -all; \
-	 	            do save_coverage.do $(GEN_TRANS_TYPE); \
+	 	            do save_coverage.do $(GEN_TYPE); \
 					do vcd.do; \
                     quit -f;" \
 
@@ -46,11 +46,11 @@ optimize:
 compile: comp_I2C_MB comp_bench optimize
 
 run_cli:
-	vsim -c -coverage -sv_seed $(TEST_SEED) $(CLI_DO_COMMANDS) +GEN_TRANS_TYPE=$(GEN_TRANS_TYPE) optimized_debug_top_tb
+	vsim -c -coverage -sv_seed $(TEST_SEED) $(CLI_DO_COMMANDS) +GEN_TYPE=$(GEN_TYPE) optimized_debug_top_tb
 
 
 run_gui:
-	vsim -i -coverage -sv_seed $(TEST_SEED) $(DEBUG_DO_COMMANDS) +GEN_TRANS_TYPE=$(GEN_TRANS_TYPE) optimized_debug_top_tb
+	vsim -i -coverage -sv_seed $(TEST_SEED) $(DEBUG_DO_COMMANDS) +GEN_TYPE=$(GEN_TYPE) optimized_debug_top_tb
 
 debug: clean compile optimize run_gui
 

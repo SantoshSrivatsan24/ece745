@@ -1,6 +1,6 @@
-class i2cmb_read_generator extends i2cmb_generator_base;
+class i2cmb_generator_reads extends i2cmb_generator_base;
 
-    `ncsu_register_object(i2cmb_read_generator)
+    `ncsu_register_object(i2cmb_generator_reads)
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new (name, parent);
@@ -9,7 +9,7 @@ class i2cmb_read_generator extends i2cmb_generator_base;
     // Round 2: 32 incrementing reads from 100 to 131
     virtual task run ();
         bit [7:0] i2c_data[] = new[32];
-        super.run();
+        super.init();
 
         `FANCY_BANNER("ROUND 2 BEGIN: 32 incrementing reads from 100 to 131")
         // Data read from the I2C bus

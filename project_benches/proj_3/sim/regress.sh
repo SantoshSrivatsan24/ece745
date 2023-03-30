@@ -1,2 +1,2 @@
-make run
+make run GEN_TYPE=i2cmb_generator_register_test
 make merge_coverage
