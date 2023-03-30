@@ -14,11 +14,6 @@ class wb_transaction #(
         super.new(name);
     endfunction
 
-    function void create (bit [ADDR_WIDTH-1:0] addr, bit [DATA_WIDTH-1:0] data);
-        this.addr = addr;
-        this.data = data;
-    endfunction
-
     virtual function string convert2string();   
         return $sformatf("Addr = 0x%x, Data = %b", this.addr, this.data);
     endfunction

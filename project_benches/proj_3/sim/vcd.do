@@ -15,6 +15,3 @@ vcd add /top/DUT/scl_o
 vcd add /top/DUT/sda_o
 
 vcd add /top/i2c_bus/*
-
-run -all
-quit

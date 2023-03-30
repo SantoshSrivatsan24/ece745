@@ -4,6 +4,7 @@ class wb_agent extends ncsu_component #(.T(wb_transaction));
     local wb_configuration configuration;
     local wb_driver driver;
     local wb_monitor monitor;
+    local wb_coverage coverage;
     local ncsu_component #(T) subscribers[$];
 
     function new (string name = "", ncsu_component_base parent = null);
@@ -30,6 +31,10 @@ class wb_agent extends ncsu_component #(.T(wb_transaction));
         monitor.set_agent (this);
         monitor.set_bus (this.bus);
         monitor.build();
+
+        coverage = new ("coverage", this);
+        coverage.build();
+        this.connect_subscriber (coverage);
     endfunction
 
     virtual task bl_put (input T trans);
@@ -38,6 +43,10 @@ class wb_agent extends ncsu_component #(.T(wb_transaction));
 
     virtual task bl_get (output T trans);
         driver.bl_get (trans);
+    endtask
+
+    task bl_get_ref (ref T trans);
+        driver.bl_get_ref (trans);
     endtask
 
     function void connect_subscriber(ncsu_component #(T) subscriber);

@@ -17,12 +17,21 @@ class i2cmb_generator_base extends ncsu_component;
         this.agent_i2c = agent;
     endfunction
 
-    // Generate a new wishbone transaction and pass it to the wishbone driver
-    local task generate_wb_transaction (bit [1:0] wb_addr, bit [7:0] wb_data);
-        wb_transaction wb_trans;
-        $cast (wb_trans, ncsu_object_factory::create("wb_transaction"));
-        wb_trans.create (wb_addr, wb_data);
+    // Generate a wishbone transaction that writes to the DUT
+    local task generate_wb_transaction_write (bit [1:0] wb_addr, bit [7:0] wb_data);
+        wb_transaction wb_trans = new ("wb_transaction");
+        wb_trans.addr = wb_addr;
+        wb_trans.data = wb_data;
         agent_wb.bl_put (wb_trans);
+
+    endtask
+
+    // Generate a wishnbone transaction that reads from the DUT
+    local task generate_wb_transaction_read (bit [1:0] wb_addr, ref bit [7:0] wb_data);
+        wb_transaction wb_trans = new ("wb_transaction");
+        wb_trans.addr = wb_addr;
+        agent_wb.bl_get_ref (wb_trans);
+        wb_data = wb_trans.data;
     endtask
 
     // Generate an empty I2C transaction and pass it to the I2C driver
@@ -37,9 +46,9 @@ class i2cmb_generator_base extends ncsu_component;
     endtask
 
     local task init();
-        generate_wb_transaction (CSR_ADDR, 8'b11xx_xxxx);
-        generate_wb_transaction (DPR_ADDR, 8'h00);
-        generate_wb_transaction (CMDR_ADDR, CMD_SET_BUS);
+        generate_wb_transaction_write (CSR_ADDR, 8'b11xx_xxxx);
+        generate_wb_transaction_write (DPR_ADDR, 8'h00);
+        generate_wb_transaction_write (CMDR_ADDR, CMD_SET_BUS);
     endtask
 
     ///////////////////////////////////////////////////////////////////////////
@@ -83,32 +92,32 @@ class i2cmb_generator_base extends ncsu_component;
                 READ_START              :         ADDR(1)   RDATA START;
                 // Leaf productions
                 START                   :   {
-                                            generate_wb_transaction (CMDR_ADDR, CMD_START); 
+                                            generate_wb_transaction_write (CMDR_ADDR, CMD_START); 
                                             };
                 ADDR (bit op = 0)       :  {
-                                            generate_wb_transaction (DPR_ADDR, {i2c_addr, op});
-                                            generate_wb_transaction (CMDR_ADDR, CMD_WRITE);
+                                            generate_wb_transaction_write (DPR_ADDR, {i2c_addr, op});
+                                            generate_wb_transaction_write (CMDR_ADDR, CMD_WRITE);
                                             };
                 WDATA                   :   {
                                             foreach (i2c_data[i]) begin
-                                                generate_wb_transaction (DPR_ADDR, i2c_data[i]);
-                                                generate_wb_transaction (CMDR_ADDR, CMD_WRITE);
+                                                generate_wb_transaction_write (DPR_ADDR, i2c_data[i]);
+                                                generate_wb_transaction_write (CMDR_ADDR, CMD_WRITE);
                                             end
                                             };
                 RDATA                   :   {
-                                            T read_trans;
+                                            bit [7:0] dpr_data;
                                             repeat (i2c_data.size() - 1) begin
-                                                generate_wb_transaction (CMDR_ADDR, CMD_READ_ACK);
+                                                generate_wb_transaction_write (CMDR_ADDR, CMD_READ_ACK);
                                                 // Read the DPR register
-                                                agent_wb.bl_get (read_trans);
+                                                generate_wb_transaction_read (DPR_ADDR, dpr_data);
                                             end
                                             // Read with NAK. Signal slave to stop transfer
-                                            generate_wb_transaction (CMDR_ADDR, CMD_READ_NAK);
+                                            generate_wb_transaction_write (CMDR_ADDR, CMD_READ_NAK);
                                             // Read the DPR register
-                                            agent_wb.bl_get (read_trans);
+                                            generate_wb_transaction_read (DPR_ADDR, dpr_data);
                                             };
                 STOP                    :   {
-                                            generate_wb_transaction (CMDR_ADDR, CMD_STOP); 
+                                            generate_wb_transaction_write (CMDR_ADDR, CMD_STOP); 
                                             };
             endsequence
         end
@@ -116,7 +125,17 @@ class i2cmb_generator_base extends ncsu_component;
     endtask;
 
     virtual task run ();
-        this.init();
+        // TODO: Project 3
+        // Implement assertion to check default value of every register
+        bit [7:0] reg_value;
+        // this.init();
+        generate_wb_transaction_read (CSR_ADDR, reg_value);
+        assert (reg_value == 8'h00) $display ("CSR PASS!"); else $fatal ("CSR FAIL: %b", reg_value);
+        generate_wb_transaction_write (CSR_ADDR, 8'b11xx_xxxx);
+        generate_wb_transaction_read (CMDR_ADDR, reg_value);
+        assert (reg_value == 8'h80) $display ("CMDR PASS!"); else $fatal ("CMDR FAIL: %b", reg_value);
+        generate_wb_transaction_read (DPR_ADDR, reg_value);
+        assert (reg_value == 8'h00) $display ("DPR PASS!"); else $fatal ("DPR FAIL: %b", reg_value);
     endtask
 
 endclass

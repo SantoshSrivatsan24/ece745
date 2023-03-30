@@ -16,7 +16,7 @@ class i2c_driver extends ncsu_component #(.T(i2c_transaction));
     endfunction
 
     virtual task bl_get(output T trans);
-        trans = new ("i2c_trans");
+        trans = new ("i2c_transaction");
         bus.wait_for_i2c_transfer (.op(trans.op), .write_data(trans.data));
     endtask
 

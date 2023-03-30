@@ -2,7 +2,7 @@ class i2cmb_test extends ncsu_component;
 
     local i2cmb_env_configuration configuration;
     local i2cmb_environment environment;
-    local i2cmb_generator_base generators[3];
+    local i2cmb_generator_base generators[1]; // was [3]
 
 
     function new (string name = "", ncsu_component_base parent = null);
@@ -13,12 +13,14 @@ class i2cmb_test extends ncsu_component;
         environment.set_configuration (configuration);
         environment.build();
         
+        // TODO: Project 3
+        $cast (generators[0], ncsu_object_factory::create("i2cmb_generator_base"));
         // Generates 32 i2c writes
-        $cast (generators[0], ncsu_object_factory::create("i2cmb_write_generator"));
+        // $cast (generators[0], ncsu_object_factory::create("i2cmb_write_generator"));
         // Generates 32 i2c reads
-        $cast (generators[1], ncsu_object_factory::create("i2cmb_read_generator"));
+        // $cast (generators[1], ncsu_object_factory::create("i2cmb_read_generator"));
         // Generates 64 alternating writes and reads
-        $cast (generators[2], ncsu_object_factory::create("i2cmb_alt_generator"));
+        // $cast (generators[2], ncsu_object_factory::create("i2cmb_alt_generator"));
 
         foreach (generators[i]) begin
             generators[i].set_wb_agent (environment.get_wb_agent());
