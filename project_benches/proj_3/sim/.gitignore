@@ -2,3 +2,4 @@ transcript/
 work
 *.wlf
 *.vcd
+*.ucdb

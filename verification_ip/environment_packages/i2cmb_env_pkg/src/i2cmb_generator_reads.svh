@@ -6,6 +6,7 @@ class i2cmb_generator_reads extends i2cmb_generator_base;
         super.new (name, parent);
     endfunction
 
+    // Testplan 5.2
     // Round 2: 32 incrementing reads from 100 to 131
     virtual task run ();
         bit [7:0] i2c_data[] = new[32];

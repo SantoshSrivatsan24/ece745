@@ -5,6 +5,7 @@ class i2cmb_environment extends ncsu_component;
     local i2cmb_env_configuration configuration;
     local i2cmb_predictor predictor;
     local i2cmb_scoreboard scoreboard;
+    local i2cmb_coverage coverage;
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new(name, parent);
@@ -31,7 +32,11 @@ class i2cmb_environment extends ncsu_component;
         predictor.set_scoreboard (scoreboard);
         predictor.build();
 
+        coverage = new ("coverage", this);
+        coverage.build();
+
         agent_wb.connect_subscriber (predictor);
+        agent_wb.connect_subscriber (coverage);
         agent_i2c.connect_subscriber (scoreboard);
     endfunction
 

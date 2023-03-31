@@ -6,6 +6,7 @@ class i2cmb_generator_writes extends i2cmb_generator_base;
         super.new (name, parent);
     endfunction
 
+    // Testplan 5.1
     // Round 1: 32 incrementing writes from 0 to 31
     virtual task run ();
         bit [7:0] i2c_data[] = new[32];

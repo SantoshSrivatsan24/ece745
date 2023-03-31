@@ -6,6 +6,7 @@ class i2cmb_generator_alt_rw extends i2cmb_generator_base;
         super.new (name, parent);
     endfunction
 
+    // Testplan 5.3
     // Round 3: Alternating writes and reads for 64 transfers
     virtual task run ();
         bit [7:0] i2c_data[] = new[1];

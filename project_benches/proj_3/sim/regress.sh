@@ -1,2 +1,7 @@
-make run GEN_TYPE=i2cmb_generator_register_test
+make clean compile optimize
+make run_cli GEN_TYPE=i2cmb_generator_register_test
+make run_cli GEN_TYPE=i2cmb_generator_dut_test
+make run_cli GEN_TYPE=i2cmb_generator_writes
+make run_cli GEN_TYPE=i2cmb_generator_reads
+make run_cli GEN_TYPE=i2cmb_generator_alt_rw
 make merge_coverage

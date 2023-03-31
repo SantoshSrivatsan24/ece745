@@ -4,6 +4,7 @@ class i2c_agent extends ncsu_component #(.T(i2c_transaction));
     local i2c_configuration configuration;
     local i2c_driver driver;
     local i2c_monitor monitor;
+    local i2c_coverage coverage;
     local ncsu_component #(T) subscribers[$];
 
     function new (string name = "", ncsu_component_base parent = null);
@@ -30,6 +31,10 @@ class i2c_agent extends ncsu_component #(.T(i2c_transaction));
         monitor.set_agent (this);
         monitor.set_bus (this.bus);
         monitor.build();
+
+        coverage = new ("coverage", this);
+        coverage.build();
+        this.connect_subscriber (coverage);
     endfunction
 
     virtual task bl_put (input T trans);

@@ -123,6 +123,64 @@ i2c_bus (
 
 ////////////////////////////////////////////////////////////////////////////
 
+	// TODO: Testplan 2.2
+	property int_disabled_irq_low;
+		@(posedge clk) disable iff(rst) !rst ##1 !rst;
+	endproperty
+
+	// TODO: Testplan 2.3
+	property bus_busy_cmd_exec;
+		@(posedge clk) disable iff(rst) !rst ##1 !rst;
+	endproperty
+
+	// TODO: Testplan 2.5
+	property cmdr_res_bit_low;
+		@(posedge clk) disable iff(rst) !rst ##1 !rst;
+	endproperty
+
+	// TODO: Testplan 2.6
+	property cmdr_don_bit_low;
+		@(posedge clk) disable iff(rst) !rst ##1 !rst;
+	endproperty
+
+	// TODO: Testplan 2.7
+	property cmdr_nak_bit_low;
+		@(posedge clk) disable iff(rst) !rst ##1 !rst;
+	endproperty
+
+	// TODO: Testplan 2.8
+	property cmdr_al_bit_low;
+		@(posedge clk) disable iff(rst) !rst ##1 !rst;
+	endproperty
+
+	// TODO: Testplan 2.9
+	property cmdr_err_bit_low;
+		@(posedge clk) disable iff(rst) !rst ##1 !rst;
+	endproperty
+
+	// TODO: Testplan 2.10
+	property cmdr_read_irq_low;
+		@(posedge clk) disable iff(rst) !rst ##1 !rst;
+	endproperty
+
+	// TODO: Testplan 2.11
+	property cmdr_status_high;
+		@(posedge clk) disable iff(rst) !rst ##1 !rst;
+	endproperty
+
+	assert property (int_disabled_irq_low) else $error ("ERROR");
+	assert property (bus_busy_cmd_exec) else $error ("ERROR");
+	assert property (cmdr_res_bit_low) else $error ("ERROR");
+	assert property (cmdr_don_bit_low) else $error ("ERROR");
+	assert property (cmdr_nak_bit_low) else $error ("ERROR");
+	assert property (cmdr_al_bit_low) else $error ("ERROR");
+	assert property (cmdr_err_bit_low) else $error ("ERROR");
+	assert property (cmdr_read_irq_low) else $error ("ERROR");
+	assert property (cmdr_status_high) else $error ("ERROR");
+
+
+////////////////////////////////////////////////////////////////////////////
+
 initial begin: TEST_FLOW
 	ncsu_config_db #(virtual wb_if #(.ADDR_WIDTH(WB_ADDR_WIDTH), .DATA_WIDTH(WB_DATA_WIDTH)))::set("tst.env.wb_agent", wb_bus);
 	ncsu_config_db #(virtual i2c_if #(.ADDR_WIDTH(I2C_ADDR_WIDTH), .DATA_WIDTH(I2C_DATA_WIDTH)))::set("tst.env.i2c_agent", i2c_bus);

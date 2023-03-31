@@ -1,19 +1,17 @@
 class wb_coverage extends ncsu_component #(.T(wb_transaction));
 
-    cmd_t wb_commands;
-    // byte csr_default_value;
-    // byte cmdr_default_value;
-    // byte dpr_default_value;
+    cmd_t cmd;
+    rsp_t rsp;
+    cmd_t cmd_sequence;
 
-    // TODO: Implement a separate cover group for register testing?
-    // TODO: I should have a condition to disable the other cover groups when doing register testing?
 
     covergroup wb_transaction_cg;
 
         option.per_instance = 1;
         option.name = get_full_name();
         
-        wb_commands: coverpoint wb_commands
+        // TODO: Testplan 2.12
+        cmd: coverpoint cmd
         {
         bins START      = {CMD_START};
         bins STOP       = {CMD_STOP};
@@ -24,6 +22,25 @@ class wb_coverage extends ncsu_component #(.T(wb_transaction));
         bins WAIT       = {CMD_WAIT};
         bins others     = default;
         }
+
+        // TODO: Testplan 2.13
+        rsp: coverpoint rsp
+        {
+
+        }
+
+        // TODO: Testplan 2.14
+        cmd_x_rsp: cross cmd, rsp 
+        {
+
+        }
+
+        // TODO: Testplan 4.1
+        cmd_sequence: coverpoint cmd_sequence
+        {
+
+        }
+
     endgroup
 
     function new (string name = "", ncsu_component_base parent = null);
@@ -32,9 +49,9 @@ class wb_coverage extends ncsu_component #(.T(wb_transaction));
     endfunction
 
     virtual function void nb_put (T trans);
-        this.wb_commands = cmd_t'(trans.data[2:0]);
+        this.cmd = cmd_t'(trans.data[2:0]);
         wb_transaction_cg.sample();
-        $display ("wb command coverage = %0.2f %%", wb_transaction_cg.get_inst_coverage());
+        // $display ("wb command coverage = %0.2f %%", wb_transaction_cg.get_inst_coverage());
     endfunction
 
 endclass
