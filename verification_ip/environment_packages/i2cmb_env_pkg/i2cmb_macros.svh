@@ -7,3 +7,8 @@
 	$display ("\n***************************************************************************"); \
 	$display ("%s", x); \
 	$display ("***************************************************************************\n");
+
+`define CSR_DEFAULT_VALUE 	8'h00
+`define CMDR_DEFAULT_VALUE 	8'h80
+`define DPR_DEFAULT_VALUE 	8'h00
+`define FSMR_DEFAULT_VALUE	8'h00

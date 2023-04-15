@@ -1,3 +1,5 @@
+import wb_pkg::*;
+
 interface wb_if       #(
       int ADDR_WIDTH = 32,                                
       int DATA_WIDTH = 16                                
@@ -25,6 +27,14 @@ interface wb_if       #(
   );
 
   initial reset_bus();
+
+   // Testplan 1.2: Check that every address is to a valid register
+   property addr_valid;
+      @(posedge clk_i) disable iff (!rst_i) stb_o |-> 
+      ((adr_o == CSR_ADDR) || (adr_o == CMDR_ADDR) || (adr_o == DPR_ADDR) || (adr_o == FSMR_ADDR));
+   endproperty
+
+   assert property (addr_valid) else $fatal ("ERR: Invalid address %x", adr_o);
 
 // ****************************************************************************              
    task wait_for_reset();

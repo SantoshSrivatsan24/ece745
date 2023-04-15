@@ -19,5 +19,6 @@ typedef enum bit [2:0] {
 typedef enum bit [1:0] {
     CSR_ADDR = 2'h0,
     DPR_ADDR = 2'h1,
-    CMDR_ADDR = 2'h2
+    CMDR_ADDR = 2'h2,
+    FSMR_ADDR = 2'h3
 } addr_t;
