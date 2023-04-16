@@ -10,7 +10,7 @@ class wb_coverage extends ncsu_component #(.T(wb_transaction));
         option.per_instance = 1;
         option.name = get_full_name();
         
-        // TODO: Testplan 2.12
+        // Testplan 2.11: Ensure that the DUT receives every possible byte-level command
         cmd: coverpoint cmd
         {
         bins START      = {CMD_START};
@@ -20,7 +20,7 @@ class wb_coverage extends ncsu_component #(.T(wb_transaction));
         bins WRITE      = {CMD_WRITE};
         bins SET_BUS    = {CMD_SET_BUS};
         bins WAIT       = {CMD_WAIT};
-        bins others     = default;
+        illegal_bins ILLEGAL_CMD = default;
         }
 
         // TODO: Testplan 2.13
@@ -49,9 +49,10 @@ class wb_coverage extends ncsu_component #(.T(wb_transaction));
     endfunction
 
     virtual function void nb_put (T trans);
-        this.cmd = cmd_t'(trans.data[2:0]);
-        wb_transaction_cg.sample();
-        // $display ("wb command coverage = %0.2f %%", wb_transaction_cg.get_inst_coverage());
+        if (trans.addr == CMDR_ADDR) begin
+            this.cmd = cmd_t'(trans.data[2:0]);
+            wb_transaction_cg.sample();
+        end
     endfunction
 
 endclass
