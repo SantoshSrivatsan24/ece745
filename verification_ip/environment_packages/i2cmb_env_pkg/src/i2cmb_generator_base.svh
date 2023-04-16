@@ -125,8 +125,6 @@ class i2cmb_generator_base extends ncsu_component;
     endtask;
 
     virtual task run ();
-        // TODO: Project 3
-        // Implement assertion to check default value of every register
     endtask
 
 endclass
