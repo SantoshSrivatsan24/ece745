@@ -7,7 +7,8 @@ class i2cmb_generator_register_test extends i2cmb_generator_base;
     endfunction
 
     // Testplan 1.1: Validate the default value of each register after a system and core reset
-    local task test_reset();
+    // TODO: Testplan 1.2: Ensure that a system and core reset prevents access to other registers
+    local task test_register_defaults();
         bit [7:0] csr_value;
         bit [7:0] cmdr_value;
         bit [7:0] dpr_value;
@@ -18,15 +19,16 @@ class i2cmb_generator_register_test extends i2cmb_generator_base;
         generate_wb_transaction_read (DPR_ADDR, dpr_value);
         generate_wb_transaction_read (FSMR_ADDR, fsmr_value);
 
+        // 1.1
         assert (csr_value   == `CSR_DEFAULT_VALUE)  else $fatal ("Invalid CSR default value: %b", csr_value);
         assert (cmdr_value  == `CMDR_DEFAULT_VALUE) else $fatal ("Invalid CMDR default value: %b", cmdr_value);
         assert (dpr_value   == `DPR_DEFAULT_VALUE)  else $fatal ("Invalid DPR default value: %b", dpr_value);
         assert (fsmr_value  == `FSMR_DEFAULT_VALUE) else $fatal ("Invalid FSMR default value: %b", fsmr_value);
     endtask
 
-    // Testplan 1.3: Read from and write to every register
-    // Testplan 1.4: Ensure that read only fields cannot be written
-    // Testplan 1.5: Ensure that a write to one register doesn't affect another
+    // Testplan 1.4: Read from and write to every register
+    // Testplan 1.5: Ensure that read only fields cannot be written
+    // Testplan 1.6: Ensure that a write to one register doesn't affect another
     local task test_register_rw();
         bit [7:0] csr_value;
         bit [7:0] cmdr_value;
@@ -134,13 +136,13 @@ class i2cmb_generator_register_test extends i2cmb_generator_base;
     endtask
 
     virtual task run ();
-        // Test system reset
-        this.test_reset();
+        // Test register defaults after a system reset
+        this.test_register_defaults();
         this.test_register_rw();
         // Reset core
         generate_wb_transaction_write (CSR_ADDR, 8'b0000_0000);
-        // Test core reset
-        this.test_reset();
+        // Test register defaults after a core reset
+        this.test_register_defaults();
     endtask
 
 endclass

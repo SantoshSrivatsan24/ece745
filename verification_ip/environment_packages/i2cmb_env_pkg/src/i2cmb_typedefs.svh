@@ -1,18 +1,3 @@
-// Extract the fields of the CMDR register
-typedef struct packed {
-    bit don;
-    bit nak;
-    bit al;
-    bit err;
-    bit r;
-    cmd_t cmd;
-} cmdr_t;
-
-typedef union packed {
-    byte value;
-    cmdr_t cmdr;
-} cmdr_u;
-
 typedef enum bit [2:0] {      
     STATE_IDLE,
     STATE_START,

@@ -45,7 +45,7 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
         addr_t addr = addr_t'(trans.addr);
         cmdr_u data = trans.data;
         bit    we   = trans.we;
-        cmdr_t cmdr = data.cmdr;
+        cmdr_t cmdr = data.fields;
         bit transfer_complete = 1'b0;
 
         case (current_bus_state)

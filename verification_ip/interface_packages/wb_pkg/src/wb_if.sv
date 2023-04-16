@@ -28,13 +28,69 @@ interface wb_if       #(
 
   initial reset_bus();
 
-   // Testplan 1.2: Check that every address is to a valid register
+   csr_u csr;
+   cmdr_u cmdr;
+
+   logic is_write;
+   logic is_read;
+
+   assign csr_write = cyc_o && stb_o && we_o && (adr_o == CSR_ADDR);
+   assign cmdr_read = cyc_o && stb_o && !we_o && (adr_o == CMDR_ADDR) && ack_i; // read upon command completion
+
+   always @(*) begin
+      if (csr_write) begin
+         csr.value = dat_o;
+      end else begin
+         csr.value = csr.value;
+      end
+
+      if (cmdr_read) begin
+         cmdr.value = dat_i;
+      end else begin
+         cmdr.value = cmdr.value;
+      end
+   end
+
+   // Testplan 1.3: Check that every address is to a valid register
    property addr_valid;
-      @(posedge clk_i) disable iff (!rst_i) stb_o |-> 
-      ((adr_o == CSR_ADDR) || (adr_o == CMDR_ADDR) || (adr_o == DPR_ADDR) || (adr_o == FSMR_ADDR));
+      // Active high reset
+      disable iff (rst_i)
+      @(posedge clk_i) stb_o |-> (adr_o == CSR_ADDR || adr_o == DPR_ADDR || adr_o == CMDR_ADDR);
    endproperty
 
-   assert property (addr_valid) else $fatal ("ERR: Invalid address %x", adr_o);
+   assert property (addr_valid) else $fatal ("Invalid address: %b", adr_o);
+
+   // Testplan 2.1: Ensure that the IRQ signal stays low when interrupts are disabled
+   property csr_irq_disabled_int_low;
+      disable iff (rst_i)
+      @(posedge clk_i) !csr.fields.ie |-> !irq_i;
+   endproperty 
+
+   assert property (csr_irq_disabled_int_low) else $fatal ("IRQ signal high when interrupts are disabled: %b", csr.fields);
+
+   // Testplan 2.4: Ensure that the reserved bit of the CMDR is always 0
+   property cmdr_res_bit_low;
+      disable iff (rst_i)
+      @(posedge clk_i) !cmdr.fields.r;
+   endproperty
+
+   assert property (cmdr_res_bit_low) else $fatal ("CMDR reserved bit high: %p", cmdr.fields);
+
+   // 2.9: Ensure the IRQ signal goes low upon reading the CMDR
+   property cmdr_irq_low;
+      disable iff (rst_i)
+      @(posedge clk_i) stb_o |=> ##[0:$] irq_i until ack_i ##1 !irq_i;
+   endproperty
+
+   assert property (cmdr_irq_low) else $fatal ("IRQ signal doesn't go low after reading the CMDR: %p", cmdr.fields);
+
+   // 2.10: One of the CMDR status bits is set upon command completion
+   property cmdr_status_onehot;
+      disable iff (rst_i)
+      @(posedge clk_i) cmdr_read |-> $onehot ({cmdr.fields.don, cmdr.fields.nak, cmdr.fields.al, cmdr.fields.err});
+   endproperty 
+
+   assert property (cmdr_status_onehot) else $fatal ("CMDR multiple status bits high: %p", cmdr.fields);
 
 // ****************************************************************************              
    task wait_for_reset();

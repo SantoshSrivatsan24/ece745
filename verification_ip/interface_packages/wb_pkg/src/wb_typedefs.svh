@@ -22,3 +22,33 @@ typedef enum bit [1:0] {
     CMDR_ADDR = 2'h2,
     FSMR_ADDR = 2'h3
 } addr_t;
+
+typedef struct packed {
+    bit e;
+    bit ie;
+    bit bb;
+    bit bc;
+    bit [3:0] bus_id;
+} csr_t;
+
+typedef union packed {
+    byte value;
+    csr_t fields;
+} csr_u;
+
+// Extract the fields of the CMDR register
+typedef struct packed {
+    bit don;
+    bit nak;
+    bit al;
+    bit err;
+    bit r;
+    cmd_t cmd;
+} cmdr_t;
+
+typedef union packed {
+    byte value;
+    cmdr_t fields;
+} cmdr_u;
+
+

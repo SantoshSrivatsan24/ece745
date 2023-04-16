@@ -6,6 +6,8 @@ class i2cmb_generator_dut_test extends i2cmb_generator_base;
         super.new (name, parent);
     endfunction
 
+    
+
     virtual task run ();
 
         // TODO: Testplan 2.1: i2cmb reset test
