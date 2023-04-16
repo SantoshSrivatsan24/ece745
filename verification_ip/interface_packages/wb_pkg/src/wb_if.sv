@@ -55,7 +55,7 @@ interface wb_if       #(
    property addr_valid;
       // Active high reset
       disable iff (rst_i)
-      @(posedge clk_i) stb_o |-> (adr_o == CSR_ADDR || adr_o == DPR_ADDR || adr_o == CMDR_ADDR);
+      @(posedge clk_i) stb_o |-> (adr_o == CSR_ADDR || adr_o == DPR_ADDR || adr_o == CMDR_ADDR); // TODO: Add FSMR address. I want to see it fail once
    endproperty
 
    assert property (addr_valid) else $fatal ("Invalid address: %b", adr_o);
@@ -63,7 +63,8 @@ interface wb_if       #(
    // Testplan 2.1: Ensure that the IRQ signal stays low when interrupts are disabled
    property csr_irq_disabled_int_low;
       disable iff (rst_i)
-      @(posedge clk_i) !csr.fields.ie |-> !irq_i;
+      // irq_i must always be 0
+      @(posedge clk_i) !csr.fields.ie |-> !irq_i[*0:$];
    endproperty 
 
    assert property (csr_irq_disabled_int_low) else $fatal ("IRQ signal high when interrupts are disabled: %b", csr.fields);

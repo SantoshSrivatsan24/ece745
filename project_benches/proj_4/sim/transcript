@@ -1,5 +1,5 @@
 # vsim -c -coverage -sv_seed random -do " set NoQuitOnFinish 1; run -all; do save_coverage.do i2cmb_generator_writes; quit -f;" "+GEN_TYPE=i2cmb_generator_writes" optimized_debug_top_tb 
-# Start time: 19:14:45 on Apr 16,2023
+# Start time: 19:20:42 on Apr 16,2023
 # //  Questa Sim
 # //  Version 2022.2_1 linux May 19 2022
 # //
@@ -43,7 +43,7 @@
 # Loading work.conditioner(str)#1
 # Loading work.filter(rtl)#1
 # Loading work.bus_state(rtl)#1
-# Sv_Seed = 2534416232
+# Sv_Seed = 556820783
 #  set NoQuitOnFinish 1
 # 1
 #  run -all
@@ -97,5 +97,5 @@
 # Stopped at ../testbench/top.sv line 194
 #  do save_coverage.do i2cmb_generator_writes
 #  quit -f
-# End time: 19:14:50 on Apr 16,2023, Elapsed time: 0:00:05
+# End time: 19:20:46 on Apr 16,2023, Elapsed time: 0:00:04
 # Errors: 0, Warnings: 0
