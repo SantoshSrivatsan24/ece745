@@ -6,33 +6,12 @@ class i2cmb_generator_register_test extends i2cmb_generator_base;
         super.new (name, parent);
     endfunction
 
-    // Testplan 1.1: Validate the default value of each register after a system reset
-    local task test_system_reset();
+    // Testplan 1.1: Validate the default value of each register after a system and core reset
+    local task test_reset();
         bit [7:0] csr_value;
         bit [7:0] cmdr_value;
         bit [7:0] dpr_value;
         bit [7:0] fsmr_value;
-
-        generate_wb_transaction_read (CSR_ADDR, csr_value);
-        generate_wb_transaction_read (CMDR_ADDR, cmdr_value);
-        generate_wb_transaction_read (DPR_ADDR, dpr_value);
-        generate_wb_transaction_read (FSMR_ADDR, fsmr_value);
-
-        assert (csr_value   == `CSR_DEFAULT_VALUE)  else $fatal ("Invalid CSR default value: %b", csr_value);
-        assert (cmdr_value  == `CMDR_DEFAULT_VALUE) else $fatal ("Invalid CMDR default value: %b", cmdr_value);
-        assert (dpr_value   == `DPR_DEFAULT_VALUE)  else $fatal ("Invalid DPR default value: %b", dpr_value);
-        assert (fsmr_value  == `FSMR_DEFAULT_VALUE) else $fatal ("Invalid FSMR default value: %b", fsmr_value);
-    endtask
-
-    // Testplan 1.1: Validate the default value of each register after a core reset
-    local task test_core_reset();   
-        bit [7:0] csr_value;
-        bit [7:0] cmdr_value;
-        bit [7:0] dpr_value;
-        bit [7:0] fsmr_value;
-        
-        // Reset core
-        generate_wb_transaction_write (CSR_ADDR, 8'b0000_0000);
 
         generate_wb_transaction_read (CSR_ADDR, csr_value);
         generate_wb_transaction_read (CMDR_ADDR, cmdr_value);
@@ -155,10 +134,13 @@ class i2cmb_generator_register_test extends i2cmb_generator_base;
     endtask
 
     virtual task run ();
-
-        this.test_system_reset();
+        // Test system reset
+        this.test_reset();
         this.test_register_rw();
-        this.test_core_reset();
+        // Reset core
+        generate_wb_transaction_write (CSR_ADDR, 8'b0000_0000);
+        // Test core reset
+        this.test_reset();
     endtask
 
 endclass
