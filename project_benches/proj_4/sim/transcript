@@ -1,5 +1,5 @@
 # vsim -c -coverage -sv_seed random -do " set NoQuitOnFinish 1; run -all; do save_coverage.do i2cmb_generator_writes; quit -f;" "+GEN_TYPE=i2cmb_generator_writes" optimized_debug_top_tb 
-# Start time: 19:20:42 on Apr 16,2023
+# Start time: 15:14:19 on Apr 19,2023
 # //  Questa Sim
 # //  Version 2022.2_1 linux May 19 2022
 # //
@@ -43,7 +43,7 @@
 # Loading work.conditioner(str)#1
 # Loading work.filter(rtl)#1
 # Loading work.bus_state(rtl)#1
-# Sv_Seed = 556820783
+# Sv_Seed = 1193786239
 #  set NoQuitOnFinish 1
 # 1
 #  run -all
@@ -72,7 +72,7 @@
 # ***************************************************************************
 # 
 # ===========================================================================
-# i2cmb_generator_writes: generate sequence of wb_transactions (255.00 ns)
+# i2cmb_generator_writes: generate sequence of wb_transactions (345.00 ns)
 # ---------------------------------------------------------------------------
 # tst.env.scoreboard::nb_transport: expected i2c_transaction 
 # op	: WRITE
@@ -91,11 +91,11 @@
 # ***************************************************************************
 # 
 # ** Note: $finish    : ../testbench/top.sv(194)
-#    Time: 2994105 ns  Iteration: 0  Instance: /top
+#    Time: 2996235 ns  Iteration: 0  Instance: /top
 # 1
 # Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 194
 # Stopped at ../testbench/top.sv line 194
 #  do save_coverage.do i2cmb_generator_writes
 #  quit -f
-# End time: 19:20:46 on Apr 16,2023, Elapsed time: 0:00:04
+# End time: 15:14:22 on Apr 19,2023, Elapsed time: 0:00:03
 # Errors: 0, Warnings: 0

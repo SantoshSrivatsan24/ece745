@@ -55,7 +55,7 @@ interface wb_if       #(
    property addr_valid;
       // Active high reset
       disable iff (rst_i)
-      @(posedge clk_i) stb_o |-> (adr_o == CSR_ADDR || adr_o == DPR_ADDR || adr_o == CMDR_ADDR); // TODO: Add FSMR address. I want to see it fail once
+      @(posedge clk_i) stb_o |-> (adr_o == CSR_ADDR || adr_o == DPR_ADDR || adr_o == CMDR_ADDR || adr_o == FSMR_ADDR);
    endproperty
 
    assert property (addr_valid) else $fatal ("Invalid address: %b", adr_o);

@@ -20,18 +20,29 @@ class i2cmb_generator_base extends ncsu_component;
     // Generate a wishbone transaction that writes to the DUT
     protected task generate_wb_transaction_write (bit [1:0] wb_addr, bit [7:0] wb_data);
         wb_transaction wb_trans = new ("wb_transaction");
+        wb_transaction fsm_trans = new ("fsm_transaction");
+
         wb_trans.addr = wb_addr;
         wb_trans.data = wb_data;
         agent_wb.bl_put (wb_trans);
 
+        // Generate a wishbone transaction to read the FSMR register
+        fsm_trans.addr = FSMR_ADDR;
+        agent_wb.bl_get_ref (fsm_trans);
     endtask
 
     // Generate a wishnbone transaction that reads from the DUT
     protected task generate_wb_transaction_read (bit [1:0] wb_addr, ref bit [7:0] wb_data);
         wb_transaction wb_trans = new ("wb_transaction");
+        wb_transaction fsm_trans = new ("fsm_transaction");
+
         wb_trans.addr = wb_addr;
         agent_wb.bl_get_ref (wb_trans);
         wb_data = wb_trans.data;
+
+        // Generate a wishbone transaction to read the FSMR register
+        fsm_trans.addr = FSMR_ADDR;
+        agent_wb.bl_get_ref (fsm_trans);
     endtask
 
     // Generate an empty I2C transaction and pass it to the I2C driver

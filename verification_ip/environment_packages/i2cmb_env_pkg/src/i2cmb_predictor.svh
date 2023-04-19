@@ -100,9 +100,6 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
                 next_bus_state = STATE_STOP;
                 transfer_complete = 1'b1;
             end
-            else begin
-                $error ("Invalid command");
-            end
         end
 
         STATE_WRITE_BYTE: begin
