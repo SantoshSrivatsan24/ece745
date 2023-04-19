@@ -51,4 +51,14 @@ typedef union packed {
     cmdr_t fields;
 } cmdr_u;
 
+// Extract the fields of the FSMR register
+typedef struct packed {
+    bit [3:0] bit_level_fsm;
+    bit [3:0] byte_level_fsm;
+} fsmr_t;
+
+typedef union packed {
+    byte value;
+    fsmr_t fields;
+} fsmr_u;
 
