@@ -86,7 +86,7 @@ interface wb_if       #(
 
    assert property (cmdr_res_bit_low) else $fatal ("CMDR: reserved bit high: %p", cmdr.fields);
 
-   // 2.9: Ensure the IRQ signal goes low upon reading the CMDR
+   // Testplan 2.9: Ensure the IRQ signal goes low upon reading the CMDR
    property cmdr_irq_low;
       disable iff (rst_i)
       @(posedge clk_i) stb_o |=> ##[0:$] irq_i until ack_i ##1 !irq_i;
@@ -94,7 +94,7 @@ interface wb_if       #(
 
    assert property (cmdr_irq_low) else $fatal ("IRQ signal doesn't go low after reading the CMDR: %p", cmdr.fields);
 
-   // 2.10: One of the CMDR status bits is set upon command completion
+   // Testplan 2.10: One of the CMDR status bits is set upon command completion
    property cmdr_status_onehot;
       disable iff (rst_i)
       @(posedge clk_i) cmdr_read |=> $onehot ({cmdr.fields.don, cmdr.fields.nak, cmdr.fields.al, cmdr.fields.err});
@@ -102,20 +102,20 @@ interface wb_if       #(
 
    assert property (cmdr_status_onehot) else $fatal ("CMDR: multiple status bits high: %p", cmdr.fields);
 
-   // 3.3: Ensure that the byte-level FSM never reaches an invalid state
+   // Testplan 3.3: Ensure that the byte-level FSM never reaches an invalid state
    property fsmr_byte_fsm_valid;
       disable iff (rst_i)
       // The byte-level FSM has 8 valid states
-      @(posedge clk_i) fsmr_read |=> (fsmr.fields.byte_level_fsm <= 4'd8);
+      @(posedge clk_i) fsmr_read |=> (fsmr.fields.byte_fsm_state <= 4'd8);
    endproperty
 
    assert property (fsmr_byte_fsm_valid) else $fatal ("FSMR: invalid byte-level FSM state: %p", fsmr.fields);
 
-   // 3.4: Ensure that the bit-level FSM never reaches an invalid state
+   // Testplan 3.4: Ensure that the bit-level FSM never reaches an invalid state
    property fsmr_bit_fsm_valid;
       disable iff (rst_i)
-      // The bit-level FSM has 15 valid states
-      @(posedge clk_i) fsmr_read |=> (fsmr.fields.bit_level_fsm <= 4'd15);
+      // The bit-level FSM has 15 valid states (0 to 14)
+      @(posedge clk_i) fsmr_read |=> (fsmr.fields.bit_fsm_state < 4'd15);
    endproperty
 
    assert property (fsmr_bit_fsm_valid) else $fatal ("FSMR: invalid bit-level FSM state: %p", fsmr.fields);

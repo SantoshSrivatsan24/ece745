@@ -3,8 +3,8 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
     local i2cmb_scoreboard scoreboard;
     local i2c_transaction #(.ADDR_WIDTH(7), .DATA_WIDTH(8)) i2c_trans;
 
-    local bus_state_t current_bus_state;
-    local bus_state_t next_bus_state;
+    local byte_fsm_state_t current_bus_state;
+    local byte_fsm_state_t next_bus_state;
 
     local bit addr_complete;
     local bit [7:0] dpr;
@@ -15,7 +15,7 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
     function new (string name = "", ncsu_component_base parent = null);
         super.new(name, parent);
         this.i2c_trans = new("expected_trans");
-        this.current_bus_state = STATE_IDLE;
+        this.current_bus_state = S_IDLE;
     endfunction
 
     function void set_scoreboard (i2cmb_scoreboard scbd);
@@ -49,29 +49,29 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
         bit transfer_complete = 1'b0;
 
         case (current_bus_state)
-        STATE_IDLE: begin
+        S_IDLE: begin
             if(addr == CMDR_ADDR && cmdr.cmd == CMD_START) begin
-                next_bus_state = STATE_START;
+                next_bus_state = S_START;
             end 
             else if(addr == CMDR_ADDR && cmdr.cmd == CMD_SET_BUS) begin
-                next_bus_state = STATE_IDLE; 
+                next_bus_state = S_IDLE; 
             end 
             else begin
-                next_bus_state = STATE_IDLE;
+                next_bus_state = S_IDLE;
             end
         end
 
-        STATE_START: begin
+        S_START: begin
             if(cmdr.don) begin
-                next_bus_state = STATE_BUSY;
+                next_bus_state = S_BUS_TAKEN;
             end
             else if (cmdr.err || cmdr.al) begin
-                next_bus_state = STATE_IDLE;
+                next_bus_state = S_IDLE;
                 $error ("error / arbitration lost");
             end
         end
 
-        STATE_BUSY: begin
+        S_BUS_TAKEN: begin
             if (addr == DPR_ADDR) begin
                 this.dpr = data.value;
                 // Read data from the BFM is stored in the DPR
@@ -79,7 +79,7 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
                     this.i2c_data.push_back(this.dpr);
             end
             else if (addr == CMDR_ADDR && cmdr.cmd == CMD_WRITE) begin
-                next_bus_state = STATE_WRITE_BYTE;
+                next_bus_state = S_WRITE_BYTE;
                 if (!this.addr_complete) begin
                     this.addr_complete = 1'b1;
                     this.i2c_op = i2c_op_t'(dpr[0]);
@@ -89,44 +89,44 @@ class i2cmb_predictor extends ncsu_component #(.T(wb_transaction));
                 end
             end
             else if (addr == CMDR_ADDR && (cmdr.cmd == CMD_READ_ACK || cmdr.cmd == CMD_READ_NAK)) begin
-                next_bus_state = STATE_READ_BYTE;
+                next_bus_state = S_READ_BYTE;
             end 
             else if (addr == CMDR_ADDR && cmdr.cmd == CMD_START) begin
-                next_bus_state = STATE_START;
+                next_bus_state = S_START;
                 if (this.addr_complete) // Repeated START
                     transfer_complete = 1'b1;
             end
             else if (addr == CMDR_ADDR && cmdr.cmd == CMD_STOP) begin
-                next_bus_state = STATE_STOP;
+                next_bus_state = S_STOP;
                 transfer_complete = 1'b1;
             end
         end
 
-        STATE_WRITE_BYTE: begin
+        S_WRITE_BYTE: begin
             if(cmdr.don || cmdr.nak) begin
-                next_bus_state = STATE_BUSY;
+                next_bus_state = S_BUS_TAKEN;
             end
             else if (cmdr.err || cmdr.al) begin
-                next_bus_state = STATE_IDLE;
+                next_bus_state = S_IDLE;
                 $error ("error / arbitration lost");
             end
         end
 
-        STATE_READ_BYTE: begin
+        S_READ_BYTE: begin
             if (cmdr.don) begin
-                next_bus_state = STATE_BUSY;
+                next_bus_state = S_BUS_TAKEN;
             end
             else if (cmdr.err || cmdr.al) begin
-                next_bus_state = STATE_IDLE;
+                next_bus_state = S_IDLE;
             end
             else begin
                 $error ("Invalid command");
             end
         end
 
-        STATE_STOP: begin
+        S_STOP: begin
             if (cmdr.don) begin
-                next_bus_state = STATE_IDLE;
+                next_bus_state = S_IDLE;
             end
             else begin
                 $error ("Invalid command");

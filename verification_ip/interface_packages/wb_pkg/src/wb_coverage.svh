@@ -1,7 +1,6 @@
 class wb_coverage extends ncsu_component #(.T(wb_transaction));
 
     cmdr_u cmdr;
-    cmd_t cmd;
     rsp_t rsp;
     cmd_t cmd_sequence;
 
@@ -12,7 +11,7 @@ class wb_coverage extends ncsu_component #(.T(wb_transaction));
         option.name = get_full_name();
         
         // Testplan 2.11: Ensure that the DUT receives every possible byte-level command
-        cmd: coverpoint cmd
+        cmd: coverpoint cmdr.fields.cmd
         {
         bins START      = {CMD_START};
         bins STOP       = {CMD_STOP};
@@ -57,7 +56,6 @@ class wb_coverage extends ncsu_component #(.T(wb_transaction));
     virtual function void nb_put (T trans);
         if (trans.addr == CMDR_ADDR) begin
             this.cmdr.value = trans.data;
-            this.cmd = cmd_t'(cmdr.fields.cmd);
             this.rsp = rsp_t'({cmdr.fields.don, cmdr.fields.nak, cmdr.fields.al, cmdr.fields.err});
             wb_transaction_cg.sample();
         end

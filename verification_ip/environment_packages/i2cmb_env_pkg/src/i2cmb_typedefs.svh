@@ -1,12 +1,3 @@
-typedef enum bit [2:0] {      
-    STATE_IDLE,
-    STATE_START,
-    STATE_STOP,
-    STATE_BUSY,
-    STATE_WRITE_BYTE,
-    STATE_READ_BYTE
-} bus_state_t;
-
 // Different types of wb transaction sequences that the 
 // generator can generate
 typedef enum bit [3:0] {      
