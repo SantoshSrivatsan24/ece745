@@ -34,23 +34,8 @@ triand  [NUM_I2C_BUSSES-1:0] sda;
 
 i2cmb_test test;
 
-// ****************************************************************************
-// Clock generator
 
-initial begin: CLK_GEN
-	 clk = 1'b0;
-	 forever #CLK_PHASE clk = ~clk;
-end
-
-// ****************************************************************************
-// Reset generator
-
-// Active high reset (pg. 14, iicmb_mb spec)
-initial begin: RST_GEN
-	#113 rst = 1'b0;
-end
-
-// ****************************************************************************
+////////////////////////////////////////////////////////////////////////////
 // Instantiate the Wishbone master Bus Functional Model
 wb_if #(
 	.ADDR_WIDTH(WB_ADDR_WIDTH),
@@ -78,7 +63,7 @@ wb_bus (
 	.dat_i(dat_rd_i)
 	);
 
-// ****************************************************************************
+////////////////////////////////////////////////////////////////////////////
 // Instantiate the I2C slave Bus Functional Model
 i2c_if #(
 	.ADDR_WIDTH(I2C_ADDR_WIDTH),
@@ -91,7 +76,7 @@ i2c_bus (
 	.sda_o  (sda)
 );
 
-// ****************************************************************************
+////////////////////////////////////////////////////////////////////////////
 // Instantiate the DUT - I2C Multi-Bus Controller
 \work.iicmb_m_wb(str) #(.g_bus_num(NUM_I2C_BUSSES)) DUT
 	(
@@ -123,61 +108,74 @@ i2c_bus (
 
 ////////////////////////////////////////////////////////////////////////////
 
-	// TODO: Testplan 2.2
-	property int_disabled_irq_low;
-		@(posedge clk) disable iff(rst) !rst ##1 !rst;
-	endproperty
+bind DUT.regblock_inst9 i2cmb_probe_if probe_bus (
+	.clk 				(clk),
+	.s_rst 				(s_rst),
 
-	// TODO: Testplan 2.3
-	property bus_busy_cmd_exec;
-		@(posedge clk) disable iff(rst) !rst ##1 !rst;
-	endproperty
+    .irq_y 				(irq_y),
+    .mcmd_wr_y			(mcmd_wr_y),
+    .mcmd_id_y			(mcmd_id_y),
 
-	// TODO: Testplan 2.5
-	property cmdr_res_bit_low;
-		@(posedge clk) disable iff(rst) !rst ##1 !rst;
-	endproperty
+	// Probe CSR
+    .e_reg				(e_reg),
+    .ie_reg				(ie_reg),
+	.busy 				(busy),
+	.captured 			(captured),
 
-	// TODO: Testplan 2.6
-	property cmdr_don_bit_low;
-		@(posedge clk) disable iff(rst) !rst ##1 !rst;
-	endproperty
+	// Probe DPR
+	.tx_data_reg		(tx_data_reg),
+    .rx_data_reg		(rx_data_reg),
 
-	// TODO: Testplan 2.7
-	property cmdr_nak_bit_low;
-		@(posedge clk) disable iff(rst) !rst ##1 !rst;
-	endproperty
+	// Probe CMDR
+    .don_reg			(don_reg),
+    .nak_reg			(nak_reg),
+    .al_reg				(al_reg),
+    .err_reg			(err_reg),
+    .cmd_code_reg		(cmd_code_reg),
+    .command_completed 	(command_completed),
 
-	// TODO: Testplan 2.8
-	property cmdr_al_bit_low;
-		@(posedge clk) disable iff(rst) !rst ##1 !rst;
-	endproperty
+	// Probe FSMR
+	.byte_state 		(byte_state),
+	.bit_state 			(bit_state)
+);
 
-	// TODO: Testplan 2.9
-	property cmdr_err_bit_low;
-		@(posedge clk) disable iff(rst) !rst ##1 !rst;
-	endproperty
+////////////////////////////////////////////////////////////////////////////
 
-	// TODO: Testplan 2.10
-	property cmdr_read_irq_low;
-		@(posedge clk) disable iff(rst) !rst ##1 !rst;
-	endproperty
+i2cmb_check_if #(
+	.ADDR_WIDTH(WB_ADDR_WIDTH),
+	.DATA_WIDTH(WB_DATA_WIDTH)  
+)
+check_bus (
+	// System sigals
+	.clk_i(clk),
+	.rst_i(rst),
+	.irq_i(irq),
+	// Master signals
+	.cyc_o(cyc),
+	.stb_o(stb),
+	.ack_i(ack),
+	.adr_o(adr),
+	.we_o(we),
+	// Shred signals
+	.dat_o(dat_wr_o),
+	.dat_i(dat_rd_i)
+);
 
-	// TODO: Testplan 2.11
-	property cmdr_status_high;
-		@(posedge clk) disable iff(rst) !rst ##1 !rst;
-	endproperty
+////////////////////////////////////////////////////////////////////////////
+// Clock generator
 
-	assert property (int_disabled_irq_low) else $error ("ERROR");
-	assert property (bus_busy_cmd_exec) else $error ("ERROR");
-	assert property (cmdr_res_bit_low) else $error ("ERROR");
-	assert property (cmdr_don_bit_low) else $error ("ERROR");
-	assert property (cmdr_nak_bit_low) else $error ("ERROR");
-	assert property (cmdr_al_bit_low) else $error ("ERROR");
-	assert property (cmdr_err_bit_low) else $error ("ERROR");
-	assert property (cmdr_read_irq_low) else $error ("ERROR");
-	assert property (cmdr_status_high) else $error ("ERROR");
+initial begin: CLK_GEN
+	 clk = 1'b0;
+	 forever #CLK_PHASE clk = ~clk;
+end
 
+////////////////////////////////////////////////////////////////////////////
+// Reset generator
+
+// Active high reset (pg. 14, iicmb_mb spec)
+initial begin: RST_GEN
+	#113 rst = 1'b0;
+end
 
 ////////////////////////////////////////////////////////////////////////////
 

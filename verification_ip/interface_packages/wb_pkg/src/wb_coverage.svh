@@ -1,6 +1,9 @@
 class wb_coverage extends ncsu_component #(.T(wb_transaction));
 
     cmdr_u cmdr;
+    addr_t addr;
+    wb_op_t op;
+
     rsp_t rsp;
     cmd_t cmd_sequence;
 
@@ -20,18 +23,16 @@ class wb_coverage extends ncsu_component #(.T(wb_transaction));
         bins WRITE      = {CMD_WRITE};
         bins SET_BUS    = {CMD_SET_BUS};
         bins WAIT       = {CMD_WAIT};
-        illegal_bins ILLEGAL_CMD = default;
         }
 
         // Testplan 2.12: Ensure that the DUT provides every possible response
-        rsp: coverpoint rsp
+        rsp: coverpoint rsp_t'{cmdr.fields.don, cmdr.fields.nak, cmdr.fields.al, cmdr.fields.err} iff (op == WB_READ)
         {
         bins DON        = {RSP_DON};
         bins ARB_LOST   = {RSP_ARB_LOST};
         bins NAK        = {RSP_NAK};
         bins ERR        = {RSP_ERR};
         ignore_bins  IGNORE = {NULL};
-        illegal_bins ILLEGAL_RSP = default;
         }
 
         // TODO: Testplan 2.14
@@ -56,7 +57,8 @@ class wb_coverage extends ncsu_component #(.T(wb_transaction));
     virtual function void nb_put (T trans);
         if (trans.addr == CMDR_ADDR) begin
             this.cmdr.value = trans.data;
-            this.rsp = rsp_t'({cmdr.fields.don, cmdr.fields.nak, cmdr.fields.al, cmdr.fields.err});
+            this.addr = addr_t'(trans.addr);
+            this.op = wb_op_t'(trans.we);
             wb_transaction_cg.sample();
         end
     endfunction

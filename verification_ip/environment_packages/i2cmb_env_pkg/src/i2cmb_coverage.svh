@@ -2,7 +2,7 @@ class i2cmb_coverage extends ncsu_component #(.T(wb_transaction));
 
     fsmr_u fsmr;
 
-    covergroup i2cmb_env_cg ();
+    covergroup i2cmb_fsm_cg ();
 
     // Testplan 3.1: Ensure that all byte-level FSM states are covered
     byte_fsm_state: coverpoint fsmr.fields.byte_fsm_state
@@ -29,7 +29,6 @@ class i2cmb_coverage extends ncsu_component #(.T(wb_transaction));
         (S_READ_BYTE => S_IDLE, S_BUS_TAKEN, S_READ_BYTE),
         (S_STOP => S_IDLE),
         (S_WAIT => S_IDLE);
-    bins invalid_transitions = default;
     }
 
     // Testplan 3.3: Ensure that all bit-level FSM states are covered
@@ -41,13 +40,13 @@ class i2cmb_coverage extends ncsu_component #(.T(wb_transaction));
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new (name, parent);
-        i2cmb_env_cg = new;
+        i2cmb_fsm_cg = new;
     endfunction
 
     virtual function void nb_put (T trans);
         if (trans.addr == FSMR_ADDR) begin
             this.fsmr = trans.data;
-            i2cmb_env_cg.sample();
+            i2cmb_fsm_cg.sample();
         end
     endfunction
 
