@@ -1,20 +1,12 @@
 class wb_coverage extends ncsu_component #(.T(wb_transaction));
 
-    cmdr_u cmdr;
-    addr_t addr;
-    wb_op_t op;
-
-    rsp_t rsp;
-    cmd_t cmd_sequence;
-
-
-    covergroup wb_transaction_cg;
+    covergroup wb_transaction_cg with function sample (wb_op_t op, cmd_t cmd, rsp_t rsp);
 
         option.per_instance = 1;
         option.name = get_full_name();
         
         // Testplan 2.11: Ensure that the DUT receives every possible byte-level command
-        cmd: coverpoint cmdr.fields.cmd
+        cmd: coverpoint cmd
         {
         bins START      = {CMD_START};
         bins STOP       = {CMD_STOP};
@@ -26,13 +18,12 @@ class wb_coverage extends ncsu_component #(.T(wb_transaction));
         }
 
         // Testplan 2.12: Ensure that the DUT provides every possible response
-        rsp: coverpoint rsp_t'{cmdr.fields.don, cmdr.fields.nak, cmdr.fields.al, cmdr.fields.err} iff (op == WB_READ)
+        rsp: coverpoint rsp iff (op == WB_READ)
         {
         bins DON        = {RSP_DON};
-        bins ARB_LOST   = {RSP_ARB_LOST};
         bins NAK        = {RSP_NAK};
+        bins ARB_LOST   = {RSP_ARB_LOST};
         bins ERR        = {RSP_ERR};
-        ignore_bins  IGNORE = {NULL};
         }
 
         // TODO: Testplan 2.14
@@ -42,7 +33,7 @@ class wb_coverage extends ncsu_component #(.T(wb_transaction));
         }
 
         // TODO: Testplan 4.1
-        cmd_sequence: coverpoint cmd_sequence
+        cmd_sequence: coverpoint cmd
         {
 
         }
@@ -55,11 +46,16 @@ class wb_coverage extends ncsu_component #(.T(wb_transaction));
     endfunction
 
     virtual function void nb_put (T trans);
+        cmdr_u cmdr;
+        cmd_t cmd;
+        rsp_t rsp;
+        wb_op_t op;
         if (trans.addr == CMDR_ADDR) begin
-            this.cmdr.value = trans.data;
-            this.addr = addr_t'(trans.addr);
-            this.op = wb_op_t'(trans.we);
-            wb_transaction_cg.sample();
+            cmdr.value = trans.data;
+            cmd = cmdr.fields.cmd;
+            rsp = rsp_t'({cmdr.fields.don, cmdr.fields.nak, cmdr.fields.al, cmdr.fields.err});
+            op = wb_op_t'(trans.we);
+            wb_transaction_cg.sample(op, cmd, rsp);
         end
     endfunction
 

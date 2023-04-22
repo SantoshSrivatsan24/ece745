@@ -13,13 +13,16 @@ package i2cmb_env_pkg;
     `include "src/i2cmb_scoreboard.svh"
     `include "src/i2cmb_predictor.svh"
     `include "src/i2cmb_environment.svh"
+
     `include "src/i2cmb_generator_base.svh"
     `include "src/i2cmb_generator_register_test.svh"
     `include "src/i2cmb_generator_dut_test.svh"
-    `include "src/i2cmb_generator_dut_operation.svh"
+    `include "src/i2cmb_generator_fsm_test.svh"
+    `include "src/i2cmb_generator_i2c_operation.svh"
     `include "src/i2cmb_generator_writes.svh"
     `include "src/i2cmb_generator_reads.svh"
     `include "src/i2cmb_generator_alt_rw.svh"
+
     `include "src/i2cmb_test.svh"
 
 endpackage

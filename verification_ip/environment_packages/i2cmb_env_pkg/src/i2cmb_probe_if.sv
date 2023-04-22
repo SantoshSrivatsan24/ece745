@@ -35,7 +35,7 @@ interface i2cmb_probe_if (
     input wire [3:0]    bit_state
 );
 
-    // Determine whether a command is executing or not from the diagram of the byte-level FSM
+    // Determine whether a command is executing or not from the spec diagram of the byte-level FSM
     // From the diagram, the states colored blue are when a command is NOT executing
     // busy != command executing
     wire command_executing = (byte_state == S_START) || (byte_state == S_STOP) || (byte_state == S_WRITE_BYTE) || (byte_state == S_READ_BYTE);
@@ -77,7 +77,7 @@ interface i2cmb_probe_if (
     endproperty
     
     // Testplan 2.10: Only one of the CMDR status bits is set upon command completion
-    property cmd_status_onehot;
+    property cmd_complete_status_onehot;
         disable iff (s_rst)
         @(posedge clk) command_completed |-> $onehot ({don_reg, nak_reg, al_reg, err_reg});
     endproperty 
@@ -94,15 +94,15 @@ interface i2cmb_probe_if (
         @(posedge clk) (bit_state < 4'd15);
     endproperty
 
-    assert property (int_disabled_irq_low) else $fatal ("IRQ signal high when interrupts are disabled");
+    assert property (int_disabled_irq_low)  else $fatal ("IRQ signal high when interrupts are disabled");
     assert property (cmd_complete_irq_high) else $fatal ("IRQ signal doesn't go high when command completes");
-    assert property (cmd_exec_don_low) else $fatal ("CMDR DON bit high during command execution");
-    assert property (cmd_exec_nak_low) else $fatal ("CMDR NAK bit high during command execution");
-    assert property (cmd_exec_al_low) else $fatal ("CMDR AL bit high during command execution");
-    assert property (cmd_exec_err_low) else $fatal ("CMDR ERR bit high during command execution");
-    assert property (cmd_status_onehot) else $fatal ("Multiple status bits high");
-    assert property (byte_fsm_valid) else $fatal ("Invalid byte-level FSM state");
-    assert property (bit_fsm_valid) else $fatal ("Invalid bit-level FSM state");
+    assert property (cmd_exec_don_low)      else $fatal ("CMDR DON bit high during command execution");
+    assert property (cmd_exec_nak_low)      else $fatal ("CMDR NAK bit high during command execution");
+    assert property (cmd_exec_al_low)       else $fatal ("CMDR AL bit high during command execution");
+    assert property (cmd_exec_err_low)      else $fatal ("CMDR ERR bit high during command execution");
+    assert property (cmd_complete_status_onehot) else $fatal ("Multiple status bits high");
+    assert property (byte_fsm_valid)        else $fatal ("Invalid byte-level FSM state");
+    assert property (bit_fsm_valid)         else $fatal ("Invalid bit-level FSM state");
 
 endinterface
 

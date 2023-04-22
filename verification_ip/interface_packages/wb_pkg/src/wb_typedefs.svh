@@ -16,8 +16,8 @@ typedef enum bit [2:0] {
 } cmd_t;
 
 typedef enum bit {
-    WB_WRITE = 1'b0,
-    WB_READ  = 1'b1
+    WB_READ  = 1'b0,
+    WB_WRITE = 1'b1
 } wb_op_t;
 
 typedef enum bit [3:0] {
