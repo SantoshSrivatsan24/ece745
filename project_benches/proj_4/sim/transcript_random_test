@@ -1,0 +1,387 @@
+# vsim -c -coverage -sv_seed random -do " set NoQuitOnFinish 1; run -all; do save_coverage.do i2cmb_generator_random_test; quit -f;" "+GEN_TYPE=i2cmb_generator_random_test" "+DISABLE_PREDICTOR" optimized_debug_top_tb 
+# Start time: 17:59:48 on Apr 24,2023
+# //  Questa Sim
+# //  Version 2022.2_1 linux May 19 2022
+# //
+# //  Copyright 1991-2022 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.wb_if(fast)
+# Loading work.i2c_if(fast)
+# Loading work.ncsu_pkg(fast)
+# Loading work.wb_pkg(fast)
+# Loading work.i2c_pkg(fast)
+# Loading work.i2cmb_env_pkg(fast)
+# Loading work.top_sv_unit(fast)
+# Loading work.top(fast)
+# Loading work.wb_if_sv_unit(fast)
+# Loading work.wb_if(fast__2)
+# Loading work.i2c_if_sv_unit(fast)
+# Loading work.i2c_if(fast__2)
+# Loading work.i2cmb_check_if_sv_unit(fast)
+# Loading work.i2cmb_check_if(fast__1)
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.iicmb_m_wb(str)#1
+# Loading work.wishbone(rtl)#1
+# Loading verilog.vl_resolve(body)
+# Loading ieee.numeric_std(body)
+# Loading work.iicmb_pkg(body)
+# Loading verilog.vl_types(body)
+# Loading work.regblock(rtl)#1
+# Loading work.i2cmb_probe_if_sv_unit(fast)
+# Loading work.i2cmb_probe_if(fast__1)
+# Loading work.iicmb_int_pkg(body)
+# Loading work.iicmb_m(str)#1
+# Loading work.mbyte(rtl)#1
+# Loading work.mbit(rtl)#1
+# Loading work.conditioner_mux(str)#1
+# Loading work.conditioner(str)#1
+# Loading work.filter(rtl)#1
+# Loading work.bus_state(rtl)#1
+# Sv_Seed = 3198107284
+#  set NoQuitOnFinish 1
+# 1
+#  run -all
+# ----------------------------------------------------------------
+# //  NCSU Package 
+# //  Version 1.0a
+# ----------------------------------------------------------------
+# 
+# 
+# i2cmb_env_pkg.i2cmb_test.new found +GEN_TRANS_TYPE=i2cmb_generator_random_test
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.wb_agent called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.wb_agent.driver called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.wb_agent.monitor called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.wb_agent.coverage called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.i2c_agent called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.i2c_agent.driver called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.i2c_agent.monitor called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.i2c_agent.coverage called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.coverage called
+# NCSU_INFO:Time                    0:ncsu_component::build():  of tst.env.scoreboard called
+# 
+# ***************************************************************************
+# BEGIN RANDOM TESTS
+# ***************************************************************************
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x03
+# data	: 91 255 
+# 
+# ** Error: Second Start command!
+#    Time: 10289335 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x03
+# data	: 0 
+# 
+# ** Error: Second Start command!
+#    Time: 10307505 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x03
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x04
+# data	: 0 
+# 
+# ** Error: Second Start command!
+#    Time: 10434045 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# ** Error: Second Start command!
+#    Time: 10434135 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x64
+# data	: 254 
+# 
+# ** Error: Second Start command!
+#    Time: 10629575 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x64
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x45
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x45
+# data	: 0 
+# 
+# ** Error: Second Start command!
+#    Time: 25769515 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x45
+# data	: 0 
+# 
+# NAK
+# ** Error: Second Start command!
+#    Time: 25787685 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# ** Error: Second Start command!
+#    Time: 25787775 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x45
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x45
+# data	: 0 
+# 
+# NAK
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x26
+# data	: 8 255 255 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x26
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x3c
+# data	: 33 
+# 
+# NAK
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x3c
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x3c
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x3c
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x3c
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x3c
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x3c
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x77
+# data	: 0 
+# 
+# ** Error: Second Start command!
+#    Time: 127610685 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x1a
+# data	: 164 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x1a
+# data	: 0 
+# 
+# ** Error: Second Start command!
+#    Time: 180823195 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x7e
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x7e
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x7e
+# data	: 0 
+# 
+# ** Error: Second Start command!
+#    Time: 247955505 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x7e
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x7e
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x14
+# data	: 96 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x14
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x14
+# data	: 0 
+# 
+# ** Error: Second Start command!
+#    Time: 289217545 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x7d
+# data	: 24 255 255 255 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x7d
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x00
+# data	: 138 255 
+# 
+# ** Error: Second Start command!
+#    Time: 289990835 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x14
+# data	: 162 255 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x1c
+# data	: 120 143 150 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x1c
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x1c
+# data	: 0 
+# 
+# ** Error: Second Start command!
+#    Time: 290691955 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x1c
+# data	: 0 
+# 
+# ** Error: Second Start command!
+#    Time: 290710125 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x1c
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x1c
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x15
+# data	: 34 
+# 
+# NAK
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x3f
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x0c
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: READ
+# addr	: 0x50
+# data	: 168 
+# 
+# ** Error: Second Start command!
+#    Time: 345348225 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# ** Error: Second Start command!
+#    Time: 345348315 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x45
+# data	: 0 
+# 
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x45
+# data	: 0 
+# 
+# ** Error: Second Start command!
+#    Time: 345471555 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# ** Error: Second Start command!
+#    Time: 345471645 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# ** Error: Second Start command!
+#    Time: 345471735 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# tst.env.scoreboard::nb_put: actual i2c_transaction 
+# op	: WRITE
+# addr	: 0x45
+# data	: 0 
+# 
+# ** Error: Second Start command!
+#    Time: 345489905 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# ** Error: Second Start command!
+#    Time: 345489995 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# ** Error: Second Start command!
+#    Time: 345490085 ns  Iteration: 1  Instance: /top/DUT/iicmb_m_inst0/mbit_inst0
+# 
+# ***************************************************************************
+# END RANDOM TESTS
+# ***************************************************************************
+# 
+# 
+# ***************************************************************************
+# DONE!
+# ***************************************************************************
+# 
+# ** Note: $finish    : ../testbench/top.sv(192)
+#    Time: 345491135 ns  Iteration: 0  Instance: /top
+# 1
+# Break in NamedBeginStat TEST_FLOW at ../testbench/top.sv line 192
+# Stopped at ../testbench/top.sv line 192
+#  do save_coverage.do i2cmb_generator_random_test
+#  quit -f
+# End time: 18:00:28 on Apr 24,2023, Elapsed time: 0:00:40
+# Errors: 23, Warnings: 0

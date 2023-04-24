@@ -1,21 +1,21 @@
 make clean compile optimize
 
-make run_cli GEN_TYPE=i2cmb_generator_register_test
-mv transcript transcript_register_test
+make run_cli GEN_TYPE=i2cmb_generator_directed_test
+mv transcript transcript_directed_test
 
-make run_cli GEN_TYPE=i2cmb_generator_dut_test
-mv transcript transcript_dut_test
+make run_cli GEN_TYPE=i2cmb_generator_random_test PLUS_ARGS=+DISABLE_PREDICTOR
+mv transcript transcript_random_test
 
 make run_cli GEN_TYPE=i2cmb_generator_i2c_operation
 mv transcript transcript_i2c_operation
 
-make run_cli GEN_TYPE=i2cmb_generator_writes
-mv transcript transcript_writes
+make run_cli GEN_TYPE=i2cmb_generator_32_writes
+mv transcript transcript_32_writes
 
-make run_cli GEN_TYPE=i2cmb_generator_reads
-mv transcript transcript_reads
+make run_cli GEN_TYPE=i2cmb_generator_32_reads
+mv transcript transcript_32_reads
 
-make run_cli GEN_TYPE=i2cmb_generator_alt_rw
-mv transcript transcript_alt_rw
+make run_cli GEN_TYPE=i2cmb_generator_64_alt_wr
+mv transcript transcript_64_alt_wr
 
 make merge_coverage

@@ -45,6 +45,13 @@ class i2c_agent extends ncsu_component #(.T(i2c_transaction));
         driver.bl_get(trans);
     endtask
 
+    task bl_arb_lost ();
+        driver.bl_arb_lost();
+    endtask
+
+    task bl_nak();
+        driver.bl_nak();
+    endtask
 
     function void connect_subscriber(ncsu_component #(T) subscriber);
         subscribers.push_back (subscriber);

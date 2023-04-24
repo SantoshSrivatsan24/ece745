@@ -22,7 +22,15 @@ class i2c_driver extends ncsu_component #(.T(i2c_transaction));
 
     virtual task bl_put(input T trans);
         bus.provide_read_data(.read_data(trans.data), .transfer_complete(trans.transfer_complete));
-        wait (trans.transfer_complete);
+        // wait (trans.transfer_complete);
+    endtask
+
+    task bl_arb_lost ();
+        bus.cause_arbitration_loss();
+    endtask
+
+    task bl_nak ();
+        bus.cause_nak();
     endtask
 
 endclass

@@ -8,34 +8,26 @@ class wb_coverage extends ncsu_component #(.T(wb_transaction));
         // Testplan 2.11: Ensure that the DUT receives every possible byte-level command
         cmd: coverpoint cmd
         {
-        bins START      = {CMD_START};
-        bins STOP       = {CMD_STOP};
-        bins READ_ACK   = {CMD_READ_ACK};
-        bins READ_NAK   = {CMD_READ_NAK};
-        bins WRITE      = {CMD_WRITE};
-        bins SET_BUS    = {CMD_SET_BUS};
-        bins WAIT       = {CMD_WAIT};
+            bins valid_cmd[] = {CMD_START, CMD_STOP, CMD_READ_ACK, CMD_READ_NAK, CMD_WRITE, CMD_SET_BUS, CMD_WAIT};
         }
 
-        // Testplan 2.12: Ensure that the DUT provides every possible response
-        rsp: coverpoint rsp iff (op == WB_READ)
+        // Testplan 2.12: Ensure that every legal command sequence is hit
+        cmd_sequence: coverpoint cmd iff (op == WB_WRITE)
         {
-        bins DON        = {RSP_DON};
-        bins NAK        = {RSP_NAK};
-        bins ARB_LOST   = {RSP_ARB_LOST};
-        bins ERR        = {RSP_ERR};
+            bins cmd_seq[] = 
+                (CMD_START => CMD_START, CMD_STOP, CMD_WRITE),
+                (CMD_STOP => CMD_START, CMD_WAIT, CMD_SET_BUS),
+                (CMD_READ_ACK => CMD_READ_ACK, CMD_READ_NAK),
+                (CMD_READ_NAK => CMD_START, CMD_STOP),
+                (CMD_WRITE => CMD_START, CMD_STOP, CMD_WRITE, CMD_READ_ACK, CMD_READ_NAK),
+                (CMD_SET_BUS => CMD_START, CMD_STOP, CMD_SET_BUS, CMD_WAIT),
+                (CMD_WAIT => CMD_START, CMD_SET_BUS, CMD_WAIT);
         }
 
-        // TODO: Testplan 2.14
-        cmd_x_rsp: cross cmd, rsp 
+        // Testplan 2.13: Ensure that the DUT provides every possible response
+        rsp: coverpoint rsp iff (op == WB_READ) // Only sample response when we read the CMDR
         {
-         
-        }
-
-        // TODO: Testplan 4.1
-        cmd_sequence: coverpoint cmd
-        {
-
+            bins valid_rsp[] = {RSP_DON, RSP_NAK, RSP_ERR};
         }
 
     endgroup
@@ -58,5 +50,6 @@ class wb_coverage extends ncsu_component #(.T(wb_transaction));
             wb_transaction_cg.sample(op, cmd, rsp);
         end
     endfunction
+
 
 endclass

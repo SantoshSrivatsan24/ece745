@@ -12,7 +12,8 @@ typedef enum bit [2:0] {
     CMD_READ_NAK    = 3'b011,
     CMD_WRITE       = 3'b001,
     CMD_SET_BUS     = 3'b110,
-    CMD_WAIT        = 3'b000
+    CMD_WAIT        = 3'b000,
+    NULL_CMD        = 3'b111
 } cmd_t;
 
 typedef enum bit {
@@ -21,10 +22,10 @@ typedef enum bit {
 } wb_op_t;
 
 typedef enum bit [3:0] {
-    NULL            = 4'b0000,
+    NULL_RSP        = 4'b0000,
     RSP_DON         = 4'b1000,
-    RSP_ARB_LOST    = 4'b0100,
-    RSP_NAK         = 4'b0010,
+    RSP_NAK         = 4'b0100,
+    RSP_ARB_LOST    = 4'b0010,
     RSP_ERR         = 4'b0001
 } rsp_t;
 

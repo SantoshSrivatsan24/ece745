@@ -18,31 +18,30 @@ class i2cmb_generator_base extends ncsu_component;
     endfunction
 
     // Generate a wishbone transaction that writes to the DUT
-    protected task generate_wb_transaction_write (bit [1:0] wb_addr, bit [7:0] wb_data);
+    protected task generate_wb_transaction_write (bit [1:0] wb_addr, bit [7:0] wb_data); 
         wb_transaction wb_trans = new ("wb_transaction");
-        wb_transaction fsm_trans = new ("fsm_transaction");
-
         wb_trans.addr = wb_addr;
         wb_trans.data = wb_data;
         agent_wb.bl_put (wb_trans);
+    endtask
 
-        // Generate a wishbone transaction to read the FSMR register
-        fsm_trans.addr = FSMR_ADDR;
-        agent_wb.bl_get_ref (fsm_trans);
+    // Generate a wishbone transaction that writes to the DUT and receives a response from the DUT
+    protected task generate_wb_transaction_write_and_rsp (input bit [1:0] wb_addr, input bit [7:0] wb_data, output rsp_t wb_rsp);
+        cmdr_u cmdr;    
+        wb_transaction wb_trans = new ("wb_transaction");
+        wb_trans.addr = wb_addr;
+        wb_trans.data = wb_data;
+        agent_wb.bl_put (wb_trans);
+        cmdr = wb_trans.rsp;
+        wb_rsp = rsp_t'({cmdr.fields.don, cmdr.fields.nak, cmdr.fields.al, cmdr.fields.err});
     endtask
 
     // Generate a wishnbone transaction that reads from the DUT
     protected task generate_wb_transaction_read (bit [1:0] wb_addr, ref bit [7:0] wb_data);
         wb_transaction wb_trans = new ("wb_transaction");
-        wb_transaction fsm_trans = new ("fsm_transaction");
-
         wb_trans.addr = wb_addr;
         agent_wb.bl_get_ref (wb_trans);
         wb_data = wb_trans.data;
-
-        // Generate a wishbone transaction to read the FSMR register
-        fsm_trans.addr = FSMR_ADDR;
-        agent_wb.bl_get_ref (fsm_trans);
     endtask
 
     // Generate an empty I2C transaction and pass it to the I2C driver
@@ -52,15 +51,27 @@ class i2cmb_generator_base extends ncsu_component;
         if (i2c_trans.op == READ) begin
             i2c_trans.data = i2c_data;
             agent_i2c.bl_put (i2c_trans);
-            wait (i2c_trans.transfer_complete);
         end
     endtask
 
-    protected task init();
+    protected task generate_i2c_arb_lost ();
+        agent_i2c.bl_arb_lost();
+    endtask
+
+    protected task generate_i2c_nak();
+        agent_i2c.bl_nak();
+    endtask
+
+    protected task init_core();
         generate_wb_transaction_write (CSR_ADDR, 8'b11xx_xxxx);
         generate_wb_transaction_write (DPR_ADDR, 8'h00);
         generate_wb_transaction_write (CMDR_ADDR, CMD_SET_BUS);
     endtask
+
+    protected task reset_core ();
+        generate_wb_transaction_write (CSR_ADDR, 8'b00xx_xxxx);
+    endtask
+
 
     ///////////////////////////////////////////////////////////////////////////
     // A sequence is a bunch of wishbone transactions between a START and STOP 
@@ -102,20 +113,20 @@ class i2cmb_generator_base extends ncsu_component;
                 READ_STOP               :         ADDR(1)   RDATA STOP;
                 READ_START              :         ADDR(1)   RDATA START;
                 // Leaf productions
-                START                   :   {
+                START                   : {
                                             generate_wb_transaction_write (CMDR_ADDR, CMD_START); 
-                                            };
-                ADDR (bit op = 0)       :  {
+                                          };
+                ADDR (bit op = 0)       : {
                                             generate_wb_transaction_write (DPR_ADDR, {i2c_addr, op});
                                             generate_wb_transaction_write (CMDR_ADDR, CMD_WRITE);
-                                            };
-                WDATA                   :   {
+                                          };
+                WDATA                   : {
                                             foreach (i2c_data[i]) begin
                                                 generate_wb_transaction_write (DPR_ADDR, i2c_data[i]);
                                                 generate_wb_transaction_write (CMDR_ADDR, CMD_WRITE);
                                             end
-                                            };
-                RDATA                   :   {
+                                          };
+                RDATA                   : {
                                             bit [7:0] dpr_data;
                                             repeat (i2c_data.size() - 1) begin
                                                 generate_wb_transaction_write (CMDR_ADDR, CMD_READ_ACK);
@@ -126,10 +137,10 @@ class i2cmb_generator_base extends ncsu_component;
                                             generate_wb_transaction_write (CMDR_ADDR, CMD_READ_NAK);
                                             // Read the DPR register
                                             generate_wb_transaction_read (DPR_ADDR, dpr_data);
-                                            };
-                STOP                    :   {
+                                          };
+                STOP                    : {
                                             generate_wb_transaction_write (CMDR_ADDR, CMD_STOP); 
-                                            };
+                                          };
             endsequence
         end
         join

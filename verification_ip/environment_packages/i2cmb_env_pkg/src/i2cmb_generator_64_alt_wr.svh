@@ -1,6 +1,6 @@
-class i2cmb_generator_alt_rw extends i2cmb_generator_base;
+class i2cmb_generator_64_alt_wr extends i2cmb_generator_base;
 
-    `ncsu_register_object(i2cmb_generator_alt_rw)
+    `ncsu_register_object(i2cmb_generator_64_alt_wr)
 
     function new (string name = "", ncsu_component_base parent = null);
         super.new (name, parent);
@@ -13,7 +13,7 @@ class i2cmb_generator_alt_rw extends i2cmb_generator_base;
         byte wdata = 64;
         byte rdata = 63;
 
-        super.init();
+        super.init_core();
 
         `FANCY_BANNER("ROUND 3 BEGIN: Alternating writes and reads for 64 transfers")
         i2c_data[0] = wdata;

@@ -9,10 +9,14 @@ class i2cmb_scoreboard extends ncsu_component #(.T(i2c_transaction));
     // The scoreboard receives the actual transaction AFTER the expected transaction
     virtual function void nb_put (input T trans);
         $display({get_full_name(),"::nb_put: actual i2c_transaction ", trans.convert2string()});
-        if (expected_trans.compare(trans)) begin
-            $display({get_full_name(),": i2c_transaction MATCH!"});
-        end else begin
-            $display({get_full_name(),": i2c_transaction MISMATCH!"});
+        // The expected transaction comes from the predictor. We don't get an expected transaction
+        // if the predictor is disabled
+        if (!$test$plusargs("DISABLE_PREDICTOR")) begin
+            if (expected_trans.compare(trans)) begin
+                $display({get_full_name(),": i2c_transaction MATCH!"});
+            end else begin
+                $display({get_full_name(),": i2c_transaction MISMATCH!"});
+            end
         end
     endfunction
 

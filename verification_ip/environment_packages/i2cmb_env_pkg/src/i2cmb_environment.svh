@@ -25,17 +25,20 @@ class i2cmb_environment extends ncsu_component;
         agent_i2c.set_configuration (configuration.i2c_config);
         agent_i2c.build();
 
-        scoreboard = new ("scoreboard", this);
-        scoreboard.build();
-
-        predictor = new ("predictor", this);
-        predictor.set_scoreboard (scoreboard);
-        predictor.build();
-
         coverage = new ("coverage", this);
         coverage.build();
 
-        agent_wb.connect_subscriber (predictor);
+        scoreboard = new ("scoreboard", this);
+        scoreboard.build();
+
+        // Disable predictor for certain tests
+        if (!$test$plusargs ("DISABLE_PREDICTOR")) begin
+            predictor = new ("predictor", this);
+            predictor.set_scoreboard (scoreboard);
+            predictor.build();
+            agent_wb.connect_subscriber (predictor);
+        end
+
         agent_wb.connect_subscriber (coverage);
         agent_i2c.connect_subscriber (scoreboard);
     endfunction

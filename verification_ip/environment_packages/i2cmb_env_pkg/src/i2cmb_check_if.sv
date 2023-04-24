@@ -31,7 +31,7 @@ interface i2cmb_check_if #(
 
    assign cmdr.value = cmdr_read ? dat_i : cmdr.value;
 
-   // Testplan 1.3: Check that every address is to a valid register
+   // Testplan 1.2: Check that every address is to a valid register
    property addr_valid;
       disable iff (rst_i) // Active high reset
       @(posedge clk_i) stb_o |-> (adr_o == CSR_ADDR || adr_o == DPR_ADDR || adr_o == CMDR_ADDR || adr_o == FSMR_ADDR);

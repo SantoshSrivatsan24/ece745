@@ -16,14 +16,17 @@ interface i2c_if #(
 typedef bit [DATA_WIDTH-1:0] data_t [];
 
 // Global signals
-static bit busy    = 1'b0;
-static bit busy_   = 1'b0;
+static bit busy     = 1'b0;
+static bit busy_    = 1'b0;
+static bit busy__   = 1'b0;
 static bit sda_ack  = 1'b0;
-static bit sda_we    = 1'b0;  
+static bit sda_nak  = 1'b0;
+static bit sda_we   = 1'b0;  
 static bit wdata;
 
-assign sda_o = sda_ack  ? 'b0   : 'bz;
-assign sda_o = sda_we   ? wdata : 'bz;
+assign sda_o = sda_ack ? 'b0   : 'bz;
+assign sda_o = sda_nak ? 'b1   : 'bz;
+assign sda_o = sda_we  ? wdata : 'bz;
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -38,12 +41,17 @@ function automatic bit [6:0] read_addr_from_q (ref bit q[$]);
 endfunction
 
 function automatic data_t read_data_from_q (ref bit q[$]);
-    int num_bytes = q.size() / DATA_WIDTH;
-    read_data_from_q = new [num_bytes];
-    // The first byte is stored at the end of the queue
-    // i.e. Stream from left to right
-    {>> DATA_WIDTH {read_data_from_q}} = q;
-    q.delete();
+    if (q.size()) begin
+        int num_bytes = q.size() / DATA_WIDTH;
+        read_data_from_q = new [num_bytes];
+        // The first byte is stored at the end of the queue
+        // i.e. Stream from left to right
+        {>> DATA_WIDTH {read_data_from_q}} = q;
+        q.delete();
+    end else begin
+        read_data_from_q = {'h00};
+    end
+    
 endfunction
 
 function automatic void write_data_to_q (ref data_t data, ref bit q[$]);
@@ -113,6 +121,12 @@ task transmit_ack ();
     sda_ack = 1'b0;
 endtask
 
+task transmit_nak();
+    sda_nak = 1'b1;
+    @(negedge scl_i);
+    sda_nak = 1'b0;
+endtask
+
 task capture_ack(output bit ack);
     sda_we = 1'b0;
     @(posedge scl_i);
@@ -138,6 +152,9 @@ task wait_for_i2c_transfer (
     begin: CAPTURE_BYTE
         // Wait for a START condition
         wait (busy);
+
+        // Initialize operation in case of consecutive START or START-STOP
+        op = WRITE; 
 
         // Capture the slave address into a queue
         repeat(ADDR_WIDTH) capture_bit(q);
@@ -230,6 +247,78 @@ task monitor (
     disable fork;
     // Read data from queue for a read/write command
     data = read_data_from_q (q);
+endtask
+
+////////////////////////////////////////////////////////////////////////////
+
+// Project 4
+
+// Arbitration is only applicable for multiple masters.
+// I am not testing multiple masters
+task cause_arbitration_loss ();
+
+    fork
+    capture_start(.is_busy(busy__));
+    capture_stop(.is_busy(busy__));
+    begin: CAPTURE_BYTE
+        $display ("ARBITRATION LOST");
+        // Wait for a START condition
+        wait (busy__);
+
+        // Slave pulls SDA low
+        repeat(DATA_WIDTH) begin
+            @(posedge scl_i);
+            if (sda_i) begin
+                sda_we <= 1'b1;   
+                wdata <= 1'b0;
+                break;
+            end
+            @(negedge scl_i);
+            sda_we = 1'b0;
+        end
+
+        // Release the SDA line
+        sda_we = 1'b0;
+
+        transmit_ack();
+    end
+    join_any
+    // Kill all threads, return to testbench
+    disable fork;
+endtask;
+
+////////////////////////////////////////////////////////////////////////////
+
+task cause_nak ();
+    automatic   bit         q[$];
+    automatic   bit [7:0]   device_addr; 
+    automatic   bit         op;            
+
+    fork
+    capture_start(.is_busy(busy__));
+    capture_stop(.is_busy(busy__));
+    begin: CAPTURE_BYTE
+        $display ("NAK");
+        // Wait for a START condition
+        wait (busy__);
+
+        // Initialize operation in case of consecutive START or START-STOP
+        op = WRITE; 
+
+        // Capture the slave address into a queue
+        repeat(ADDR_WIDTH) capture_bit(q);
+        device_addr = read_addr_from_q (q);
+
+        // Capture the I2C operation (R/W)
+        capture_bit(q);
+        op = i2c_op_t'(read_op_from_q(q));
+
+        // DON'T Acknowledge the first byte
+        transmit_nak();
+    end
+    join_any
+    // Kill all threads, return to testbench
+    disable fork;
 endtask
 
 ////////////////////////////////////////////////////////////////////////////

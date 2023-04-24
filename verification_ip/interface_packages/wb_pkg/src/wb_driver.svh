@@ -16,13 +16,12 @@ class wb_driver extends ncsu_component #(.T(wb_transaction));
     endfunction
 
     virtual task bl_put (input T trans);
-        bit [7:0] cmdr_rdata;
         if (trans.addr == CMDR_ADDR) begin
             bus.master_write(.addr(trans.addr), .data(trans.data));
             bus.wait_for_interrupt();
             // Reading the CMDR clears the irq signal and also lets the predictor 
             // know which state to transition to next (based on the response bits)
-            bus.master_read (.addr(trans.addr), .data(cmdr_rdata));
+            bus.master_read (.addr(trans.addr), .data(trans.rsp));
         end else begin
             bus.master_write(.addr(trans.addr), .data(trans.data));
         end

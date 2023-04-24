@@ -19,7 +19,6 @@ class i2cmb_test extends ncsu_component;
         environment.set_configuration (configuration);
         environment.build();
         
-        // TODO: Project 3
         $cast (generator, ncsu_object_factory::create(gen_name));
         generator.set_wb_agent (environment.get_wb_agent());
         generator.set_i2c_agent (environment.get_i2c_agent());

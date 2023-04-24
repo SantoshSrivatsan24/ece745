@@ -10,6 +10,9 @@ class wb_transaction #(
     bit [DATA_WIDTH-1:0]    data;
     bit                     we;
 
+    // Response to a completed transaction
+    bit [DATA_WIDTH-1:0]    rsp;
+
     function new (string name = "");
         super.new(name);
     endfunction
